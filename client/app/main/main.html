@@ -1,38 +1,45 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
-<header class="hero-unit" id="banner">
-  <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
-  </div>
-</header>
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>
-      </ul>
+<div id="home-body-page-1" ng-controller="MainCtrl as main">
+  <header class="clearfix">
+    <img src="" alt="Trip Planner Logo" id="brand-logo">
+    <div id="menu-top-right">
+      <a href="#email-field" id="signup-link">signup</a>
+      <a href="#">login</a>
     </div>
-  </div>
+  </header>
+  <footer id="home-footer-page-1">
+    
+    <form ng-submit="signup()" id="signup-form" class="col-lg-12 col-md-12">
+      <div class="col-lg-4 col-md-4"><input type="text" placeholder="email" id="email-field" class="form-children text-input"></div>
+      <div class="col-lg-4 col-md-4"><input type="text" placeholder="password" class="form-children text-input"></div>
+      <div class="col-lg-4 col-md-4">
+        <div class="col-lg-7 col-md-7">
+          <i class="glyphicon glyphicon-chevron-right" id="chevron"></i>
+          <button type="submit" id="signup-button" class="form-children btn btn-xs">plan a trip</button>
+        </div>
+        <div id="social-media-icons" class="col-lg-5 col-md-5">
+          <div class="social-media-icon col-lg-4 col-md-4">
+            <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </div>
+          <div class="social-media-icon col-lg-4 col-md-4">
+            <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </div>
+          <div class="social-media-icon col-lg-4 col-md-4">
+            <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </footer>
 
-  <form class="thing-form">
-    <label>Syncs in realtime across clients</label>
-    <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
-      </span>
-    </p>
-  </form>
+<script>
+  $('#signup-link').click(function() {
+    $('#email-field').focus();
+  });
+</script>
 </div>
-
-<footer class="footer">
-  <div class="container">
-      <p>Angular Fullstack v2.0.13 |
-        <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
-  </div>
-</footer>
