@@ -9,6 +9,10 @@ angular.module('tripPlannerApp')
     {
       'title': 'Dashboard',
       'link': '/dashboard'
+    },
+    {
+      'title': 'Plan',
+      'link': '/plan'
     }];
 
     $scope.isCollapsed = true;
