@@ -1,0 +1,20 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div ng-controller="DashboardCtrl as dashboard" class="col-md-12">
+
+<p>This is the current user: {{ dashboard.userData }}</p>
+
+  <h3>Trips</h3>
+    <ul>
+      <li ng-repeat="trip in userData.trips"></li>
+    </ul>
+  <h3>Invitations</h3>
+    <ul>
+      <li ng-repeat="invite in userData.invitations"></li>
+    </ul>
+  <h3>Friends</h3>
+    <ul>
+      <li ng-repeat="friend in userData.friends"></li>
+    </ul>
+
+</div>
