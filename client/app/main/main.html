@@ -3,15 +3,30 @@
   <header class="clearfix">
 <!--     <img src="" alt="Trip Planner Logo" id="brand-logo"> -->
     <div id="menu-top-right">
-      <a href="#email-field" id="signup-link">signup</a>
-      <a href="#">login</a>
+      <a ng-hide="isLoggedIn()" href="#email-field" id="signup-link">signup</a>
+      <a ng-hide="isLoggedIn()" href="/login">login</a>
+      <span ng-show="isLoggedIn()">hello, {{getCurrentUser().name}}</span>
+      <span ng-show="isLoggedIn()"><a href="/settings"><span class="glyphicon glyphicon-cog"></a></span>
+      <span ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">logout</a></span>
     </div>
   </header>
-  <div id="logo-container"><img src="../../assets/images/tripmonk_logo.svg" alt="Trip Planner Logo" id="brand-logo"></div>
+
+
+
+  <div ng-hide="isLoggedIn()" id="logo-container"><img src="../../assets/images/tripmonk_logo.png" alt="Trip Planner Logo" id="brand-logo"></div>
+
+
+
   <footer id="home-footer-page-1">
     <form class="col-lg-12 col-md-12" name="form" ng-submit="register(form)" id="signup-form" novalidate>
 
-      <div class="col-lg-4 col-md-4" ng-class="{ 'has-success': form.email.$valid && submitted,'has-error': form.email.$invalid && submitted }">
+       <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': form.name.$valid && submitted,'has-error': form.name.$invalid && submitted }">
+
+        <input type="text" name="name" placeholder="name" class="form-children text-input" ng-model="user.name" required mongoose-error/>
+      </div>
+
+
+      <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': form.email.$valid && submitted,'has-error': form.email.$invalid && submitted }">
 
         <input type="email" name="email" placeholder="email" class="form-children text-input" id="email-field" ng-model="user.email" required mongoose-error/>
         <p class="help-block" ng-show="form.email.$error.email && submitted">
@@ -25,7 +40,7 @@
         </p>
       </div>
 
-      <div class="col-lg-4 col-md-4" ng-class="{ 'has-success': form.password.$valid && submitted, 'has-error': form.password.$invalid && submitted }">
+      <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': form.password.$valid && submitted, 'has-error': form.password.$invalid && submitted }">
 
         <input type="password" name="password" placeholder="password" class="form-children text-input" ng-model="user.password" ng-minlength="3" required mongoose-error/>
         <p class="help-block"
@@ -37,7 +52,7 @@
         </p>
       </div>
 
-      <div class="col-lg-4 col-md-4">
+      <div class="col-lg-3 col-md-3">
         <div class="col-lg-7 col-md-7">
           <i class="glyphicon glyphicon-chevron-right" id="chevron"></i>
             <button type="submit" id="signup-button" class="form-children btn btn-xs">plan a trip</button>

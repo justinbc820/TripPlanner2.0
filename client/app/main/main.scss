@@ -1,28 +1,20 @@
 #brand-logo {
     margin-top:40px;
-    width:330px;
-    height:150px;
-    float:left;
     display:block;
     margin:auto;
     height:65%;
-    width:100%;
-}
-
-.bodywrapper {
-  max-width: 85%;
 }
 
 #logo-container {
   height:100%;
-  width:100%;
+  width: 100%;
 }
 
 #menu-top-right {
     width:190px;
     float:right;
     margin-top:20px;
-    a {
+    a, span {
         width:100%;
         display:block;
         text-align:center;
