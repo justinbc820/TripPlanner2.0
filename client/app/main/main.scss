@@ -1,7 +1,21 @@
 #brand-logo {
+    margin-top:40px;
     width:330px;
-    height:50px;
+    height:150px;
     float:left;
+    display:block;
+    margin:auto;
+    height:65%;
+    width:100%;
+}
+
+.bodywrapper {
+  max-width: 85%;
+}
+
+#logo-container {
+  height:100%;
+  width:100%;
 }
 
 #menu-top-right {
@@ -46,13 +60,13 @@
            color: gray;
         }
         :-moz-placeholder { /* Firefox 18- */
-           color: gray;  
+           color: gray;
         }
         ::-moz-placeholder {  /* Firefox 19+ */
-           color: gray;  
+           color: gray;
         }
-        :-ms-input-placeholder {  
-           color: gray;  
+        :-ms-input-placeholder {
+           color: gray;
         }
         .form-children {
             height:100%;
@@ -64,7 +78,7 @@
             border-bottom: 2px solid #fff;
             outline:none;
             width:100%;
-            color:white; 
+            color:white;
         }
         #signup-button {
             height:60%;

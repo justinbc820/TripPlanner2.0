@@ -1,52 +1,55 @@
+
 <div id="home-body-page-1" ng-controller="MainCtrl as main">
-  <header class="clearfix">
-    <img src="" alt="Trip Planner Logo" id="brand-logo">
-    <div id="menu-top-right">
-      <a href="#email-field" id="signup-link">signup</a>
-      <a href="#">login</a>
-    </div>
-  </header>
-  <footer id="home-footer-page-1">
-
-    <form name="form" ng-submit="register(form)" id="signup-form" class="col-lg-12 col-md-12">
-      <div class="col-lg-4 col-md-4">
-        <input ng-model="main.user.email" type="text" placeholder="email" id="email-field" class="form-children text-input">
-      </div>
-      <div class="col-lg-4 col-md-4">
-        <input ng-model="user.password"
-                 ng-minlength="3"
-                 required
-                 mongoose-error type="password" placeholder="password" class="form-children text-input">
-       </div>
-      <div class="col-lg-4 col-md-4">
-        <div class="col-lg-7 col-md-7">
-          <i class="glyphicon glyphicon-chevron-right" id="chevron"></i>
-          <button type="submit" id="signup-button" class="form-children btn btn-xs">plan a trip</button>
+      <header class="clearfix">
+        <!-- <img src="../../assets/images/tripmonk_logo.svg" alt="Trip Planner Logo" id="brand-logo"> -->
+        <div id="menu-top-right">
+          <a href="#email-field" id="signup-link">signup</a>
+          <a href="#">login</a>
         </div>
-        <div id="social-media-icons" class="col-lg-5 col-md-5">
-          <div class="social-media-icon col-lg-4 col-md-4">
-            <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
-              <i class="fa fa-facebook"></i>
-            </a>
-          </div>
-          <div class="social-media-icon col-lg-4 col-md-4">
-            <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
-              <i class="fa fa-google-plus"></i>
-            </a>
-          </div>
-          <div class="social-media-icon col-lg-4 col-md-4">
-            <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </form>
-  </footer>
+      </header>
+      <div id="logo-container"><img src="../../assets/images/tripmonk_logo.svg" alt="Trip Planner Logo" id="brand-logo"></div>
 
-<script>
-  $('#signup-link').click(function() {
-    $('#email-field').focus();
-  });
-</script>
+      <footer id="home-footer-page-1">
+
+        <form name="form" ng-submit="register(form)" id="signup-form" class="col-lg-12 col-md-12">
+          <div class="col-lg-4 col-md-4">
+            <input ng-model="main.user.email" type="text" placeholder="email" id="email-field" class="form-children text-input">
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input ng-model="user.password"
+                     ng-minlength="3"
+                     required
+                     mongoose-error type="password" placeholder="password" class="form-children text-input">
+           </div>
+          <div class="col-lg-4 col-md-4">
+            <div class="col-lg-7 col-md-7">
+              <i class="glyphicon glyphicon-chevron-right" id="chevron"></i>
+              <button type="submit" id="signup-button" class="form-children btn btn-xs">plan a trip</button>
+            </div>
+            <div id="social-media-icons" class="col-lg-5 col-md-5">
+              <div class="social-media-icon col-lg-4 col-md-4">
+                <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </div>
+              <div class="social-media-icon col-lg-4 col-md-4">
+                <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
+                  <i class="fa fa-google-plus"></i>
+                </a>
+              </div>
+              <div class="social-media-icon col-lg-4 col-md-4">
+                <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </footer>
+
+    <script>
+      $('#signup-link').click(function() {
+        $('#email-field').focus();
+      });
+    </script>
 </div>
