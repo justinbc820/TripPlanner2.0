@@ -7,6 +7,86 @@
     </div>
   </header>
   <footer id="home-footer-page-1">
+    <form class="col-lg-12 col-md-12" name="form" ng-submit="register(form)" id="signup-form" novalidate>
+
+      <div class="col-lg-4 col-md-4" ng-class="{ 'has-success': form.email.$valid && submitted,'has-error': form.email.$invalid && submitted }">
+
+        <input type="email" name="email" placeholder="email" class="form-children text-input" id="email-field" ng-model="user.email" required mongoose-error/>
+        <p class="help-block" ng-show="form.email.$error.email && submitted">
+          Doesn't look like a valid email.
+        </p>
+        <p class="help-block" ng-show="form.email.$error.required && submitted">
+          What's your email address?
+        </p>
+        <p class="help-block" ng-show="form.email.$error.mongoose">
+          {{ errors.email }}
+        </p>
+      </div>
+
+      <div class="col-lg-4 col-md-4" ng-class="{ 'has-success': form.password.$valid && submitted, 'has-error': form.password.$invalid && submitted }">
+
+        <input type="password" name="password" placeholder="password" class="form-children text-input" ng-model="user.password" ng-minlength="3" required mongoose-error/>
+        <p class="help-block"
+           ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
+          Password must be at least 3 characters.
+        </p>
+        <p class="help-block" ng-show="form.password.$error.mongoose">
+          {{ errors.password }}
+        </p>
+      </div>
+
+      <div class="col-lg-4 col-md-4">
+        <div class="col-lg-7 col-md-7">
+          <i class="glyphicon glyphicon-chevron-right" id="chevron"></i>
+            <button type="submit" id="signup-button" class="form-children btn btn-xs">plan a trip</button>
+        </div>
+
+        <div id="social-media-icons" class="col-lg-5 col-md-5">
+          <div class="social-media-icon col-lg-4 col-md-4">
+            <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </div>
+          <div class="social-media-icon col-lg-4 col-md-4">
+            <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </div>
+          <div class="social-media-icon col-lg-4 col-md-4">
+            <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </footer>
+
+<script>
+  $('#signup-link').click(function() {
+    $('#email-field').focus();
+  });
+</script>
+
+</div>
+
+
+
+
+
+
+<!--
+<div id="home-body-page-1" ng-controller="MainCtrl as main">
+  <header class="clearfix">
+    <img src="" alt="Trip Planner Logo" id="brand-logo">
+    <div id="menu-top-right">
+      <a href="#email-field" id="signup-link">signup</a>
+      <a href="#">login</a>
+    </div>
+  </header>
+
+  <footer id="home-footer-page-1">
 
     <form name="form" ng-submit="register(form)" id="signup-form" class="col-lg-12 col-md-12">
       <div class="col-lg-4 col-md-4">
@@ -50,3 +130,4 @@
   });
 </script>
 </div>
+ -->
