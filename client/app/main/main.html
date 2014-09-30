@@ -7,10 +7,17 @@
     </div>
   </header>
   <footer id="home-footer-page-1">
-    
-    <form ng-submit="signup()" id="signup-form" class="col-lg-12 col-md-12">
-      <div class="col-lg-4 col-md-4"><input type="text" placeholder="email" id="email-field" class="form-children text-input"></div>
-      <div class="col-lg-4 col-md-4"><input type="text" placeholder="password" class="form-children text-input"></div>
+
+    <form name="form" ng-submit="register(form)" id="signup-form" class="col-lg-12 col-md-12">
+      <div class="col-lg-4 col-md-4">
+        <input ng-model="main.user.email" type="text" placeholder="email" id="email-field" class="form-children text-input">
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <input ng-model="user.password"
+                 ng-minlength="3"
+                 required
+                 mongoose-error type="password" placeholder="password" class="form-children text-input">
+       </div>
       <div class="col-lg-4 col-md-4">
         <div class="col-lg-7 col-md-7">
           <i class="glyphicon glyphicon-chevron-right" id="chevron"></i>
