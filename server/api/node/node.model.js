@@ -26,3 +26,4 @@ NodeSchema.methods.connect = function(option, type, node, cb) {
 };
 
 module.exports = mongoose.model('Node', NodeSchema);
+
