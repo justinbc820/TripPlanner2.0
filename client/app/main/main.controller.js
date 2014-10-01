@@ -22,8 +22,12 @@ angular.module('tripPlannerApp')
       var self = this;
       this.historyNodes = [];
       $http.post('/api/trips/').success(function(data) {
+<<<<<<< HEAD
         // self.user = Auth.getCurrentUser();
         self.user.trips = data._id;
+=======
+        console.log(data);
+>>>>>>> f690a7c3550c357ba5b663945a8e43be64f8b0de
         self.currTrip = data;
       });
     };
@@ -32,6 +36,7 @@ angular.module('tripPlannerApp')
 
     this.getNext = function(nextId, answer) {
       var self = this;
+      console.log(self);
       if (!self.currTrip.questionnaire) {self.currTrip.questionnaire = {};}
 
       self.currTrip.questionnaire[self.currNode.name] = answer;
@@ -41,10 +46,9 @@ angular.module('tripPlannerApp')
       console.log(self.historyNodes);
 
       $http.put('/api/trips/'+self.currTrip._id, self.currTrip).success(function(data) {
-          console.log("answer stored on database");
           $http.get('/api/nodes/'+ nextId).success(function(data) {
             self.currNode = data;
-            console.log("currNode is now", self.currNode);
+            console.log(self.currNode);
           });
       });
     };
@@ -65,11 +69,17 @@ angular.module('tripPlannerApp')
           $location.path('/');
         })
         .then(function() {
-          self.getFirstNode();
+          self.createTrip();
         })
         .then(function() {
-          console.log(self);
-          self.createTrip();
+          self.user = Auth.getCurrentUser();
+        })
+        .then(function() {
+          console.log(self.user);
+          self.user['trips'].push(self.currTrip._id);
+        })
+        .then(function() {
+          self.getFirstNode();
         })
         .catch( function(err) {
           err = err.data;

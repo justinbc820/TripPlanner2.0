@@ -7,9 +7,17 @@
       <a ng-hide="main.isLoggedIn()" href="/login">login</a>
       <span ng-show="main.isLoggedIn()">hello, {{getCurrentUser().name}}</span>
       <span ng-show="main.isLoggedIn()">
+<<<<<<< HEAD
         <a href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
       </span>
       <span ng-show="main.isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="main.logout()">logout</a></span>
+=======
+        <a href="/settings"><span class="glyphicon glyphicon-cog"></a>
+      </span>
+      <span ng-show="main.isLoggedIn()" ng-class="{active: isActive('/logout')}">
+        <a href="" ng-click="main.logout()">logout</a>
+      </span>
+>>>>>>> f690a7c3550c357ba5b663945a8e43be64f8b0de
     </div>
   </header>
 
@@ -24,11 +32,9 @@
       <h1>{{main.currNode.question}}</h1>
     </div>
 
-
     <div ng-repeat="connection in main.currNode.connections">
-
-      <button ng-click="main.getNext(connection.next, connection.option)">
-        Hello
+      <button>
+        {{connection.option}}
       </button>
 
       <div>

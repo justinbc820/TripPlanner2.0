@@ -1,23 +1,24 @@
-<div ng-controller="PlanCtrl as plan" class="col-lg-12 col-md-12">
-  <div class="col-lg-9 col-md-9">
-    <div ng-show="plan.radioModel == 'map'">
-      <google-map center="plan.map.center" zoom="plan.map.zoom"></google-map>
+<div ng-controller="PlanCtrl as plan" class="col-lg-12 col-md-12 full-height" id="plan-wrapper">
+  <div id="background-image"></div>
+  <div class="col-lg-9 col-md-9 full-height" id="map-calendar">
+    <div ng-show="plan.radioModel == 'map'" class="full-height">
+      <google-map center="plan.map.center" zoom="plan.map.zoom" class="full-height"></google-map>
     </div>
-    <div ng-show="plan.radioModel == 'calendar'">
-      <div id="calendar-container" ui-calendar="plan.uiConfig.calendar" ng-model="plan.eventSources"></div>
+    <div ng-show="plan.radioModel == 'calendar'" class="full-height">
+      <div id="calendar-container" class="full-height" ui-calendar="plan.uiConfig.calendar" ng-model="plan.eventSources"></div>
     </div>
   </div>
 
-  <div class="col-lg-3 col-md-3">
-    <div class="well" id="control-panel">
+  <div class="col-lg-3 col-md-3 full-height" id="control-panel">
+    <div>
     <!-- toggle between map and calendar -->
-      <div class="btn-group">
-        <button ng-model="plan.radioModel" btn-radio="'map'" class=" btn btn-default">Map</button>
-        <button ng-model="plan.radioModel" btn-radio="'calendar'" class="btn btn-default">Calendar</button>
+      <div class="btn-group col-lg-8 col-md-8">
+        <button ng-model="plan.radioModel" btn-radio="'map'" class="col-lg-6 col-md-6">Map</button>
+        <button ng-model="plan.radioModel" btn-radio="'calendar'" class="col-lg-6 col-md-6">Calendar</button>
       </div>
-      <div class="btn-group" dropdown is-open="status.isopen">
+      <div class="btn-group col-lg-4 col-md-4" dropdown is-open="status.isopen">
         <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
-          Navigation <span class="caret"></span>
+          <i class="glyphicon glyphicon-th-large"></i>
         </button>
         <ul class="dropdown-menu" role="menu">
           <li><a href="/">Home</a></li>
@@ -26,7 +27,7 @@
           <li><a href="#">Something else here</a></li>
           <li><a href="#">Separated link</a></li>
         </ul>
-    </div>
+      </div>
     </div>
   </div>
 </div>
