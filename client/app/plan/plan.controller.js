@@ -13,7 +13,7 @@ angular.module('tripPlannerApp')
     this.eventSources = [];
     this.uiConfig = {
       calendar:{
-        height: 800,
+        // height: 800,
         editable: true,
         header:{
           left: 'month basicWeek basicDay agendaWeek agendaDay',

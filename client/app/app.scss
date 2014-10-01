@@ -15,16 +15,16 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
-html, body {
-	height:100%;
-}
-
 // * {
 // 	border:1px solid red;
 // }
 
 .clearfix {
 	overflow:auto;
+}
+
+.full-height {
+	height:100%;
 }
 
 // Component styles are injected through grunt
