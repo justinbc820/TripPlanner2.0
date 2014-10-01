@@ -111,8 +111,8 @@ Node.find({}).remove(function() {
         nodes[1].connect(null, "otherwise", nodes[2]);
         nodes[2].connect(null, "otherwise", nodes[3]);
         nodes[3].connect(null, "otherwise", nodes[4]);
-        nodes[4].connect("abcdefg", "normal", nodes[7]);
-        nodes[4].connect("1234566", "normal", nodes[5]);
+        nodes[4].connect("Travelling alone", "normal", nodes[7]);
+        nodes[4].connect("With friends", "normal", nodes[5]);
         nodes[5].connect(null, "otherwise", nodes[6]);
         nodes[6].connect("The cost will be shared", "normal", nodes[8]);
         nodes[6].connect("One person will be paying", "normal", nodes[9]);

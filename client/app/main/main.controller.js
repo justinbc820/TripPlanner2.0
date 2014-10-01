@@ -5,8 +5,6 @@ angular.module('tripPlannerApp')
 
     this.user = {};
     this.errors = {};
-    this.currNode = {};
-
 
     this.getFirstNode = function() {
       var self = this;
@@ -18,25 +16,20 @@ angular.module('tripPlannerApp')
     this.getFirstNode();
 
 
-    this.createTrip = function() {
-      var self = this;
-      this.historyNodes = [];
-      $http.post('/api/trips/').success(function(data) {
-<<<<<<< HEAD
-        // self.user = Auth.getCurrentUser();
-        self.user.trips = data._id;
-=======
-        console.log(data);
->>>>>>> f690a7c3550c357ba5b663945a8e43be64f8b0de
-        self.currTrip = data;
-      });
-    };
-
-
+    // this.createTrip = function() {
+    //   var self = this;
+    //   this.historyNodes = [];
+    //   $http.post('/api/trips/').success(function(data) {
+    //     self.user = Auth.getCurrentUser();
+    //     console.log(self.user);
+    //     self.user.trips.push(data._id);
+    //     self.currTrip= data;
+    //   });
+    // };
 
     this.getNext = function(nextId, answer) {
       var self = this;
-      console.log(self);
+      // console.log(self);
       if (!self.currTrip.questionnaire) {self.currTrip.questionnaire = {};}
 
       self.currTrip.questionnaire[self.currNode.name] = answer;
@@ -53,13 +46,18 @@ angular.module('tripPlannerApp')
       });
     };
 
+    this.getPrev = function() {
+      var prevNode = this.historyNodes.pop();
+      this.currNode = prevNode;
+    };
+
+
     this.register = function(form) {
       this.submitted = true;
       var self = this;
 
       if(form.$valid) {
         Auth.createUser({
-          // name: this.user.name,
           email: this.user.email,
           name: this.user.name,
           password: this.user.password
@@ -67,19 +65,8 @@ angular.module('tripPlannerApp')
         .then( function() {
           // Account created, redirect to home
           $location.path('/');
-        })
-        .then(function() {
-          self.createTrip();
-        })
-        .then(function() {
-          self.user = Auth.getCurrentUser();
-        })
-        .then(function() {
-          console.log(self.user);
-          self.user['trips'].push(self.currTrip._id);
-        })
-        .then(function() {
           self.getFirstNode();
+          self.user = Auth.getCurrentUser();
         })
         .catch( function(err) {
           err = err.data;

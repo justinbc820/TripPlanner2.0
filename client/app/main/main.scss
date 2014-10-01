@@ -18,7 +18,6 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    height: 60%;
     width: 60%;
     h1 {
       padding-top:100px;
@@ -26,6 +25,9 @@
     }
     button, input {
       color: black;
+    }
+    input-field {
+      height: 5%;
     }
   }
 }
