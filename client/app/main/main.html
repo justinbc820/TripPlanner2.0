@@ -6,7 +6,9 @@
       <a ng-hide="main.isLoggedIn()" href="#email-field" id="signup-link">signup</a>
       <a ng-hide="main.isLoggedIn()" href="/login">login</a>
       <span ng-show="main.isLoggedIn()">hello, {{getCurrentUser().name}}</span>
-      <span ng-show="main.isLoggedIn()"><a href="/settings"><span class="glyphicon glyphicon-cog"></a></span>
+      <span ng-show="main.isLoggedIn()">
+        <a href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
+      </span>
       <span ng-show="main.isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="main.logout()">logout</a></span>
     </div>
   </header>
@@ -29,7 +31,7 @@
         Hello
       </button>
 
-      <div >
+      <div>
           <input ng-model="main.currNode.answer"><button ng-click="main.getNext(connection.next, main.currNode.answer)">Continue</button>
       </div>
     </div>

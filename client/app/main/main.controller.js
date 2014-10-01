@@ -22,7 +22,8 @@ angular.module('tripPlannerApp')
       var self = this;
       this.historyNodes = [];
       $http.post('/api/trips/').success(function(data) {
-        Auth.getCurrentUser().trips.push(data._id);
+        // self.user = Auth.getCurrentUser();
+        self.user.trips = data._id;
         self.currTrip = data;
       });
     };
