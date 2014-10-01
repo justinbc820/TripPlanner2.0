@@ -1,0 +1,32 @@
+<div ng-controller="PlanCtrl as plan" class="col-lg-12 col-md-12">
+  <div class="col-lg-9 col-md-9">
+    <div ng-show="plan.radioModel == 'map'">
+      <google-map center="plan.map.center" zoom="plan.map.zoom"></google-map>
+    </div>
+    <div ng-show="plan.radioModel == 'calendar'">
+      <div id="calendar-container" ui-calendar="plan.uiConfig.calendar" ng-model="plan.eventSources"></div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-3">
+    <div class="well" id="control-panel">
+    <!-- toggle between map and calendar -->
+      <div class="btn-group">
+        <button ng-model="plan.radioModel" btn-radio="'map'" class=" btn btn-default">Map</button>
+        <button ng-model="plan.radioModel" btn-radio="'calendar'" class="btn btn-default">Calendar</button>
+      </div>
+      <div class="btn-group" dropdown is-open="status.isopen">
+        <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+          Navigation <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Something else here</a></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+    </div>
+    </div>
+  </div>
+</div>
