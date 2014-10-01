@@ -5,10 +5,12 @@ var Node = require('./node.model');
 
 // Get list of nodes
 exports.index = function(req, res) {
-  Node.find(function (err, nodes) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, nodes);
-  });
+  Node.find()
+      .sort('num')
+      .exec(function (err, nodes) {
+        if(err) { return handleError(res, err); }
+        return res.json(200, nodes);
+      });
 };
 
 // Get a single node

@@ -9,15 +9,15 @@ var TripSchema = new Schema({
   travelers: [{ type: Schema.Types.ObjectId, ref:"User" }],
   invitees: [{ type: Schema.Types.ObjectId, ref:"User" }],
   budget: Number,
-  questionare: {}
+  questionnaire: {}
 });
 
 var DaySchema = new Schema({
   date: Date,
-  activities: [AcititySchema]
+  activities: [ActivitySchema]
 });
 
-var AcititySchema = new Schema({
+var ActivitySchema = new Schema({
   name: String,
   location: {
     address: String,
