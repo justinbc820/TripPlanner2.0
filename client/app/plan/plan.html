@@ -8,20 +8,22 @@
   </div>
 </div>
 
-<div id="map-overlay">
-  <h1>HELLO THERE</h1>
-  <button ng-click="plan.toggleView('map')">Map</button>
-  <button ng-click="plan.toggleView('calendar')">Calendar</button>
-  <div class="btn-group col-lg-4 col-md-4" dropdown is-open="status.isopen" style="height:20px;">
-    <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
-      <i class="glyphicon glyphicon-th-large"></i>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <li><a href="/">Home</a></li>
-      <li><a href="/dashboard">Dashboard</a></li>
-      <li class="divider"></li>
-      <li><a href="#">Something else here</a></li>
-      <li><a href="#">Separated link</a></li>
-    </ul>
+<div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click">
+  <div class="col-lg-3 col-md-3" class="clearfix can-click">
+    <div id="toggle-buttons" class="can-click">
+      <button ng-click="overlay.toggleView('map')">Map</button>
+      <button ng-click="overlay.toggleView('calendar')">Calendar</button>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6">
+    <div class="opaque" id="search-container">
+      <input type="text" id="map-search" placeholder="search" class="can-click">
+      <div id="search-results" class="can-click clearfix" ng-show="false">
+        <h1>Goodbye</h1>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3">
+    
   </div>
 </div>
