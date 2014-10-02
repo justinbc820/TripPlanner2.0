@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
-var Trip = require('../trip/trip.model');
+// var Trip = require('../trip/trip.model');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserSchema = new Schema({
@@ -112,17 +112,17 @@ UserSchema
       next();
   });
 
-UserSchema
-  .pre('save', function(next) {
-    if(!this.isNew) return next();
-    var self = this;
-    var newTrip = new Trip()
-    newTrip.save(function(err,trip) {
-      self.currentTrip = trip._id;
-      self.trips.addToSet(trip._id);
-      next();
-    });
-  });
+// UserSchema
+//   .pre('save', function(next) {
+//     if(!this.isNew) return next();
+//     var self = this;
+//     var newTrip = new Trip()
+//     newTrip.save(function(err,trip) {
+//       self.currentTrip = trip._id;
+//       self.trips.addToSet(trip._id);
+//       next();
+//     });
+//   });
 
 /**
  * Methods

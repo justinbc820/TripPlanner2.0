@@ -18,8 +18,7 @@
   <div ng-hide="main.isLoggedIn()" id="logo-container"><img src="../../assets/images/tripmonk_logo.png" alt="Trip Planner Logo" id="brand-logo"></div>
 
   <!-- QUESTIONNAIRE STARTS HERE -->
-  <div id="newtrip">
-
+  <div id="newtrip" ng-show="main.isLoggedIn()">
     <div>
       <h1>{{main.currNode.question}}</h1>
     </div>
@@ -29,13 +28,20 @@
         {{connection.option}}
       </button>
 
-      <div ng-hide="connection.option">
+      <div ng-show="connection.option == null">
         <input ng-model="main.currNode.answer">
         <button ng-click="main.getNext(connection.next, main.currNode.answer)">Continue</button>
       </div>
     </div>
+    <button ng-click="main.doneQuestionnaire()" ng-show="main.currNode.num==18">Ok, let's go!</button>
+    <br>
     <button ng-click="main.getPrev()">Go back</button>
+
+
   </div>
+
+
+
   <!-- QUESTIONNAIRE ENDS HERE -->
 
 <!-- NAME FIELD STARTS HERE -->

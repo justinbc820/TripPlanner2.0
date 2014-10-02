@@ -22,9 +22,14 @@ exports.show = function(req, res) {
 
 // Creates a new trip in the DB.
 exports.create = function(req, res) {
-  Trip.create(req.body, function(err, trip) {
+  var userId = req.body.userId;
+  var questionnaire = req.body.questionnaire;
+  Trip.create({travelers: [], questionnaire: questionnaire}, function(err, trip) {
     if(err) { return handleError(res, err); }
-    return res.json(201, trip);
+    trip.travelers.push(userId);
+    trip.save(function(err) {
+      return res.json(201, trip);
+    });
   });
 };
 

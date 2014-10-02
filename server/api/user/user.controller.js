@@ -20,6 +20,7 @@ exports.index = function(req, res) {
   });
 };
 
+
 /**
  * Creates a new user
  */
@@ -76,6 +77,21 @@ exports.changePassword = function(req, res, next) {
     } else {
       res.send(403);
     }
+  });
+};
+
+
+exports.update = function(req, res) {
+  var userId = req.params.id;
+  var tripId = req.body.tripId;
+  User.findById(userId, function (err, user) {
+    if (err) { return handleError(res, err); }
+    if(!user) { return res.send(404); }
+    user.trips.push(tripId);
+    user.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, user);
+    });
   });
 };
 
