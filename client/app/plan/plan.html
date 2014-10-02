@@ -24,11 +24,14 @@
     </div>
   </div>
   <div class="col-lg-4 col-md-4 full-height">
-    <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults()">
+    <button class="btn opaque can-click" ng-click="overlay.radarSearch('restaurant')">Restaurants</button>
+    <button class="btn opaque">Hotels</button>
+    <button class="btn opaque">Tourist Attractions</button>
+    <!-- <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults()">
       <div class="results-place" ng-repeat="place in overlay.getSearchResults()">
         <p>{{place.name}}</p>
         <small><small><p>rating: {{place.rating}}</p></small><small>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
