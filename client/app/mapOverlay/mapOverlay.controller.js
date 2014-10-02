@@ -16,8 +16,11 @@ angular.module('tripPlannerApp')
     this.details = {};
 
     this.toggleView = function(view) {
+        this.initialButtonState = false;
     	planData.toggleView(view);
     };
+
+    this.initialButtonState = true;
 
     this.placesSearch = function(autocomplete) {
     	var self = this;
@@ -51,5 +54,13 @@ angular.module('tripPlannerApp')
 
     this.searchFieldOptions = {
     	bounds: bounds
-    }
+    };
+
+    this.showCalendar = function() {
+        return planData.getCalendarStatus();
+    };
+
+    this.showMap = function() {
+        return planData.getMapStatus();
+    };
   });
