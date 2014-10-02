@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('MainCtrl', function ($scope, Auth, $location, $window, $http) {
+  .controller('MainCtrl', function ($scope, Auth, $location, $window, $http, User) {
 
     this.user = {};
     this.errors = {};
     $scope.newUser = Auth.getCurrentUser();
+    console.log($scope.newUser);
     this.questionnaire = {};
     this.historyNodes = [];
 
@@ -39,37 +40,66 @@ angular.module('tripPlannerApp')
 
 
 
-    this.register = function(form) {
+    // this.register = function(form) {
+    //   this.submitted = true;
+    //   var self = this;
+
+    //   if(form.$valid) {
+    //     Auth.createUser({
+    //       email: this.user.email,
+    //       name: this.user.name,
+    //       password: this.user.password
+    //     })
+    //     .then( function(data) {
+    //       console.log(User.get());
+    //       // Account created, redirect to home
+    //       $location.path('/');
+    //       self.getFirstNode();
+    //       // var tripId =self.user.trips[0];
+    //       // $http.get('/api/trips/'+tripId).success(function(newTrip) {
+    //       //   self.currTrip = newTrip;
+    //       // });
+    //     })
+    //     .catch( function(err) {
+    //       err = err.data;
+    //       self.errors = {};
+
+    //       // Update validity of form fields that match the mongoose errors
+    //       angular.forEach(err.errors, function(error, field) {
+    //         form[field].$setValidity('mongoose', false);
+    //         self.errors[field] = error.message;
+    //       });
+    //     });
+    //   }
+    // };
+
+  this.register = function(form) {
       this.submitted = true;
-      var self = this;
 
       if(form.$valid) {
         Auth.createUser({
-          email: this.user.email,
           name: this.user.name,
+          email: this.user.email,
           password: this.user.password
         })
         .then( function() {
           // Account created, redirect to home
+          $scope.newUser = Auth.getCurrentUser();
           $location.path('/');
-          self.getFirstNode();
-          // var tripId =self.user.trips[0];
-          // $http.get('/api/trips/'+tripId).success(function(newTrip) {
-          //   self.currTrip = newTrip;
-          // });
         })
         .catch( function(err) {
           err = err.data;
-          self.errors = {};
+          this.errors = {};
 
           // Update validity of form fields that match the mongoose errors
           angular.forEach(err.errors, function(error, field) {
             form[field].$setValidity('mongoose', false);
-            self.errors[field] = error.message;
+            this.errors[field] = error.message;
           });
         });
       }
     };
+
 
 
     this.doneQuestionnaire = function() {

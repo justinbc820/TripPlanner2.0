@@ -61,8 +61,10 @@ angular.module('tripPlannerApp')
 
         return User.save(user,
           function(data) {
+
             $cookieStore.put('token', data.token);
             currentUser = User.get();
+            console.log('user created and saved', currentUser);
             return cb(user);
           },
           function(err) {
