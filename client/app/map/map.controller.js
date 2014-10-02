@@ -2,15 +2,16 @@
 
 angular.module('tripPlannerApp')
   .controller('MapCtrl', function ($scope, planData) {
+    var currentTrip = planData.getCurrentTrip();
   	this.map = {
   	  center: {
-  	      latitude: 45,
-  	      longitude: -73
+  	      latitude: currentTrip.location.latitude,
+  	      longitude: currentTrip.location.longitude
   	  },
-  	  zoom: 8
+  	  zoom: 11
   	};
 
   	this.showMap = function() {
   		return planData.getMapStatus();
-  	}
+  	};
   });

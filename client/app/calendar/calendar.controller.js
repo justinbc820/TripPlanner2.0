@@ -18,5 +18,5 @@ angular.module('tripPlannerApp')
     };
     this.showCalendar = function() {
       return planData.getCalendarStatus();
-    }
+    };
   });

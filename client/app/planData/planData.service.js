@@ -5,6 +5,13 @@ angular.module('tripPlannerApp')
     var mapCalendarViews = {
       map: true,
       calendar: true
+    };
+
+    var currentTrip = {
+      location: {
+        latitude:37.775,
+        longitude:-122.419
+      }
     }
 
     // Public API here
@@ -19,11 +26,17 @@ angular.module('tripPlannerApp')
           mapCalendarViews.calendar = true;
         }
       },
+
       getMapStatus: function() {
         return mapCalendarViews.map;
       },
+
       getCalendarStatus: function() {
         return mapCalendarViews.calendar;
+      },
+
+      getCurrentTrip: function() {
+        return currentTrip;
       }
     };
   });

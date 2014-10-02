@@ -17,7 +17,10 @@
   </div>
   <div class="col-lg-6 col-md-6">
     <div class="opaque" id="search-container">
-      <input type="text" id="map-search" placeholder="search" class="can-click">
+      <form ng-submit="overlay.placesSearch(overlay.autocomplete)">
+        <input type="text" ng-model="overlay.autocomplete" ng-autocomplete options="overlay.searchFieldOptions" details="details" id="map-search" placeholder="search" class="can-click" >
+        <button type="submit" class="can-click"><span class="glyphicon glyphicon-search" style="float:right;"></span></button>
+      </form>
       <div id="search-results" class="can-click clearfix" ng-show="false">
         <h1>Goodbye</h1>
       </div>

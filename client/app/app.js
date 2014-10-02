@@ -8,7 +8,9 @@ angular.module('tripPlannerApp', [
   'ui.router',
   'ui.bootstrap',
   'google-maps',
-  'ui.calendar'
+  'ui.calendar',
+  'ngGPlaces',
+  'ngAutocomplete'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
