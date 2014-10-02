@@ -4,11 +4,11 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var TripSchema = new Schema({
-  name: String,
+  name: { type: String, default: ""},
   days: [DaySchema],
   travelers: [{ type: Schema.Types.ObjectId, ref:"User" }],
   invitees: [{ type: Schema.Types.ObjectId, ref:"User" }],
-  budget: Number,
+  budget: { type: Number, default: 0},
   questionnaire: {}
 });
 

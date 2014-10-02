@@ -7,11 +7,9 @@
       <a ng-hide="main.isLoggedIn()" href="/login">login</a>
       <span ng-show="main.isLoggedIn()">hello, {{getCurrentUser().name}}</span>
       <span ng-show="main.isLoggedIn()">
-        <a href="/settings"><span class="glyphicon glyphicon-cog"></a>
+        <a href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
       </span>
-      <span ng-show="main.isLoggedIn()" ng-class="{active: isActive('/logout')}">
-        <a href="" ng-click="main.logout()">logout</a>
-      </span>
+      <span ng-show="main.isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="main.logout()">logout</a></span>
     </div>
   </header>
 
@@ -20,27 +18,33 @@
   <div ng-hide="main.isLoggedIn()" id="logo-container"><img src="../../assets/images/tripmonk_logo.png" alt="Trip Planner Logo" id="brand-logo"></div>
 
   <!-- QUESTIONNAIRE STARTS HERE -->
-  <div id="newtrip">
-
+  <div id="newtrip" ng-show="main.isLoggedIn()">
     <div>
       <h1>{{main.currNode.question}}</h1>
     </div>
 
-    <div ng-repeat="connection in main.currNode.connections">
-      <button>
+    <div class="input-field" ng-repeat="connection in main.currNode.connections">
+      <button ng-hide="!connection.option" ng-click="main.getNext(connection.next, connection.option)">
         {{connection.option}}
       </button>
 
-      <div>
-          <input ng-model="main.currNode.answer"><button ng-click="main.getNext(connection.next, main.currNode.answer)">Continue</button>
+      <div ng-show="connection.option == null">
+        <input ng-model="main.currNode.answer">
+        <button ng-click="main.getNext(connection.next, main.currNode.answer)">Continue</button>
       </div>
     </div>
+    <button ng-click="main.doneQuestionnaire()" ng-show="main.currNode.num==18">Ok, let's go!</button>
+    <br>
+    <button ng-click="main.getPrev()">Go back</button>
 
-    <button ng-click="main.getNext(connection.next, connection.option)">next</button><button ng-click="main.getPrev()">back</button>
+
   </div>
+
+
+
   <!-- QUESTIONNAIRE ENDS HERE -->
 
-
+<!-- NAME FIELD STARTS HERE -->
   <footer ng-hide="main.isLoggedIn()" id="home-footer-page-1">
     <form class="col-lg-12 col-md-12" name="form" ng-submit="main.register(form)" id="signup-form" novalidate>
 
@@ -48,8 +52,10 @@
 
         <input type="text" name="name" placeholder="name" class="form-children text-input" ng-model="main.user.name" required mongoose-error/>
       </div>
+<!-- NAME FIELD ENDS HERE -->
 
 
+<!-- EMAIL FIELD STARTS HERE -->
       <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': main.form.email.$valid && submitted,'has-error': main.form.email.$invalid && submitted }">
 
         <input type="email" name="email" placeholder="email" class="form-children text-input" id="email-field" ng-model="main.user.email" required mongoose-error/>
@@ -63,7 +69,9 @@
           {{ main.errors.email }}
         </p>
       </div>
+<!-- EMAIL FIELD ENDS HERE -->
 
+<!-- PASSWORD FIELD STARTS HERE -->
       <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': main.form.password.$valid && submitted, 'has-error': main.form.password.$invalid && submitted }">
 
         <input type="password" name="password" placeholder="password" class="form-children text-input" ng-model="main.user.password" ng-minlength="3" required mongoose-error/>
@@ -75,7 +83,10 @@
           {{ errors.password }}
         </p>
       </div>
+<!-- PASSWORD FIELD ENDS HERE -->
 
+
+<!--  -->
       <div class="col-lg-3 col-md-3">
         <div class="col-lg-7 col-md-7">
           <i class="glyphicon glyphicon-chevron-right" id="chevron"></i>
