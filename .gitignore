@@ -4,5 +4,7 @@ public
 .sass-cache
 .idea
 client/bower_components
+!client/bower_components/ngAutocomplete
+!client/bower_components/angularjs-google-places
 dist
 /server/config/local.env.js
