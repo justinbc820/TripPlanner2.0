@@ -1,24 +1,47 @@
 
 <div id="home-body-page-1" ng-controller="MainCtrl as main">
   <header class="clearfix">
-<!--     <img src="" alt="Trip Planner Logo" id="brand-logo"> -->
-    <div id="menu-top-right">
-      <a ng-hide="main.isLoggedIn()" href="#email-field" id="signup-link">signup</a>
-      <a ng-hide="main.isLoggedIn()" href="/login">login</a>
-      <span ng-show="main.isLoggedIn()">hello, {{getCurrentUser().name}}</span>
-      <span ng-show="main.isLoggedIn()">
-        <a href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
-      </span>
-      <span ng-show="main.isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="main.logout()">logout</a></span>
-    </div>
+    <a href="/" id="brand_logo">
+      <img id="logo" src = "../../assets/images/tripmonk_horizontal_logo.png">
+    </a>
+    <nav id="menu-top-right">
+      <ul>
+        <li><a ng-hide="main.isLoggedIn()" href="/signup" id="signup-link">SIGN UP</a></li>
+        <li><a ng-hide="main.isLoggedIn()" href="/login">LOGIN</a></li>
+      </ul>
+    </nav>
   </header>
 
+  <!-- INITIAL QUESTIONS START HERE -->
+
+    <div id="initial-questions">
+
+      <div id="left-box">
+        <div class="text-wrapper">
+          <h1>Have a dream trip in mind already?</h1>
+          <br>
+          <button>GET STARTED</button>
+        </div>
+      </div>
+
+      <div id="right-box">
+        <div class="text-wrapper">
+          <h1>Just exploring?</h1>
+          <br>
+          <button>LEARN MORE</button>
+        </div>
+      </div>
+
+    </div>
 
 
-  <div ng-hide="main.isLoggedIn()" id="logo-container"><img src="../../assets/images/tripmonk_logo.png" alt="Trip Planner Logo" id="brand-logo"></div>
+
+  <!-- INITIAL QUESTIONS END HERE -->
+
 
   <!-- QUESTIONNAIRE STARTS HERE -->
   <div id="newtrip" ng-show="main.isLoggedIn()">
+
     <div>
       <h1>{{main.currNode.question}}</h1>
     </div>
@@ -41,22 +64,21 @@
   </div>
 
 
-
-  <!-- QUESTIONNAIRE ENDS HERE -->
+<!-- QUESTIONNAIRE ENDS HERE -->
 
 <!-- NAME FIELD STARTS HERE -->
-  <footer ng-hide="main.isLoggedIn()" id="home-footer-page-1">
+  <!-- <footer ng-hide="main.isLoggedIn()" id="home-footer-page-1">
     <form class="col-lg-12 col-md-12" name="form" ng-submit="main.register(form)" id="signup-form" novalidate>
 
        <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': form.name.$valid && submitted,'has-error': form.name.$invalid && submitted }">
 
         <input type="text" name="name" placeholder="name" class="form-children text-input" ng-model="main.user.name" required mongoose-error/>
-      </div>
+      </div> -->
 <!-- NAME FIELD ENDS HERE -->
 
 
 <!-- EMAIL FIELD STARTS HERE -->
-      <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': main.form.email.$valid && submitted,'has-error': main.form.email.$invalid && submitted }">
+    <!--   <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': main.form.email.$valid && submitted,'has-error': main.form.email.$invalid && submitted }">
 
         <input type="email" name="email" placeholder="email" class="form-children text-input" id="email-field" ng-model="main.user.email" required mongoose-error/>
         <p class="help-block" ng-show="main.form.email.$error.email && submitted">
@@ -68,11 +90,11 @@
         <p class="help-block" ng-show="main.form.email.$error.mongoose">
           {{ main.errors.email }}
         </p>
-      </div>
+      </div> -->
 <!-- EMAIL FIELD ENDS HERE -->
 
 <!-- PASSWORD FIELD STARTS HERE -->
-      <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': main.form.password.$valid && submitted, 'has-error': main.form.password.$invalid && submitted }">
+  <!--     <div class="col-lg-3 col-md-3" ng-class="{ 'has-success': main.form.password.$valid && submitted, 'has-error': main.form.password.$invalid && submitted }">
 
         <input type="password" name="password" placeholder="password" class="form-children text-input" ng-model="main.user.password" ng-minlength="3" required mongoose-error/>
         <p class="help-block"
@@ -82,11 +104,10 @@
         <p class="help-block" ng-show="main.form.password.$error.mongoose">
           {{ errors.password }}
         </p>
-      </div>
+      </div> -->
 <!-- PASSWORD FIELD ENDS HERE -->
 
-
-<!--  -->
+<!--
       <div class="col-lg-3 col-md-3">
         <div class="col-lg-7 col-md-7">
           <i class="glyphicon glyphicon-chevron-right" id="chevron"></i>
@@ -113,7 +134,7 @@
       </div>
     </form>
 
-  </footer>
+  </footer> -->
 
 <script>
   $('#signup-link').click(function() {
