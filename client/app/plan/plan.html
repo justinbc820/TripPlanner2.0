@@ -9,24 +9,26 @@
 </div>
 
 <div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click">
-  <div class="col-lg-4 col-md-4" class="clearfix can-click">
-    
+  <div class="col-lg-4 col-md-4" class="clearfix can-click full-height">
+    <div id="toggle-buttons" class="can-click">
+      <button ng-click="overlay.toggleView('map')" ng-show="overlay.showCalendar()" ng-hide="overlay.initialButtonState" class="opaque toggle-button btn">map</button>
+      <button ng-click="overlay.toggleView('calendar')" ng-show="overlay.showMap()" class="opaque toggle-button btn">calendar</button>
+    </div>
   </div>
-  <div class="col-lg-4 col-md-4">
+  <div class="col-lg-4 col-md-4 full-height">
     <div class="opaque" id="search-container">
       <form ng-submit="overlay.placesSearch(overlay.autocomplete)">
         <input type="text" ng-model="overlay.autocomplete" ng-autocomplete options="overlay.searchFieldOptions" details="overlay.details.details" id="map-search" placeholder="search" class="can-click" >
         <button type="submit" class="can-click" style="visibility:hidden; display:none;"></button>
       </form>
-      <div id="search-results" class="can-click clearfix" ng-show="false">
-        <h1>Goodbye</h1>
-      </div>
     </div>
   </div>
-  <div class="col-lg-4 col-md-4">
-    <div id="toggle-buttons" class="can-click">
-      <button ng-click="overlay.toggleView('map')" ng-show="overlay.showCalendar()" ng-hide="overlay.initialButtonState" class="opaque toggle-button">map</button>
-      <button ng-click="overlay.toggleView('calendar')" ng-show="overlay.showMap()" class="opaque toggle-button">calendar</button>
+  <div class="col-lg-4 col-md-4 full-height">
+    <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults()">
+      <div class="results-place" ng-repeat="place in overlay.getSearchResults()">
+        <p>{{place.name}}</p>
+        <small><small><p>rating: {{place.rating}}</p></small><small>
+      </div>
     </div>
   </div>
 </div>

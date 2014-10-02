@@ -12,7 +12,9 @@ angular.module('tripPlannerApp')
         latitude:37.775,
         longitude:-122.419
       }
-    }
+    };
+
+    var currentSearch = {};
 
     // Public API here
     return {
@@ -37,6 +39,15 @@ angular.module('tripPlannerApp')
 
       getCurrentTrip: function() {
         return currentTrip;
+      },
+
+      setSearchResults: function(data) {
+        currentSearch.searchResults = data;
+        console.log(currentSearch.searchResults);
+      },
+
+      getSearchResults: function() {
+        return currentSearch.searchResults;
       }
     };
   });
