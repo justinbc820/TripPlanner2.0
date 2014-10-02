@@ -74,8 +74,9 @@ angular.module('tripPlannerApp')
 
     this.doneQuestionnaire = function() {
       console.log($scope.newUser);
+      $scope.$apply();
       $http.post('/api/trips', { userId : $scope.newUser._id,
-                                 questionnaire: self.questionnaire })
+                                 questionnaire: this.questionnaire })
         .success(function(newTrip) {
           $http.put('/api/users/' + $scope.newUser._id, { tripId: newTrip._id })
             .success(function(data) {

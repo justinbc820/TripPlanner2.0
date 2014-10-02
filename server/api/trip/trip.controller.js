@@ -24,9 +24,12 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
   var userId = req.body.userId;
   var questionnaire = req.body.questionnaire;
-  Trip.create({travelers: [], questionnaire: questionnaire}, function(err, trip) {
+  Trip.create({travelers: [], questionnaire: {}}, function(err, trip) {
     if(err) { return handleError(res, err); }
     trip.travelers.push(userId);
+    console.log(questionnaire);
+    trip.questionnaire = questionnaire;
+    console.log(trip);
     trip.save(function(err) {
       return res.json(201, trip);
     });
