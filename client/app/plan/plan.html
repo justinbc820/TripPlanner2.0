@@ -1,33 +1,32 @@
 <div ng-controller="PlanCtrl as plan" class="col-lg-12 col-md-12 full-height" id="plan-wrapper">
-  <div id="background-image"></div>
-  <div class="col-lg-9 col-md-9 full-height" id="map-calendar">
-    <div ng-show="plan.radioModel == 'map'" class="full-height">
-      <google-map center="plan.map.center" zoom="plan.map.zoom" class="full-height"></google-map>
-    </div>
-    <div ng-show="plan.radioModel == 'calendar'" class="full-height">
-      <div id="calendar-container" class="full-height" ui-calendar="plan.uiConfig.calendar" ng-model="plan.eventSources"></div>
-    </div>
+  <div ng-controller="MapCtrl as map" ng-show="map.showMap()" class="full-height">
+    <google-map center="map.map.center" zoom="map.map.zoom" class="full-height"></google-map>
   </div>
 
-  <div class="col-lg-3 col-md-3 full-height" id="control-panel">
-    <div>
-    <!-- toggle between map and calendar -->
-      <div class="btn-group col-lg-8 col-md-8">
-        <button ng-model="plan.radioModel" btn-radio="'map'" class="col-lg-6 col-md-6">Map</button>
-        <button ng-model="plan.radioModel" btn-radio="'calendar'" class="col-lg-6 col-md-6">Calendar</button>
-      </div>
-      <div class="btn-group col-lg-4 col-md-4" dropdown is-open="status.isopen">
-        <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
-          <i class="glyphicon glyphicon-th-large"></i>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a href="/">Home</a></li>
-          <li><a href="/dashboard">Dashboard</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Something else here</a></li>
-          <li><a href="#">Separated link</a></li>
-        </ul>
+  <div ng-controller="CalendarCtrl as calendar" ng-show="calendar.showCalendar()" class="full-height">
+    <div id="calendar-container" class="full-height" ui-calendar="calendar.uiConfig.calendar" ng-model="calendar.eventSources"></div>
+  </div>
+</div>
+
+<div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click">
+  <div class="col-lg-3 col-md-3" class="clearfix can-click">
+    <div id="toggle-buttons" class="can-click">
+      <button ng-click="overlay.toggleView('map')">Map</button>
+      <button ng-click="overlay.toggleView('calendar')">Calendar</button>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6">
+    <div class="opaque" id="search-container">
+      <form ng-submit="overlay.placesSearch(overlay.autocomplete)">
+        <input type="text" ng-model="overlay.autocomplete" ng-autocomplete options="overlay.searchFieldOptions" details="overlay.details.details" id="map-search" placeholder="search" class="can-click" >
+        <button type="submit" class="can-click" style="visibility:hidden; display:none;"></button>
+      </form>
+      <div id="search-results" class="can-click clearfix" ng-show="false">
+        <h1>Goodbye</h1>
       </div>
     </div>
+  </div>
+  <div class="col-lg-3 col-md-3">
+    
   </div>
 </div>

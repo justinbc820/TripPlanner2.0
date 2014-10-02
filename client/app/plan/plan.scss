@@ -5,53 +5,74 @@
 #plan-wrapper {
 	padding:0;
 	overflow:hidden;
-	background:rgba(0,0,0,0.6);
-	#background-image {
-		background-image: url('../../assets/images/mountain-road.jpeg');
-		background-size: 100% 100%;
-		opacity:0.4;
-		width:100%;
-		height:100%;
-		position:absolute;
-		top:0;
-		left:0;
-		z-index:0;
-		-webkit-filter: blur(4px);
-		-moz-filter: blur(4px);
-		-o-filter: blur(4px);
-		-ms-filter: blur(4px);
-		filter: blur(4px);
+	background:gray;
+	#calendar-container {
+		padding:10px;
+		color:white;
+		overflow:scroll;
+		&::-webkit-scrollbar {
+			display:none;
+		}
 	}
-	#map-calendar {
-		padding:0;
-		z-index:10;
-		#calendar-container {
-			padding:10px;
+}
+
+.can-click {
+	pointer-events:auto;
+}
+.cant-click {
+	pointer-events:none;
+}
+.opaque {
+	background:rgba(0,0,0,0.3);
+	-webkit-transition: background 500ms ease;
+	-moz-transition: background 500ms ease;
+	-o-transition: background 500ms ease;
+	transition: background 500ms ease;
+	&:hover {
+		background:rgba(0,0,0,0.5);
+	}
+}
+
+#map-overlay {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	#search-results {
+		border-radius:10px;
+	}
+	#toggle-buttons {
+		margin-left:auto;
+		margin-right:auto;
+		width:30%;
+		height:30px;
+	}
+	#search-container {
+		width:60%;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top: 10px;
+		#map-search {
 			color:white;
-			overflow:scroll;
-			&::-webkit-scrollbar {
-				display:none;
-			}
-		}
-	}
-	#control-panel {
-		* {
-			border:1px solid red;
-		}
-		z-index:10;
-		padding:0;
-		button {
-			background:transparent;
-			color:black;
 			outline:none;
 			border:none;
+			font-size:2em;
+			background:transparent;
 			width:100%;
-			-webkit-transition: color 500ms ease;
-			-moz-transition: color 500ms ease;
-			-o-transition: color 500ms ease;
-			transition: color 500ms ease;
-			&:hover {
-			    color:white;
+			padding-left:10px;
+			padding-bottom:3px;
+			&::-webkit-input-placeholder {
+			   color: white;
+			}
+			&:-moz-placeholder { /* Firefox 18- */
+			   color: white;  
+			}
+			&::-moz-placeholder {  /* Firefox 19+ */
+			   color: white;  
+			}
+			&:-ms-input-placeholder {  
+			   color: white;  
 			}
 		}
 	}

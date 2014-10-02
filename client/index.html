@@ -47,7 +47,7 @@
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBbzqJk0Khj_D_wajRvFmpDuBsWBJ3kVg"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCBbzqJk0Khj_D_wajRvFmpDuBsWBJ3kVg"></script>
     <!-- build:js({client,node_modules}) app/vendor.js -->
       <!-- bower:js -->
       <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -63,6 +63,8 @@
       <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
       <script src="bower_components/fullcalendar/fullcalendar.js"></script>
       <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+      <script src="bower_components/ngAutocomplete/src/ngAutocomplete.js"></script>
+      <script src="bower_components/angularjs-google-places/src/angularjs-google-places.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -76,12 +78,16 @@
           <script src="app/account/signup/signup.controller.js"></script>
           <script src="app/admin/admin.controller.js"></script>
           <script src="app/admin/admin.js"></script>
+          <script src="app/calendar/calendar.controller.js"></script>
           <script src="app/dashboard/dashboard.controller.js"></script>
           <script src="app/dashboard/dashboard.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/map/map.controller.js"></script>
+          <script src="app/mapOverlay/mapOverlay.controller.js"></script>
           <script src="app/plan/plan.controller.js"></script>
           <script src="app/plan/plan.js"></script>
+          <script src="app/planData/planData.service.js"></script>
           <script src="components/auth/auth.service.js"></script>
           <script src="components/auth/user.service.js"></script>
           <script src="components/modal/modal.service.js"></script>

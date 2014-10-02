@@ -17,7 +17,9 @@
     "angular-socket-io": "~0.6.0",
     "angular-ui-router": "~0.2.10",
     "angular-google-maps": "~1.2.2",
-    "angular-ui-calendar": "latest"
+    "angular-ui-calendar": "latest",
+    "ngAutocomplete": "https://github.com/justinbc820/ngAutocomplete.git#master",
+    "angularjs-google-places": "https://github.com/justinbc820/angularjs-google-places.git#master"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
