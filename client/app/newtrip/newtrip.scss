@@ -1,0 +1,32 @@
+#newtrip {
+  height: 70%;
+  margin-top: 10%;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  h1 {
+    color: #DADFE1;
+  }
+  button {
+    color: whitesmoke;
+    border: 3px solid #DADFE1;
+    background-color: transparent;
+    padding: 10px;
+  }
+  input {
+    width: 100%;
+    margin-bottom: 25px;
+    background: transparent;
+    border: none;
+    border-bottom: 4px solid #DADFE1;
+    padding: 20px;
+    font-size: 1.8em;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.12em;
+    color: #FDBC52;
+    margin-top: 20px;
+    display: block;
+    &:focus {
+      outline: none;
+    }
+  }
+}

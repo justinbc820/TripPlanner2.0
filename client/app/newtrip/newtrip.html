@@ -1,71 +1,47 @@
-<div id="home-body-page-1" ng-controller="MainCtrl as main">
+<div id="home-body-page-1" ng-controller="NewtripCtrl as newtrip">
   <header class="clearfix">
     <a href="/" id="brand_logo">
       <img id="logo" src = "../../assets/images/tripmonk_horizontal_logo.png">
     </a>
     <nav id="menu-top-right">
       <ul>
-        <li><a href="#" ng-click="main.signup()" id="signup-link">SIGN UP</a></li>
+        <li><a href="#" ng-click="newtrip.signup()" id="signup-link">SIGN UP</a></li>
         <li><a href="/login">LOGIN</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- INITIAL QUESTIONS START HERE -->
-
-    <div id="initial-questions">
-
-      <div id="left-box">
-        <div class="text-wrapper">
-          <h1>Have a dream trip in mind already?</h1>
-          <br>
-          <a href="/newtrip"><button>GET STARTED</button></a>
-        </div>
-      </div>
-
-      <div id="right-box">
-        <div class="text-wrapper">
-          <h1>Just exploring?</h1>
-          <br>
-          <a href="/plan"><button>LEARN MORE</button></a>
-        </div>
-      </div>
-
-    </div>
-
-
-
-  <!-- INITIAL QUESTIONS END HERE -->
-
-
   <!-- QUESTIONNAIRE STARTS HERE -->
-<!--   <div id="newtrip">
+  <div id="newtrip">
 
     <div>
-      <h1>{{main.currNode.question}}</h1>
+      <h1>{{newtrip.currNode.question}}</h1>
     </div>
 
-    <div class="input-field" ng-repeat="connection in main.currNode.connections">
-      <button ng-hide="!connection.option" ng-click="main.getNext(connection.next, connection.option)">
+    <div class="input-field" ng-repeat="connection in newtrip.currNode.connections">
+      <button ng-hide="!connection.option" ng-click="newtrip.getNext(connection.next, connection.option)">
         {{connection.option}}
       </button>
 
       <div ng-show="connection.option == null">
-        <input ng-model="main.currNode.answer">
-        <button ng-click="main.getNext(connection.next, main.currNode.answer)">Continue</button>
+        <input ng-model="newtrip.currNode.answer">
+        <button ng-click="newtrip.getNext(connection.next, newtrip.currNode.answer)">CONTINUE</button>
       </div>
     </div>
-    <button ng-click="main.doneQuestionnaire()" ng-show="main.currNode.num==18">Ok, let's go!</button>
+    <button ng-click="newtrip.done(newtrip.questionnaire)" ng-show="newtrip.currNode.num==18">OK, LET'S GO!</button>
     <br>
-    <button ng-click="main.getPrev()">Go back</button>
+    <div>
+      <button ng-hide="newtrip.currNode.num == 1" ng-click="newtrip.getPrev()">GO BACK</button>
+    </div>
 
+  </div>
 
-  </div> -->
-
+<!-- QUESTIONNAIRE ENDS HERE -->
 
 <script type="text/ng-template" id="signup.html">
     <div class="row clearfix">
             <div class="col-sm-12">
+
               <form class="form" name="form" ng-submit="register(form)" novalidate>
                 <p>In order for us to save your trip, please create an account.</p><br>
                 <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
@@ -116,10 +92,10 @@
 
                 <div>
                   <button class="btn btn-inverse btn-lg btn-login" type="submit">
-                    Sign up
+                    SIGN UP
                   </button>
                   <a class="btn btn-default btn-lg btn-register" href="/login">
-                    Login
+                    LOGIN
                   </a>
                 </div>
 
@@ -141,14 +117,3 @@
           <hr>
         </div>
 </script>
-
-
-
-
-<script>
-  $('#signup-link').click(function() {
-    $('#email-field').focus();
-  });
-</script>
-
-</div>

@@ -1,3 +1,40 @@
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid whitesmoke;
+    border-radius: 0px;
+    color: #FDBC52;
+    -webkit-appearance: none;
+    box-shadow: none;
+    &:focus {
+      outline-color: transparent;
+      outline-style: none;
+    }
+  }
+  .social {
+    text-align: center;
+    .btn {
+      margin-bottom: 5px;
+    }
+  }
+  -webkit-animation: ngdialog-flyin .5s;
+  animation: ngdialog-flyin .5s;
+  background: rgba(108, 122, 136, 0.8);
+  border-radius: 0px;
+  border-width: 3px;
+  color: whitesmoke;
+  font-family: 'Montserrat',sans-serif;
+  font-size: 1em;
+  line-height: 1.1em;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 2.5em 1.5em 0.6em 1.5em;
+  position: relative;
+  width: 370px;
+  height: 560px;
+}
+
 #brand_logo {
     padding-top: 5px;
     margin-left: 80px;
@@ -57,9 +94,6 @@ nav a, nav a:hover {
     h1 {
       padding-top:100px;
       font-size:4em;
-    }
-    button, input {
-      color: black;
     }
     input-field {
       height: 5%;

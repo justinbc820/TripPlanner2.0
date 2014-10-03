@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('MainCtrl', function ($scope, Auth, $location, $window, $http, User) {
+  .controller('MainCtrl', function ($scope, Auth, $location, $window, $http, User, ngDialog) {
 
     this.user = {};
     this.errors = {};
@@ -130,6 +130,10 @@ angular.module('tripPlannerApp')
 
     this.isActive = function(route) {
       return route === $location.path();
+    };
+
+    this.signup = function() {
+      ngDialog.open({template: 'signup.html', controller: 'SignupCtrl'});
     };
 
   });

@@ -83,7 +83,7 @@ exports.changePassword = function(req, res, next) {
 
 exports.update = function(req, res) {
   var userId = req.params.id;
-  var tripId = req.body.tripId;
+  var tripId = req.body.id;
   User.findById(userId, function (err, user) {
     if (err) { return handleError(res, err); }
     if(!user) { return res.send(404); }
@@ -115,3 +115,8 @@ exports.me = function(req, res, next) {
 exports.authCallback = function(req, res, next) {
   res.redirect('/');
 };
+
+
+function handleError(res, err) {
+  return res.send(500, err);
+}
