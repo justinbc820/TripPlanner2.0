@@ -1,5 +1,5 @@
 <div id="home-body-page-1" ng-controller="MainCtrl as main">
-  <header class="clearfix">
+  <!-- <header class="clearfix">
     <a href="/" id="brand_logo">
       <img id="logo" src = "../../assets/images/tripmonk_horizontal_logo.png">
     </a>
@@ -9,7 +9,13 @@
         <li><a href="/login">LOGIN</a></li>
       </ul>
     </nav>
-  </header>
+  </header> -->
+  <div ng-include="'components/navbar/navbar.html'"></div>
+
+  <button type="button" class="btn btn-lg btn-danger" data-template="../../components/aside/aside.html" data-placement="left" data-animation="am-slide-left" bs-aside="aside" data-container="body">Custom aside
+    <br />
+    <small>(using data-template)</small>
+  </button>
 
   <!-- INITIAL QUESTIONS START HERE -->
 
@@ -152,15 +158,6 @@
           </div>
           <hr>
         </div>
-</script>
-
-
-
-
-<script>
-  $('#signup-link').click(function() {
-    $('#email-field').focus();
-  });
 </script>
 
 </div>

@@ -4,6 +4,7 @@ angular.module('tripPlannerApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
+  'ngAnimate',
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
@@ -11,7 +12,8 @@ angular.module('tripPlannerApp', [
   'ui.calendar',
   'ngGPlaces',
   'ngAutocomplete',
-  'ngDialog'
+  'ngDialog',
+  'mgcrea.ngStrap'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

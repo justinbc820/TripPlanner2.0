@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('MainCtrl', function ($scope, Auth, $location, $window, $http, User, ngDialog) {
+  .controller('MainCtrl', function ($scope, Auth, $location, $window, $http, User, $aside) {
+
+    // $scope.aside = {title: 'Title', content: 'Hello Aside<br />This is a multiline message!'};
 
     this.user = {};
     this.errors = {};
@@ -100,8 +102,6 @@ angular.module('tripPlannerApp')
       }
     };
 
-
-
     this.doneQuestionnaire = function() {
       console.log($scope.newUser);
       $scope.$apply();
@@ -115,26 +115,26 @@ angular.module('tripPlannerApp')
         });
     };
 
-    this.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
-    };
+    // this.loginOauth = function(provider) {
+    //   $window.location.href = '/auth/' + provider;
+    // };
 
-    this.isLoggedIn = Auth.isLoggedIn;
-    this.isAdmin = Auth.isAdmin;
-    this.getCurrentUser = Auth.getCurrentUser;
+    // this.isLoggedIn = Auth.isLoggedIn;
+    // this.isAdmin = Auth.isAdmin;
+    // this.getCurrentUser = Auth.getCurrentUser;
 
-    this.logout = function() {
-      Auth.logout();
-      $location.path('/login');
-    };
+    // this.logout = function() {
+    //   Auth.logout();
+    //   $location.path('/login');
+    // };
 
-    this.isActive = function(route) {
-      return route === $location.path();
-    };
+    // this.isActive = function(route) {
+    //   return route === $location.path();
+    // };
 
-    this.signup = function() {
-      ngDialog.open({template: 'signup.html', controller: 'SignupCtrl'});
-    };
+    // this.signup = function() {
+    //   ngDialog.open({template: 'signup.html', controller: 'SignupCtrl'});
+    // };
 
   });
 

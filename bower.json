@@ -20,13 +20,16 @@
     "angular-ui-calendar": "latest",
     "ngAutocomplete": "https://github.com/justinbc820/ngAutocomplete.git#master",
     "angularjs-google-places": "https://github.com/justinbc820/angularjs-google-places.git#master",
-    "ngDialog": "~0.3.0"
+    "ngDialog": "~0.3.0",
+    "angular-strap": "~2.1.1"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
   },
   "resolutions": {
-    "jquery": "~2.x"
+    "jquery": "~2.x",
+    "angular": "~1.2.x",
+    "bootstrap": "^3.2.0"
   }
 }
