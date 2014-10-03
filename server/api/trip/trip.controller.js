@@ -40,7 +40,7 @@ exports.update = function(req, res) {
     if (req.body.travelerId) {
       trip.travelers.push(req.body.travelerId);
     } else {
-      var trip = _.merge(thing, req.body);
+      var trip = _.merge(trip, req.body);
     }
     trip.save(function (err) {
       if (err) { return handleError(res, err); }
