@@ -4,29 +4,44 @@ angular.module('tripPlannerApp')
   .controller('AsideCtrl', function ($scope, $aside, $location) {
   	this.views = {
   		map: {
-  			'text': 'Map',
+  			'text': 'MAP',
   			'link': '/map'
   		},
   		dashboard: {
-  			'text': 'Dashboard',
+  			'text': 'DASHBOARD',
   			'link': '/dashboard'
   		},
-  		account: {
-  			'text': 'Account',
+  		login: {
+  			'text': 'LOGIN',
   			'link': '/settings'
   		},
-  		newTrip: {
-  			'text': 'New Trip',
+  		settings: {
+  			'text': 'SETTINGS',
   			'link': '/newtrip'
   		},
-  		logout: {
-  			'text': 'Logout',
-  			'link': '#'
+  		signup: {
+  			'text': 'SIGNUP',
+  			'link': '/signup'
+  		},
+  		admin: {
+  			'text': 'ADMIN',
+  			'link': '/admin'
+  		},
+  		main: {
+  			'text': 'MAIN',
+  			'link': '/main'
+  		},
+  		newTrip: {
+  			'text': 'NEW TRIP',
+  			'link': '/newtrip'
+  		},
+  		plan: {
+  			'text': 'PLAN',
+  			'link': '/plan'
   		}
   	}
 
   	this.reroute = function(newPath) {
-  		console.log(newPath);
   		$location.path(newPath)
   	};
 

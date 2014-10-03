@@ -1,34 +1,8 @@
-<!-- <div class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
-  <div class="container">
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="/" class="navbar-brand">trip-planner</a>
-    </div>
-    <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-            <a ng-href="{{item.link}}">{{item.title}}</a>
-        </li>
-        <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
-      </ul>
+<header ng-controller="NavbarCtrl as navbar">
+  <button type="button" id="menu-button" data-template="../../components/aside/aside.html" data-placement="left" data-animation="am-slide-left" bs-aside="aside" data-container="body">
+    <img src="../../assets/images/icons/menu-lines.png" style="width:30px; float:left;"></img>
+  </button>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
-        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>
-        <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
-      </ul>
-    </div>
-  </div>
-</div> -->
-
-<header class="clearfix" ng-controller="NavbarCtrl as navbar">
   <a href="/" id="brand_logo">
     <img id="logo" src = "../../assets/images/tripmonk_horizontal_logo.png">
   </a>
@@ -40,6 +14,8 @@
   </nav>
 </header>
 
+
+<!-- MODAL FOR SIGNUP -->
 <script type="text/ng-template" id="signup.html">
     <div class="row clearfix">
             <div class="col-sm-12">
@@ -118,3 +94,35 @@
           <hr>
         </div>
 </script>
+
+<!-- ORIGINAL CODE FROM YEOMAN GENERATOR.  KEPT IN PLACE IN CASE WE NEED TO LOOK AT FUNCTIONS AND CLASSES FOR LOGIN STUFF. -->
+
+<!-- <div class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">trip-planner</a>
+    </div>
+    <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
+            <a ng-href="{{item.link}}">{{item.title}}</a>
+        </li>
+        <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>
+        <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div> -->

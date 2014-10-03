@@ -2,13 +2,9 @@
 
 angular.module('tripPlannerApp')
   .controller('MainCtrl', function ($scope, Auth, $location, $window, $http, User, $aside) {
-
-    // $scope.aside = {title: 'Title', content: 'Hello Aside<br />This is a multiline message!'};
-
     this.user = {};
     this.errors = {};
     $scope.newUser = Auth.getCurrentUser();
-    console.log($scope.newUser);
     this.questionnaire = {};
     this.historyNodes = [];
 
@@ -29,51 +25,14 @@ angular.module('tripPlannerApp')
 
       // console.log(self.historyNodes);
       $http.get('/api/nodes/'+ nextId).success(function(data) {
-            self.currNode = data;
-            console.log("you are now on this node", self.currNode);
+          self.currNode = data;
       });
-      console.log("this is self.questionnaire", self.questionnaire);
     };
 
     this.getPrev = function() {
       var prevNode = this.historyNodes.pop();
       this.currNode = prevNode;
     };
-
-
-
-    // this.register = function(form) {
-    //   this.submitted = true;
-    //   var self = this;
-
-    //   if(form.$valid) {
-    //     Auth.createUser({
-    //       email: this.user.email,
-    //       name: this.user.name,
-    //       password: this.user.password
-    //     })
-    //     .then( function(data) {
-    //       console.log(User.get());
-    //       // Account created, redirect to home
-    //       $location.path('/');
-    //       self.getFirstNode();
-    //       // var tripId =self.user.trips[0];
-    //       // $http.get('/api/trips/'+tripId).success(function(newTrip) {
-    //       //   self.currTrip = newTrip;
-    //       // });
-    //     })
-    //     .catch( function(err) {
-    //       err = err.data;
-    //       self.errors = {};
-
-    //       // Update validity of form fields that match the mongoose errors
-    //       angular.forEach(err.errors, function(error, field) {
-    //         form[field].$setValidity('mongoose', false);
-    //         self.errors[field] = error.message;
-    //       });
-    //     });
-    //   }
-    // };
 
   this.register = function(form) {
       this.submitted = true;
@@ -103,7 +62,6 @@ angular.module('tripPlannerApp')
     };
 
     this.doneQuestionnaire = function() {
-      console.log($scope.newUser);
       $scope.$apply();
       $http.post('/api/trips', { userId : $scope.newUser._id,
                                  questionnaire: this.questionnaire })
@@ -114,27 +72,5 @@ angular.module('tripPlannerApp')
             });
         });
     };
-
-    // this.loginOauth = function(provider) {
-    //   $window.location.href = '/auth/' + provider;
-    // };
-
-    // this.isLoggedIn = Auth.isLoggedIn;
-    // this.isAdmin = Auth.isAdmin;
-    // this.getCurrentUser = Auth.getCurrentUser;
-
-    // this.logout = function() {
-    //   Auth.logout();
-    //   $location.path('/login');
-    // };
-
-    // this.isActive = function(route) {
-    //   return route === $location.path();
-    // };
-
-    // this.signup = function() {
-    //   ngDialog.open({template: 'signup.html', controller: 'SignupCtrl'});
-    // };
-
   });
 

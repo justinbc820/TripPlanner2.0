@@ -1,0 +1,92 @@
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid whitesmoke;
+    border-radius: 0px;
+    color: #FDBC52;
+    -webkit-appearance: none;
+    box-shadow: none;
+    &:focus {
+      outline-color: transparent;
+      outline-style: none;
+    }
+  }
+  .social {
+    text-align: center;
+    .btn {
+      margin-bottom: 5px;
+    }
+  }
+  -webkit-animation: ngdialog-flyin .5s;
+  animation: ngdialog-flyin .5s;
+  background: rgba(108, 122, 136, 0.8);
+  border-radius: 0px;
+  border-width: 3px;
+  color: whitesmoke;
+  font-family: 'Montserrat',sans-serif;
+  font-size: 1em;
+  line-height: 1.1em;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 2.5em 1.5em 0.6em 1.5em;
+  position: relative;
+  width: 370px;
+  height: 560px;
+}
+
+#brand_logo {
+    padding-top: 5px;
+    display:inline-block;
+    height:60px;
+    float:left;
+}
+
+#logo {
+  height: 100%;
+}
+
+header {
+  z-index: 10;
+  padding: 10px 0 10px 0;
+  width: 100%;
+  background-color: rgba(108, 122, 136, 0.7);
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+nav {
+  text-align: center;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+nav ul {
+  float: right;
+  list-style: none;
+  margin: 0 10px;
+  margin-right: 80px;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a, nav a:hover {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+  text-decoration: none;
+  color: #FDBC52;
+  font-weight: normal;
+  padding: 15px 10px;
+}
+
+#menu-top-right {
+  float:right;
+}
+
+#menu-button {
+  float:left;
+}

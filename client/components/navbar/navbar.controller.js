@@ -2,13 +2,13 @@
 
 angular.module('tripPlannerApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth, ngDialog) {
-    this.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
-    };
-
     this.isLoggedIn = Auth.isLoggedIn;
     this.isAdmin = Auth.isAdmin;
     this.getCurrentUser = Auth.getCurrentUser;
+
+    this.loginOauth = function(provider) {
+      $window.location.href = '/auth/' + provider;
+    };
 
     this.logout = function() {
       Auth.logout();
