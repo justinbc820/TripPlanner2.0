@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .factory('planData', function () {
+  .factory('planData', function ($rootScope) {
     var mapCalendarViews = {
       map: true,
       calendar: true
@@ -14,7 +14,8 @@ angular.module('tripPlannerApp')
       }
     };
 
-    var currentSearch = {};
+    var textSearch = {};
+    var radarSearch = {};
 
     // Public API here
     return {
@@ -41,13 +42,22 @@ angular.module('tripPlannerApp')
         return currentTrip;
       },
 
-      setSearchResults: function(data) {
-        currentSearch.searchResults = data;
-        console.log(currentSearch.searchResults);
+      setTextSearch: function(data) {
+        textSearch.results = data;
+        console.log(textSearch.results);
       },
 
-      getSearchResults: function() {
-        return currentSearch.searchResults;
+      getTextSearch: function() {
+        return textSearch.results;
+      },
+
+      setRadarSearch: function(data) {
+        radarSearch.results = data;
+        $rootScope.$broadcast('radarSearch');
+      },
+
+      getRadarSearch: function() {
+        return radarSearch.results;
       }
     };
   });

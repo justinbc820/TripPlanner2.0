@@ -1,6 +1,8 @@
 <div ng-controller="PlanCtrl as plan" class="col-lg-12 col-md-12 full-height" id="plan-wrapper">
   <div ng-controller="MapCtrl as map" ng-show="map.showMap()" class="full-height">
-    <google-map center="map.map.center" zoom="map.map.zoom" class="full-height"></google-map>
+    <google-map center="map.map.center" zoom="map.map.zoom" pan="true" class="full-height">
+      <markers models="markers.array" coords="'self'" idKey="'id'"></markers>
+    </google-map>
   </div>
 
   <div ng-controller="CalendarCtrl as calendar" ng-show="calendar.showCalendar()" class="full-height">
@@ -17,7 +19,7 @@
   </div>
   <div class="col-lg-4 col-md-4 full-height">
     <div class="opaque" id="search-container">
-      <form ng-submit="overlay.placesSearch(overlay.autocomplete)">
+      <form ng-submit="overlay.textSearch(overlay.autocomplete)">
         <input type="text" ng-model="overlay.autocomplete" ng-autocomplete options="overlay.searchFieldOptions" details="overlay.details.details" id="map-search" placeholder="search" class="can-click" >
         <button type="submit" class="can-click" style="visibility:hidden; display:none;"></button>
       </form>

@@ -22,7 +22,7 @@ angular.module('tripPlannerApp')
 
     this.initialButtonState = true;
 
-    this.placesSearch = function(autocomplete) {
+    this.textSearch = function(autocomplete) {
     	var self = this;
     	var alreadyDetails = false;
     	/*
@@ -35,7 +35,7 @@ angular.module('tripPlannerApp')
     	var checkForDetails = $interval(function() {
     		if(self.details.details !== undefined) {
 				$interval.cancel(checkForDetails);
-                planData.setSearchResults(self.details.details);
+                planData.setTextSearch(self.details.details);
 				self.details.details = undefined;
 				alreadyDetails = true;
     		}
@@ -45,7 +45,7 @@ angular.module('tripPlannerApp')
 			if(!alreadyDetails) {
 				ngGPlacesAPI.textSearch({'query':autocomplete})
 					.then(function(data) {
-						planData.setSearchResults(data);
+						planData.setTextSearch(data);
 					});
 			}
 		},500);		
@@ -58,7 +58,10 @@ angular.module('tripPlannerApp')
             'radius':2000,
             'keyword':type})
         .then(function(data) {
-            console.log(data);
+            for(var i=0, n=data.length; i<n; i++) {
+                data[i].id = i;
+            }
+            planData.setRadarSearch(data);
         });
     };
 
