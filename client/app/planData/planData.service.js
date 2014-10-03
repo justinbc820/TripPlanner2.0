@@ -16,6 +16,8 @@ angular.module('tripPlannerApp')
 
     var trip = {};
 
+    var currentSearch = {};
+
     // Public API here
     return {
       toggleView: function(view) {
@@ -41,6 +43,7 @@ angular.module('tripPlannerApp')
         return currentTrip;
       },
 
+
       setTrip: function(id) {
         trip.tripId = id;
         console.log(trip.tripId);
@@ -57,6 +60,15 @@ angular.module('tripPlannerApp')
 
       getInitialTrip: function() {
         return trip.initialTrip;
+      },
+
+      setSearchResults: function(data) {
+        currentSearch.searchResults = data;
+        console.log(currentSearch.searchResults);
+      },
+
+      getSearchResults: function() {
+        return currentSearch.searchResults;
       }
     };
   });
