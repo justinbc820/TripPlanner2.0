@@ -49,7 +49,6 @@
 
 header {
   float: left;
-  margin: 0 0 80px 0;
   padding: 10px 0 10px 0;
   width: 100%;
   background-color: rgba(108, 122, 136, 0.7);
@@ -102,48 +101,82 @@ nav a, nav a:hover {
 }
 
 #initial-questions {
-  padding-left: 80px;
-  padding-right: 80px;
-  height: 70%;
-
+  float:left;
+  height:70%;
+  font-family: 'Montserrat', sans-serif;
+  color: whitesmoke;
+  padding-top:15%;
+  button {
+    color: whitesmoke;
+    border: 3px solid whitesmoke;
+    background-color: transparent;
+    padding: 10px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    padding-right:auto;
+    padding-left:auto;
+  }
+  #questions-continer {
+    margin-top:12%;
+    margin-bottom:10px;
+  }
+  .question-container {
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    padding:0 50px 0 50px;
+  }
   #left-box {
-    padding-top: 10%;
-    text-align: center;
-    border-right: 3px solid rgba(108, 122, 136, 0.6);
-    font-family: 'Montserrat', sans-serif;
-    color: whitesmoke;
-    button {
-      color: whitesmoke;
-      border: 3px solid whitesmoke;
-      background-color: transparent;
-      padding: 10px;
-    }
-  }
-  #right-box {
-    padding-top: 10%;
-    display: block;
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    color: whitesmoke;
-    button {
-      color: whitesmoke;
-      border: 3px solid whitesmoke;
-      background-color: transparent;
-      padding: 10px;
-    }
-  }
-  div {
-    height: 100%;
-    width: 50%;
-    float: left;
-  }
-
-  .text-wrapper {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    // border-right: 3px solid rgba(108, 122, 136, 0.6);
   }
 }
+
+// #initial-questions {
+//   margin-top:160px;
+//   padding-left: 80px;
+//   padding-right: 80px;
+//   height: 70%;
+//   clear:both;
+
+//   #left-box {
+//     padding-top: 10%;
+//     text-align: center;
+//     border-right: 3px solid rgba(108, 122, 136, 0.6);
+//     font-family: 'Montserrat', sans-serif;
+//     color: whitesmoke;
+//     button {
+//       color: whitesmoke;
+//       border: 3px solid whitesmoke;
+//       background-color: transparent;
+//       padding: 10px;
+//     }
+//   }
+//   #right-box {
+//     padding-top: 10%;
+//     display: block;
+//     text-align: center;
+//     font-family: 'Montserrat', sans-serif;
+//     color: whitesmoke;
+//     button {
+//       color: whitesmoke;
+//       border: 3px solid whitesmoke;
+//       background-color: transparent;
+//       padding: 10px;
+//     }
+//   }
+//   div {
+//     height: 100%;
+//     width: 50%;
+//     float: left;
+//   }
+
+//   .text-wrapper {
+//     width: 80%;
+//     margin-left: auto;
+//     margin-right: auto;
+//   }
+// }
 
 
 /*
