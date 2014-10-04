@@ -10,6 +10,16 @@ angular.module('tripPlannerApp')
   	  },
   	  zoom: 11,
       options: {
+        zoomControlOptions: {
+          position:google.maps.ControlPosition.LEFT_BOTTOM,
+          style:google.maps.ZoomControlStyle.SMALL
+        },
+        mapTypeControlOptions: {
+          position:google.maps.ControlPosition.RIGHT_BOTTOM
+        },
+        
+        tilt:45,
+        panControl:false,
         styles: [
           {
               "featureType": "water",
