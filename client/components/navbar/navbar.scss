@@ -20,7 +20,7 @@
   }
   -webkit-animation: ngdialog-flyin .5s;
   animation: ngdialog-flyin .5s;
-  background: rgba(108, 122, 136, 0.8);
+  background: rgba(108, 122, 136, 0.9);
   border-radius: 0px;
   border-width: 3px;
   color: whitesmoke;
@@ -51,7 +51,7 @@ header {
   z-index: 10;
   padding: 10px 0 10px 0;
   width: 100%;
-  background-color: rgba(108, 122, 136, 0.7);
+  background-color: rgba(108, 122, 136, 0.9);
   position:absolute;
   top:0;
   left:0;
@@ -91,6 +91,7 @@ nav a, nav a:hover {
   margin:0;
   padding-top:16px;
   font-size:1.2em;
+  letter-spacing: 1.2px;
 }
 
 
