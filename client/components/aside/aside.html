@@ -9,7 +9,12 @@
         <!-- <button type="button" class="close" ng-click="$hide()">&times;</button> -->
 
         <div ng-repeat="view in aside.views" class="aside-links">
-          <span><img ng-src="{{view.icon}}" style="width:30px; height:30px; margin-right: 10px;"></img></span><button ng-click="aside.reroute(view.link)"><h4>{{view.text}}</h4></button>
+          <span>
+            <img ng-src="{{view.icon}}" style="width:30px; height:30px; margin-right: 10px;"></img>
+          </span>
+          <button ng-click="aside.reroute(view.link)">
+            <h4 ng-click="$hide()">{{view.text}}</h4>
+          </button>
         </div>
 
       </div>
