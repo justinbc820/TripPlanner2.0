@@ -27,6 +27,10 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 	height:100%;
 }
 
+.page-body {
+	margin-top:100px;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';
@@ -35,6 +39,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'main/main.scss';
 @import 'newtrip/newtrip.scss';
 @import 'plan/plan.scss';
+@import 'aside/aside.scss';
 @import 'modal/modal.scss';
 @import 'navbar/navbar.scss';
 // endinjector
