@@ -1,15 +1,5 @@
 <div id="home-body-page-1" ng-controller="NewtripCtrl as newtrip">
-  <header class="clearfix">
-    <a href="/" id="brand_logo">
-      <img id="logo" src = "../../assets/images/tripmonk_horizontal_logo.png">
-    </a>
-    <nav id="menu-top-right">
-      <ul>
-        <li><a href="#" ng-click="newtrip.signup()" id="signup-link">SIGN UP</a></li>
-        <li><a href="/login">LOGIN</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div ng-include="'components/navbar/navbar.html'"></div>
 
   <!-- QUESTIONNAIRE STARTS HERE -->
   <div id="newtrip">

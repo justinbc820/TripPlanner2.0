@@ -3,42 +3,35 @@
 angular.module('tripPlannerApp')
   .controller('AsideCtrl', function ($scope, $aside, $location) {
   	this.views = {
-  		map: {
-  			'text': 'MAP',
-  			'link': '/map'
-  		},
+  		// map: {
+  		// 	'text': 'MAP',
+  		// 	'link': '/map'
+  		// },
   		dashboard: {
-  			'text': 'DASHBOARD',
-  			'link': '/dashboard'
+  			'text': 'MANAGE TRIPS',
+  			'link': '/dashboard',
+        'icon': '../../assets/images/icons/airplane.png'
   		},
-  		login: {
-  			'text': 'LOGIN',
-  			'link': '/settings'
+  		newtrip: {
+  			'text': 'CREATE TRIP',
+  			'link': '/newtrip',
+        'icon': '../../assets/images/icons/pencil.png'
   		},
-  		settings: {
-  			'text': 'SETTINGS',
-  			'link': '/newtrip'
+  		map: {
+  			'text': 'EXPLORE',
+  			'link': '/plan',
+        'icon': '../../assets/images/icons/compass.png'
   		},
-  		signup: {
-  			'text': 'SIGNUP',
-  			'link': '/signup'
-  		},
-  		admin: {
-  			'text': 'ADMIN',
-  			'link': '/admin'
-  		},
-  		main: {
-  			'text': 'MAIN',
-  			'link': '/main'
-  		},
-  		newTrip: {
-  			'text': 'NEW TRIP',
-  			'link': '/newtrip'
-  		},
-  		plan: {
-  			'text': 'PLAN',
-  			'link': '/plan'
-  		}
+      friends: {
+        'text': 'FRIENDS',
+        'link': '/friends',
+        'icon': '../../assets/images/icons/person.png'
+      },
+      settings: {
+        'text': 'SETTINGS',
+        'link': '/settings',
+        'icon': '../../assets/images/icons/cog.png'
+      }
   	}
 
   	this.reroute = function(newPath) {

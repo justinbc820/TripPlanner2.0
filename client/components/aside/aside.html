@@ -1,21 +1,22 @@
-<div class="aside" ng-controller="AsideCtrl as aside" class="clearfix" style="margin-top:100px;">
+<div class="aside clearfix" id="aside-container" ng-controller="AsideCtrl as aside">
   <div class="aside-dialog">
     <div class="aside-content">
-      <div class="aside-header">
+      <!-- <div class="aside-header">
         <button type="button" class="close" ng-click="$hide()">&times;</button>
         <h4 class="aside-title">Trip Manager</h4>
-      </div>
+      </div> -->
       <div class="aside-body">
+        <!-- <button type="button" class="close" ng-click="$hide()">&times;</button> -->
 
-        <div ng-repeat="view in aside.views" style="width:100%; height:50px; border:1px solid black;">
-          <button ng-click="aside.reroute(view.link)"><h3>{{view.text}}</h3></button>
+        <div ng-repeat="view in aside.views" class="aside-links">
+          <span><img ng-src="{{view.icon}}" style="width:30px; height:30px; margin-right: 10px;"></img></span><button ng-click="aside.reroute(view.link)"><h4>{{view.text}}</h4></button>
         </div>
 
       </div>
-      <div class="aside-footer">
+      <!-- <div class="aside-footer">
         <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
         <button type="button" class="btn btn-primary" ng-click="$hide()">Save changes</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
