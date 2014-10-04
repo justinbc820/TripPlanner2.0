@@ -11,13 +11,21 @@
  ///////////////////////////////
 
 #aside-container {
-    // background-color:rgba(30,30,30,0.8);
-    background-color:#333;
+    background-color: rgba(22,30,32,0.7);
     overflow:scroll;
     margin-top:99px;
     display:block;
     padding-top:15px;
-    padding-left:33px;
+    padding-left: 0.5%;
+    letter-spacing: 1px;
+
+    h4 {
+      letter-spacing: 1.5px;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
     .close {
         color:white;
     }
