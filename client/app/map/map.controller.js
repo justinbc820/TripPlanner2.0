@@ -46,12 +46,12 @@ angular.module('tripPlannerApp')
 
 
     var currentTrip = planData.getCurrentTrip();
-  	this.map = {
+  	$scope.map = {
   	  center: {
   	      latitude: currentTrip.location.latitude,
   	      longitude: currentTrip.location.longitude
   	  },
-  	  zoom: 11,
+      zoom: 11,
       options: {
         zoomControlOptions: {
           position:google.maps.ControlPosition.LEFT_BOTTOM,
@@ -158,10 +158,8 @@ angular.module('tripPlannerApp')
   		return planData.getMapStatus();
   	};
 
-    $scope.radarSearch = {};
-
     $rootScope.$on('radarResults', function() {
-      $scope.radarSearch.results = search.getMarkers('restaurant');
-      console.log($scope.radarSearch.results);
+      $scope.map.markers = search.getMarkers('restaurant');
+      console.log($scope.map.markers);
     });
   });

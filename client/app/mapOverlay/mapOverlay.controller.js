@@ -55,7 +55,7 @@ angular.module('tripPlannerApp')
     this.radarSearch = function(type) {
         ngGPlacesAPI.radarSearch({
             'location': new google.maps.LatLng(37.775, -122.419),
-            'radius':2000,
+            'radius':50000,
             'keyword':type})
         .then(function(data) {
             search.setMarkers(type, data);

@@ -10,8 +10,8 @@ angular.module('tripPlannerApp')
     function Marker(idNum, marker) {
       return {
       id: idNum,
-      latitude: marker.geometry.location.B,
-      longitude: marker.geometry.location.k
+      longitude: marker.geometry.location.B,
+      latitude: marker.geometry.location.k
       // placeId: marker.place_id
       };
     }
@@ -19,7 +19,7 @@ angular.module('tripPlannerApp')
     // Public API here
     return {
       setMarkers: function (key, array) {
-          for (var i=0, n=10; i < n; i++) {
+          for (var i=0, n=array.length; i < n; i++) {
             radarSearchMarkers[key].push(new Marker(i, array[i]));
           }
         $rootScope.$broadcast('radarResults');
