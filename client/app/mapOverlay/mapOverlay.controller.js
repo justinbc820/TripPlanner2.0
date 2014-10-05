@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('MapOverlayCtrl', function ($scope, $interval, $timeout, planData, ngGPlacesAPI) {
+  .controller('MapOverlayCtrl', function ($scope, $interval, $timeout, planData, ngGPlacesAPI, search) {
   	// Sets the autocomplete box to search a location with a radius of meters
   	var currentTrip = planData.getCurrentTrip();
     var bounds = new google.maps.Circle({
     	center: new google.maps.LatLng(
-    		currentTrip.location.latitude, 
+    		currentTrip.location.latitude,
     		currentTrip.location.longitude
     		),
     	// radius: 2000
@@ -27,9 +27,9 @@ angular.module('tripPlannerApp')
     	var alreadyDetails = false;
     	/*
 			If something is selected from the autocomplete list, the user wants that
-			specific location, not 20 search results, so, this function will check 10 
+			specific location, not 20 search results, so, this function will check 10
 			times within 500ms to see if there are any place details.  If there aren't,
-			then it's assumed that we should query google for a list of results rather 
+			then it's assumed that we should query google for a list of results rather
 			than just the details of the place that they selected.
     	*/
     	var checkForDetails = $interval(function() {
@@ -48,17 +48,17 @@ angular.module('tripPlannerApp')
 						planData.setSearchResults(data);
 					});
 			}
-		},500);		
+		},500);
 
     };
 
     this.radarSearch = function(type) {
         ngGPlacesAPI.radarSearch({
             'location': new google.maps.LatLng(37.775, -122.419),
-            'radius':2000,
+            'radius':50000,
             'keyword':type})
         .then(function(data) {
-            console.log(data);
+            search.setMarkers(type, data);
         });
     };
 
@@ -77,4 +77,7 @@ angular.module('tripPlannerApp')
     this.getSearchResults = function() {
         return planData.getSearchResults();
     }
+
+
+
   });

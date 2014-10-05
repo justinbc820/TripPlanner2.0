@@ -1,7 +1,9 @@
 <!-- <div ng-include="'components/navbar/navbar.html'"></div> -->
 <div ng-controller="PlanCtrl as plan" class="col-lg-12 col-md-12 full-height animated fadeIn" id="plan-wrapper">
-  <div ng-controller="MapCtrl as map" ng-show="map.showMap()" id="map-container">
-    <google-map center="map.map.center" zoom="map.map.zoom" class="full-height" options="map.map.options"></google-map>
+  <div ng-controller="MapCtrl" id="map-container">
+    <google-map center="map.center" zoom="map.zoom" class="full-height" options="map.options">
+        <markers models="map.markers" coords="'self'" idKey="'id'" doCluster='true' fit='true'></markers>
+    </google-map>
   </div>
 
  <!--  <div ng-controller="CalendarCtrl as calendar" ng-show="calendar.showCalendar()" class="full-height">
@@ -9,7 +11,7 @@
   </div> -->
 </div>
 
-<!-- <div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click">
+<div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click" style="margin-top:100px;">
   <div class="col-lg-4 col-md-4" class="clearfix can-click full-height">
     <div id="toggle-buttons" class="can-click">
       <button ng-click="overlay.toggleView('map')" ng-show="overlay.showCalendar()" ng-hide="overlay.initialButtonState" class="opaque toggle-button btn">map</button>
@@ -27,12 +29,12 @@
   <div class="col-lg-4 col-md-4 full-height">
     <button class="btn opaque can-click" ng-click="overlay.radarSearch('restaurant')">Restaurants</button>
     <button class="btn opaque">Hotels</button>
-    <button class="btn opaque">Tourist Attractions</button> -->
-    <!-- <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults()">
+    <button class="btn opaque">Tourist Attractions</button>
+    <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults()">
       <div class="results-place" ng-repeat="place in overlay.getSearchResults()">
         <p>{{place.name}}</p>
         <small><small><p>rating: {{place.rating}}</p></small><small>
       </div>
-    </div> -->
-<!--   </div>
-</div> -->
+    </div>
+  </div>
+</div>

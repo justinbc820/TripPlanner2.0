@@ -1,14 +1,57 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('MapCtrl', function ($scope, planData) {
+  .controller('MapCtrl', function ($scope, $rootScope, planData, search) {
+
+
+/////////////////////TESTING DIRECTIVE EXAMPLE CODE
+
+// var createRandomMarker = function (i, idKey) {
+
+//             if (!idKey) {
+//                 idKey = "id";
+//             }
+
+//             var lat_min = -90;
+//             var lat_range = 180;
+//             var lng_min = -180;
+//             var lng_range = 360;
+
+//             var latitude = lat_min + (Math.random() * lat_range);
+//             var longitude = lng_min + (Math.random() * lng_range);
+//             // Note, the label* properties are only used if isLabel='true' in the directive.
+//             var ret = {
+//               options: {draggable: true,
+//                 labelAnchor: '10 39',
+//                 labelContent: i,
+//                 labelClass: 'labelMarker'},
+//                 latitude: latitude,
+//                 longitude: longitude,
+//                 title: 'm' + i
+//             };
+//             ret[idKey] = i;
+//             return ret;
+//         };
+
+// var markers = [];
+// for (var i = 0; i < 200; i++) {
+//     markers.push(createRandomMarker(i))
+// }
+// $scope.randomMarkers = markers;
+// console.log($scope.randomMarkers);
+
+/////////////////////END TESTING
+
+
+
+
     var currentTrip = planData.getCurrentTrip();
-  	this.map = {
+  	$scope.map = {
   	  center: {
   	      latitude: currentTrip.location.latitude,
   	      longitude: currentTrip.location.longitude
   	  },
-  	  zoom: 11,
+      zoom: 11,
       options: {
         zoomControlOptions: {
           position:google.maps.ControlPosition.LEFT_BOTTOM,
@@ -17,7 +60,6 @@ angular.module('tripPlannerApp')
         mapTypeControlOptions: {
           position:google.maps.ControlPosition.RIGHT_BOTTOM
         },
-        
         tilt:45,
         panControl:false,
         styles: [
@@ -114,4 +156,9 @@ angular.module('tripPlannerApp')
   	this.showMap = function() {
   		return planData.getMapStatus();
   	};
+
+    $rootScope.$on('radarResults', function() {
+      $scope.map.markers = search.getMarkers('restaurant');
+      console.log($scope.map.markers);
+    });
   });
