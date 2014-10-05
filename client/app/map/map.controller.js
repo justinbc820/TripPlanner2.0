@@ -60,7 +60,6 @@ angular.module('tripPlannerApp')
         mapTypeControlOptions: {
           position:google.maps.ControlPosition.RIGHT_BOTTOM
         },
-
         tilt:45,
         panControl:false,
         styles: [

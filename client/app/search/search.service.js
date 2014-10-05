@@ -12,7 +12,6 @@ angular.module('tripPlannerApp')
       id: idNum,
       longitude: marker.geometry.location.B,
       latitude: marker.geometry.location.k
-      // placeId: marker.place_id
       };
     }
 
