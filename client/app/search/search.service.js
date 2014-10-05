@@ -5,7 +5,7 @@ angular.module('tripPlannerApp')
     // Service logic
     // ...
 
-    var radarSearchMarkers = {restaurant: [], hotels: [], attractions: [], playthings: []};
+    var radarSearchMarkers = {restaurant: [], lodging: [], laundry: [], playthings: []};
 
     function Marker(idNum, marker) {
       return {
@@ -18,13 +18,15 @@ angular.module('tripPlannerApp')
     // Public API here
     return {
       setMarkers: function (key, array) {
+          radarSearchMarkers[key].length = 0;
           for (var i=0, n=array.length; i < n; i++) {
             radarSearchMarkers[key].push(new Marker(i, array[i]));
           }
-        $rootScope.$broadcast('radarResults');
+        $rootScope.$broadcast('radarResults', key);
       },
       getMarkers: function(key) {
         return radarSearchMarkers[key];
-      }
+      },
+      radarSearchMarkers:radarSearchMarkers
     };
   });

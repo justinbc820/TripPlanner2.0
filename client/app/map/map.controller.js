@@ -157,8 +157,9 @@ angular.module('tripPlannerApp')
   		return planData.getMapStatus();
   	};
 
-    $rootScope.$on('radarResults', function() {
-      $scope.map.markers = search.getMarkers('restaurant');
+    $rootScope.$on('radarResults', function(event, key) {
+      console.log("key", key);
+      $scope.map.markers = search.getMarkers(key);
       console.log($scope.map.markers);
     });
   });

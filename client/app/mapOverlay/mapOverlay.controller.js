@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('MapOverlayCtrl', function ($scope, $interval, $timeout, planData, ngGPlacesAPI, search) {
+  .controller('MapOverlayCtrl', function ($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search) {
   	// Sets the autocomplete box to search a location with a radius of meters
   	var currentTrip = planData.getCurrentTrip();
     var bounds = new google.maps.Circle({
@@ -53,13 +53,17 @@ angular.module('tripPlannerApp')
     };
 
     this.radarSearch = function(type) {
+      if(!search.radarSearchMarkers[type][0]) {
         ngGPlacesAPI.radarSearch({
             'location': new google.maps.LatLng(37.775, -122.419),
-            'radius':50000,
+            'radius':5000,
             'keyword':type})
         .then(function(data) {
             search.setMarkers(type, data);
         });
+      } else {
+        $rootScope.$broadcast('radarResults', type);
+      }
     };
 
     this.searchFieldOptions = {
