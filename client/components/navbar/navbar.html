@@ -9,8 +9,11 @@
   </a>
   <nav id="menu-top-right">
     <ul>
-      <li><a href="#" ng-click="navbar.signup()" id="signup-link">SIGN UP</a></li>
-      <li><a href="/login">LOGIN</a></li>
+      <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/signup')}"><a href="/#" ng-click="navbar.signup()">Sign up</a></li>
+      <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/login')}"><a href="/login">Login</a></li>
+      <li ng-show="navbar.isLoggedIn()"><p class="navbar-text">Hello {{ navbar.getCurrentUser().name }}</p> </li>
+      <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+      <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/logout')}"><a href="" ng-click="navbar.logout()">Logout</a></li>
     </ul>
   </nav>
 </header>
