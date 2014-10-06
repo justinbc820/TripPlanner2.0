@@ -1,8 +1,8 @@
 <!-- <div ng-include="'components/navbar/navbar.html'"></div> -->
-<div ng-controller="PlanCtrl as plan" class="col-lg-12 col-md-12 full-height animated fadeIn" id="plan-wrapper">
+<div class="col-lg-12 col-md-12 full-height animated fadeIn" id="map-wrapper">
   <div ng-controller="MapCtrl as map" id="map-container">
     <google-map center="map.map.center" zoom="map.map.zoom" class="full-height" options="map.map.options">
-        <markers models="map.markers" click="'onClicked'" events="map.markersEvents" coords="'self'" idKey="'id'" doCluster="true" fit="false" doRebuildAll="true"></markers>
+        <markers models="markers" click="'onClicked'" events="map.markersEvents" coords="'self'" idKey="'id'" doCluster="true" fit="false" doRebuildAll="true"></markers>
     </google-map>
   </div>
 
@@ -18,15 +18,18 @@
       <button ng-click="overlay.toggleView('calendar')" ng-show="overlay.showMap()" class="opaque toggle-button btn">calendar</button>
     </div>
   </div>
-  <div class="col-lg-4 col-md-4 full-height">
+  <div class="col-lg-5 col-md-5 full-height" style="background-color: 'green'">
+    <div id="day-panel">
+      Day 1 2 3
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 full-height">
     <div class="opaque" id="search-container">
       <form ng-submit="overlay.placesSearch(overlay.autocomplete)">
         <input type="text" ng-model="overlay.autocomplete" ng-autocomplete options="overlay.searchFieldOptions" details="overlay.details.details" id="map-search" placeholder="search" class="can-click" >
         <button type="submit" class="can-click" style="visibility:hidden; display:none;"></button>
       </form>
     </div>
-  </div>
-  <div class="col-lg-4 col-md-4 full-height">
     <button class="btn opaque can-click" ng-click="overlay.radarSearch('restaurant')">Restaurants</button>
     <button class="btn opaque can-click" ng-click="overlay.radarSearch('lodging')">Hotels</button>
     <button class="btn opaque can-click" ng-click="overlay.radarSearch('laundry')">Tourist Attractions</button>
