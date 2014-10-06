@@ -55,6 +55,7 @@ angular.module('tripPlannerApp')
     this.radarSearch = function(type) {
       if(!search.radarSearchMarkers[type][0]) {
         ngGPlacesAPI.radarSearch({
+            // populate location based on survey
             'location': new google.maps.LatLng(37.775, -122.419),
             'radius':5000,
             'keyword':type})

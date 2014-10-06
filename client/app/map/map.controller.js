@@ -46,7 +46,7 @@ angular.module('tripPlannerApp')
 
 
     var currentTrip = planData.getCurrentTrip();
-  	$scope.map = {
+  	this.map = {
   	  center: {
   	      latitude: currentTrip.location.latitude,
   	      longitude: currentTrip.location.longitude
@@ -153,13 +153,27 @@ angular.module('tripPlannerApp')
         }
   	};
 
+    this.markersEvents = {
+      click: function (gMarker, eventName, model) {
+        if(model.$id) {
+          model = model.coords;
+        }
+      // console.log(model.place_id);
+      $scope.getDetails(model.place_id);
+      }
+    }
+
   	this.showMap = function() {
   		return planData.getMapStatus();
   	};
 
+    $scope.getDetails = function(place_id) {
+      // console.log('called getDetails', place_id);
+      search.getDetails(place_id);
+    }
+
     $rootScope.$on('radarResults', function(event, key) {
-      console.log("key", key);
       $scope.map.markers = search.getMarkers(key);
-      console.log($scope.map.markers);
+      console.log('Marker data: ', $scope.map.markers);
     });
   });
