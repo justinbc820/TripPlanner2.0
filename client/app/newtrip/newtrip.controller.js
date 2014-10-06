@@ -5,6 +5,12 @@ angular.module('tripPlannerApp')
 
     this.questionnaire = {};
     this.historyNodes = [];
+    this.autocomplete = {
+      options: {
+        types: '(regions)'
+      },
+      details: {}
+    };
 
     this.getFirstNode = function() {
       var self = this;

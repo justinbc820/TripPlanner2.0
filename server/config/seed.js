@@ -108,8 +108,8 @@ Node.find({}).remove(function() {
           if (node1.num > node2.num) return 1;
         };
         nodes = nodes.sort(compare);
-        nodes[0].connect(null, "otherwise", nodes[1]);
-        nodes[1].connect(null, "otherwise", nodes[2]);
+        nodes[0].connect(null, "autocomplete", nodes[1]);
+        nodes[1].connect(null, "date", nodes[2]);
         nodes[2].connect(null, "otherwise", nodes[3]);
         nodes[3].connect(null, "otherwise", nodes[4]);
         nodes[4].connect("Travelling alone", "normal", nodes[7]);
