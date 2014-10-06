@@ -21,9 +21,6 @@
     .aside-body {
         padding:15px 0 0 32px;
     }
-    h4 {
-      letter-spacing: 1.5px;
-    }
 
     &::-webkit-scrollbar {
         display: none;
@@ -39,10 +36,11 @@
             color:#BFBEBE;
             border:none;
             outline:none;
-            h4 {
+            h5 {
                 margin:0 0 0 0;
                 font-family: 'Open Sans',sans-serif;
                 font-weight: bold;
+                letter-spacing: 1.5px;
                 transition: color 300ms ease;
                 &:hover {
                     color:#4995b7;

@@ -10,7 +10,7 @@
 	height:100%;
 }
 
-#plan-wrapper {
+#map-wrapper {
 	padding:0;
 	overflow:hidden;
 	background:gray;
@@ -53,6 +53,16 @@
 	.overlay.divs {
 		height:100%;
 	}
+
+  #day-panel {
+    position: absolute;
+    bottom: 13%;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: red;
+  }
+
 	#toggle-buttons {
 		float:right;
 		margin-top:10px;
@@ -81,13 +91,13 @@
 			   color: white;
 			}
 			&:-moz-placeholder { /* Firefox 18- */
-			   color: white;  
+			   color: white;
 			}
 			&::-moz-placeholder {  /* Firefox 19+ */
-			   color: white;  
+			   color: white;
 			}
-			&:-ms-input-placeholder {  
-			   color: white;  
+			&:-ms-input-placeholder {
+			   color: white;
 			}
 		}
 	}
