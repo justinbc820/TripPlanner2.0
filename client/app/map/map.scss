@@ -106,6 +106,7 @@
 		margin-right:auto;
 		margin-top: 10px;
     	padding-bottom: 2%;
+      max-height:265px;
 		#map-search {
 			color: #828282;
 			outline:none;
@@ -168,13 +169,14 @@
     .dottedline-top {
       width: 95%;
       height: 3%;
+      padding-top:10px;
       margin-left: auto;
       margin-right: auto;
       border-bottom: 2px dashed rgba(188, 190, 193, 0.6);
     }
 
     .placephoto-banner-outer {
-      height: 35%;
+      height: 130px;
       width: 85%;
       padding-top: 3%;
       min-height: 85px;

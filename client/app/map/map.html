@@ -57,18 +57,13 @@
       <!-- Filter dropdowns end here -->
 
       <div id="search-radarbuttons">
-       <!--    <button class="btn opaque can-click" ng-click="overlay.radarSearch('restaurant')">Restaurants</button>
-
-          <button class="btn opaque can-click" ng-click="overlay.radarSearch('lodging')">Hotels</button>
-
-          <button class="btn opaque can-click" ng-click="overlay.radarSearch('laundry')">Tourist Attractions</button> -->
-      <div ng-repeat="icon in overlay.radarIcons" class="can-click radar-icons">
-        <img ng-src="{{icon.route}}" ng-click="overlay.iconRadarSearch([$index])" class="can-click">
-        <div class="can-click"><p>{{icon.text}}</p></div>
+        <div ng-repeat="icon in overlay.radarIcons" class="can-click radar-icons">
+          <img ng-src="{{icon.route}}" ng-click="overlay.iconRadarSearch([$index])" class="can-click">
+          <div class="can-click"><p>{{icon.text}}</p></div>
+        </div>
       </div>
-    </div>
 
-    <div ng-show="currDetails" id="details-panel" class="can-click">
+    <div ng-show="currDetails" id="details-panel" class="can-click" ng-animate=" 'animate '">
       <div class="dottedline-top"></div>
       <div class="placephoto-banner-outer">
         <div class="placephoto-banner" style="background:url('{{currDetails.photoUrl}}')">
