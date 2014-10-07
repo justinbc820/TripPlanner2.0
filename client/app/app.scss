@@ -8,6 +8,10 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -32,8 +36,8 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 }
 
 * {
-	&::-webkit-scrollbar { 
-	    display: none; 
+	&::-webkit-scrollbar {
+	    display: none;
 	}
 
 	 -webkit-font-smoothing: antialiased;
