@@ -65,20 +65,38 @@
       </div>
     </div>
 
-    <div id="details-panel">
-      Name: {{currDetails.name}}
-      <br>
-      Address: {{currDetails.formatted_address}}
-      <br>
-
-      <div style="width:250px; height: 50px; float:right;">
-        Rating:
-        <span style="width: 100%; height:100%; z-index: 1; position:relative;"> <img src="../../assets/images/icons/stars.png"></span>
-        <span id="star-filling" style="width: 65%; height: 100%; background-color: #f7931d; z-index: 0; position:relative; top:-50px; left: 50px; display:block;"></span>
+    <div ng-show="currDetails" id="details-panel" class="can-click">
+      <div class="dottedline-top"></div>
+      <div class="placephoto-banner-outer">
+        <div class="placephoto-banner" style="background:url('{{currDetails.photoUrl}}')">
+          <div class="placephoto-banner-overlay">
+            <h3>{{currDetails.name}}</h3>
+          </div>
+        </div>
       </div>
+
+      <ul>
+        <li>
+          <b>Rating:</b>
+          <span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+          </span>
+        </li>
+        <li><b>Website:</b> <a ng-href="{{currDetails.website}}">{{currDetails.website}}</a></li>
+        <li><b>Telephone:</b>{{currDetails.international_phone_number}}</li>
+        <li><b>Address:</b> {{currDetails.formatted_address}}</li>
+      </ul>
     </div>
 
-
+<!--             <div style="width:250px; height: 50px; float:left;">
+              <b>Rating:</b>
+              <span style="width: 100%; height:100%; z-index: 1; position:relative;"> <img src="../../assets/images/icons/stars.png"></span>
+              <span id="star-filling" style="width: 65%; height: 100%; background-color: #f7931d; z-index: 0; position:relative; top:-50px; left: 50px; display:block;"></span>
+            </div> -->
 
     <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults().length > 1">
       <div class="results-place" ng-repeat="place in overlay.getSearchResults()">

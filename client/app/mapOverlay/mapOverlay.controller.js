@@ -14,6 +14,7 @@ angular.module('tripPlannerApp')
     .getBounds();
 
     this.details = {};
+    $scope.currDetails = false;
 
     this.toggleView = function(view) {
         this.initialButtonState = false;
@@ -85,7 +86,9 @@ angular.module('tripPlannerApp')
 
     $rootScope.$on('detailsReturned', function(event, placeId) {
       $scope.currDetails = search.getReturnedDetails(placeId);
-      console.log("currDetails", $scope.currDetails)
+      var width= $scope.currDetails.photos[0].width;
+      var height= $scope.currDetails.photos[0].height;
+      $scope.currDetails.photoUrl = $scope.currDetails.photos[0].getUrl({'maxWidth':width, 'maxHeight': height});
     });
 
   });
