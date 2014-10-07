@@ -79,7 +79,6 @@
     text-align: center;
     margin-top: 5%;
     padding-bottom: 5%;
-    border-bottom: 2px dashed rgba(188, 190, 193, 0.6);
 
     #pricefilter {
       margin-right: 4%;
@@ -107,6 +106,7 @@
 		margin-top: 10px;
     	padding-bottom: 2%;
       max-height:265px;
+      background-color: rgba(45, 51, 58, 0.9);
 		#map-search {
 			color: #828282;
 			outline:none;
@@ -134,7 +134,6 @@
 	    #search-radarbuttons {
 	      // text-align: center;
 	      padding-bottom: 6%;
-	      border-bottom: 2px dashed rgba(188, 190, 193, 0.6);
 	      height:95px;
 	      margin-top:10px;
 	      padding:0;
@@ -160,11 +159,29 @@
 	    }
 	}
 
+    .separator {
+      width: 90%;
+      height: 1%;
+      margin-left: auto;
+      margin-right: auto;
+      border-top: 1px solid rgba(188, 190, 193, 0.6);;
+    }
+
+    .dottedline-bottom {
+      width: 95%;
+      height: 3%;
+      padding-bottom:10px;
+      margin-left: auto;
+      margin-right: auto;
+      border-top: 2px dashed rgba(188, 190, 193, 0.6);
+    }
+
   #details-panel {
     height: 50%;
-    margin-top: 5%;
-    background-color: rgba(108, 122, 136, 1.0);
+    margin-top: 8%;
+    background-color: rgba(45, 51, 58, 0.9);
     font-family: 'Open Sans', sans-serif;
+    color: whitesmoke;
 
     .dottedline-top {
       width: 95%;
@@ -175,14 +192,14 @@
       border-bottom: 2px dashed rgba(188, 190, 193, 0.6);
     }
 
+
     .placephoto-banner-outer {
       height: 130px;
       width: 85%;
-      padding-top: 3%;
       min-height: 85px;
       margin-left: auto;
       margin-right: auto;
-      margin-bottom: 5%;
+      margin-bottom: 8%;
     }
 
     .placephoto-banner {
@@ -193,7 +210,7 @@
     .placephoto-banner-overlay {
       width: 100%;
       height: 100%;
-      background-color: rgba(253, 187, 83, 0.7);
+      background-color: rgba(253, 158, 83, 0.8);
       font-family: 'Josefin Slab', serif;
       font-weight: bold;
       color: #482312;
@@ -201,6 +218,26 @@
 
     .glyphicon-star {
       color: #ff9f57;
+    }
+
+    h3 {
+      padding-top: 8%;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1.6em;
+      text-align: center;
+    }
+
+    h5 {
+      font-family: 'Open Sans', sans-serif;
+      color: rgba(45, 51, 58,1);
+      padding-top: 0;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 0.95em;
+      text-align: center;
     }
 
     ul {
@@ -237,4 +274,20 @@
 
 .glyphicon-plus {
   color: white;
+}
+
+.button-wrapper {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5%;
+  text-align: center;
+    #add-to-trip {
+        color: #000000;
+        font-weight: 1.2em;
+        font-family: 'Open Sans', sans-serif;
+        border: 3px solid #231F20;
+        background-color: whitesmoke;
+        padding: 10px;
+    }
 }
