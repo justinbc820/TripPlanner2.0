@@ -32,12 +32,14 @@ angular.module('tripPlannerApp')
       getDetails: function(place_id) {
         console.log(place_id)
         ngGPlacesAPI.placeDetails({placeId: place_id}).then(function (data) {
-          console.log('hello');
           console.log('details data: ', data);
-          console.log('details object:', details);
+          // console.log('details object:', details);
           details[place_id] = data;
-          return data;
+          $rootScope.$broadcast('detailsReturned', place_id);
         });
+      },
+      getReturnedDetails: function(place_id) {
+        return details[place_id];
       },
       radarSearchMarkers:radarSearchMarkers
     };

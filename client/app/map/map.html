@@ -13,10 +13,10 @@
 
 <div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click" style="margin-top:100px;">
   <div class="col-lg-4 col-md-4" class="clearfix can-click full-height">
-    <div id="toggle-buttons" class="can-click">
+    <!-- <div id="toggle-buttons" class="can-click">
       <button ng-click="overlay.toggleView('map')" ng-show="overlay.showCalendar()" ng-hide="overlay.initialButtonState" class="opaque toggle-button btn">map</button>
       <button ng-click="overlay.toggleView('calendar')" ng-show="overlay.showMap()" class="opaque toggle-button btn">calendar</button>
-    </div>
+    </div> -->
   </div>
   <div class="col-lg-5 col-md-5 full-height" style="background-color: 'green'">
     <div id="day-panel">
@@ -24,16 +24,63 @@
     </div>
   </div>
   <div class="col-lg-3 col-md-3 full-height">
+
     <div class="opaque" id="search-container">
-      <form ng-submit="overlay.placesSearch(overlay.autocomplete)">
-        <input type="text" ng-model="overlay.autocomplete" ng-autocomplete options="overlay.searchFieldOptions" details="overlay.details.details" id="map-search" placeholder="search" class="can-click" >
-        <button type="submit" class="can-click" style="visibility:hidden; display:none;"></button>
-      </form>
+
+      <div id="search-input">
+          <form ng-submit="overlay.placesSearch(overlay.autocomplete)">
+            <input type="text" ng-model="overlay.autocomplete" ng-autocomplete options="overlay.searchFieldOptions" details="overlay.details.details" id="map-search" placeholder="search" class="can-click" >
+            <button type="submit" class="can-click" style="visibility:hidden; display:none;"></button>
+          </form>
+      </div>
+
+      <!-- Filter dropdowns start here-->
+
+      <div id="search-dropdowns">
+          <select class="can-click" id="pricefilter">
+            <option value="" disabled selected>filter by price <img src="../../assets/images/icons/arrow-down.png" style="width:15px; height:15px; margin-left: 3px"></option>
+            <option value="1">$</option>
+            <option value="2">$$</option>
+            <option value="3">$$$</option>
+            <option value="4">$$$$</option>
+          </select>
+
+          <select class="can-click" id="distancefilter">
+            <option value="" disabled selected>filter by distance</option>
+            <option value="1">0.5 miles</option>
+            <option value="2">Within 2 miles</option>
+            <option value="3">Within 5 miles</option>
+            <option value="4">Anywhere</option>
+          </select>
+      </div>
+
+      <!-- Filter dropdowns end here -->
+
+      <div id="search-radarbuttons">
+          <button class="btn opaque can-click" ng-click="overlay.radarSearch('restaurant')">Restaurants</button>
+
+          <button class="btn opaque can-click" ng-click="overlay.radarSearch('lodging')">Hotels</button>
+
+          <button class="btn opaque can-click" ng-click="overlay.radarSearch('laundry')">Tourist Attractions</button>
+      </div>
     </div>
-    <button class="btn opaque can-click" ng-click="overlay.radarSearch('restaurant')">Restaurants</button>
-    <button class="btn opaque can-click" ng-click="overlay.radarSearch('lodging')">Hotels</button>
-    <button class="btn opaque can-click" ng-click="overlay.radarSearch('laundry')">Tourist Attractions</button>
-    <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults()">
+
+    <div id="details-panel">
+      Name: {{currDetails.name}}
+      <br>
+      Address: {{currDetails.formatted_address}}
+      <br>
+
+      <div style="width:250px; height: 50px; float:right;">
+        Rating:
+        <span style="width: 100%; height:100%; z-index: 1; position:relative;"> <img src="../../assets/images/icons/stars.png"></span>
+        <span id="star-filling" style="width: 65%; height: 100%; background-color: #f7931d; z-index: 0; position:relative; top:-50px; left: 50px; display:block;"></span>
+      </div>
+    </div>
+
+
+
+    <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults().length > 1">
       <div class="results-place" ng-repeat="place in overlay.getSearchResults()">
         <p>{{place.name}}</p>
         <small><small><p>rating: {{place.rating}}</p></small><small>

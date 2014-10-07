@@ -16,7 +16,7 @@ angular.module('tripPlannerApp')
 
     var trip = {};
 
-    var currentSearch = {};
+    var currentSearch = {searchResults:[]};
 
     // Public API here
     return {
@@ -63,6 +63,7 @@ angular.module('tripPlannerApp')
       },
 
       setSearchResults: function(data) {
+        currentSearch.searchResults.length=0;
         currentSearch.searchResults = data;
         console.log(currentSearch.searchResults);
       },

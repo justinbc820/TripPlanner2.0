@@ -34,10 +34,10 @@ angular.module('tripPlannerApp')
     	*/
     	var checkForDetails = $interval(function() {
     		if(self.details.details !== undefined) {
-				$interval.cancel(checkForDetails);
-                planData.setSearchResults(self.details.details);
-				self.details.details = undefined;
-				alreadyDetails = true;
+  				$interval.cancel(checkForDetails);
+          planData.setSearchResults(self.details.details);
+  				self.details.details = undefined;
+  				alreadyDetails = true;
     		}
     	}, 50, 10);
 
@@ -83,6 +83,9 @@ angular.module('tripPlannerApp')
         return planData.getSearchResults();
     }
 
-
+    $rootScope.$on('detailsReturned', function(event, placeId) {
+      $scope.currDetails = search.getReturnedDetails(placeId);
+      console.log("currDetails", $scope.currDetails)
+    });
 
   });
