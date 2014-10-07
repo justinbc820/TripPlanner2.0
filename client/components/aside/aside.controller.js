@@ -19,7 +19,7 @@ angular.module('tripPlannerApp')
   		},
   		map: {
   			'text': 'EXPLORE',
-  			'link': '/plan',
+  			'link': '/map',
         'icon': '../../assets/images/icons/compass.png'
   		},
       friends: {

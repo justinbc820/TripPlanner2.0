@@ -13,7 +13,8 @@ angular.module('tripPlannerApp', [
   'ngGPlaces',
   'ngAutocomplete',
   'ngDialog',
-  'mgcrea.ngStrap'
+  'mgcrea.ngStrap',
+  'ngBootstrap'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

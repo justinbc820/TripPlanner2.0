@@ -21,15 +21,19 @@ Node.find({}).remove(function() {
     question: 'When do you want to go?',
     connections: []
   }, {
+    // IGNORE THIS NODE.  START AND END DATES ARE ADDED IN NODE 2
     num: 3,
     name: 'duration',
     question: 'How long are you planning to go for?',
     connections: []
+    // END IGNORE NODE
   }, {
+    // IGNORE THIS NODE.
     num: 4,
     name: 'tripType',
     question: 'What are you going on this trip for?',
     connections: []
+    // END IGNORE NODE
   }, {
     num: 5,
     name: 'travellingWithWho',
@@ -109,15 +113,19 @@ Node.find({}).remove(function() {
         };
         nodes = nodes.sort(compare);
         nodes[0].connect(null, "autocomplete", nodes[1]);
-        nodes[1].connect(null, "date", nodes[2]);
-        nodes[2].connect(null, "otherwise", nodes[3]);
-        nodes[3].connect(null, "otherwise", nodes[4]);
+        nodes[1].connect(null, "date", nodes[4]);
+        // This node was removed to put start and end dates
+        // on the same page
+        // nodes[2].connect(null, "otherwise", nodes[3]);
+
+        // IGNORE THIS NODE
+        // nodes[3].connect(null, "otherwise", nodes[4]);
         nodes[4].connect("Travelling alone", "normal", nodes[7]);
         nodes[4].connect("With friends", "normal", nodes[5]);
         nodes[5].connect(null, "otherwise", nodes[6]);
         nodes[6].connect("The cost will be shared", "normal", nodes[8]);
         nodes[6].connect("One person will be paying", "normal", nodes[9]);
-        nodes[7].connect(null, "otherwise", nodes[13]);
+        nodes[7].connect(null, "money", nodes[13]);
         nodes[8].connect(null, "otherwise", nodes[10]);
         nodes[9].connect(null, "otherwise", nodes[10]);
         nodes[10].connect("Yes", "normal", nodes[11]);

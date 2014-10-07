@@ -19,14 +19,13 @@ angular.module('tripPlannerApp')
           // Account created, redirect to home
           $http.get('/api/users/me').success(function(data) {
             var userId = data._id;
-            console.log(data);
             var tripId=planData.getTrip();
+            debugger;
             $http.put('/api/users/'+userId, {id: tripId}).success(function(data) {
               planData.setInitialTrip(data);
 
               $http.put('/api/trips/'+tripId, {travelerId: userId}).success(function(data) {
-                console.log("saved travelerId:", data);
-                $location.path('/plan');
+                $location.path('/map');
               });
             });
           });
@@ -46,6 +45,4 @@ angular.module('tripPlannerApp')
     $scope.loginOauth = function(provider) {
       $window.location.href = '/auth/' + provider;
     };
-
-
   });

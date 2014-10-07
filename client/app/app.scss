@@ -35,6 +35,9 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 	&::-webkit-scrollbar { 
 	    display: none; 
 	}
+
+	 -webkit-font-smoothing: antialiased;
+
 }
 
 // Component styles are injected through grunt

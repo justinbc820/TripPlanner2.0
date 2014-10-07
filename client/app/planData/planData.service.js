@@ -43,10 +43,8 @@ angular.module('tripPlannerApp')
         return currentTrip;
       },
 
-
       setTrip: function(id) {
         trip.tripId = id;
-        console.log(trip.tripId);
       },
 
       getTrip: function() {
@@ -55,7 +53,6 @@ angular.module('tripPlannerApp')
 
       setInitialTrip: function(trip) {
         trip.initialTrip = trip;
-        console.log("initial trip set", trip.initialTrip);
       },
 
       getInitialTrip: function() {
@@ -64,7 +61,6 @@ angular.module('tripPlannerApp')
 
       setSearchResults: function(data) {
         currentSearch.searchResults = data;
-        console.log(currentSearch.searchResults);
       },
 
       getSearchResults: function() {
