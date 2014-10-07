@@ -14,12 +14,18 @@
       </button>
 
       <div ng-show="connection.option == null">
-        <input ng-model="newtrip.currNode.answer">
+        <input ng-show="connection.type === 'autocomplete'" ng-autocomplete ng-model="setupTrip.autocomplete" options="newtrip.setupTrip.options" details="newtrip.setupTrip.details">
+        <input ng-show="connection.type === 'otherwise'" ng-model="newtrip.currNode.answer" placeholder="otherwise">
+        <input type="daterange" ng-show="connection.type === 'date'" ng-model="setupTrip.daterange" format="MMM DD,YYYY">
+        <input ng-show="connection.type === 'money'" ng-model="newtrip.currNode.answer" placeholder="money">
         <button ng-click="newtrip.getNext(connection.next, newtrip.currNode.answer)">CONTINUE</button>
       </div>
+
     </div>
+
     <button ng-click="newtrip.done(newtrip.questionnaire)" ng-show="newtrip.currNode.num==18">OK, LET'S GO!</button>
     <br>
+
     <div>
       <button ng-hide="newtrip.currNode.num == 1" ng-click="newtrip.getPrev()">GO BACK</button>
     </div>

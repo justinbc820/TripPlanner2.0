@@ -7,6 +7,7 @@
 
 var User = require('../api/user/user.model');
 var Node = require('../api/node/node.model');
+var Trip = require('../api/trip/trip.model');
 
 Node.find({}).remove(function() {
   Node.create({
@@ -20,15 +21,19 @@ Node.find({}).remove(function() {
     question: 'When do you want to go?',
     connections: []
   }, {
+    // IGNORE THIS NODE.  START AND END DATES ARE ADDED IN NODE 2
     num: 3,
     name: 'duration',
     question: 'How long are you planning to go for?',
     connections: []
+    // END IGNORE NODE
   }, {
+    // IGNORE THIS NODE.
     num: 4,
     name: 'tripType',
     question: 'What are you going on this trip for?',
     connections: []
+    // END IGNORE NODE
   }, {
     num: 5,
     name: 'travellingWithWho',
@@ -107,16 +112,20 @@ Node.find({}).remove(function() {
           if (node1.num > node2.num) return 1;
         };
         nodes = nodes.sort(compare);
-        nodes[0].connect(null, "otherwise", nodes[1]);
-        nodes[1].connect(null, "otherwise", nodes[2]);
-        nodes[2].connect(null, "otherwise", nodes[3]);
-        nodes[3].connect(null, "otherwise", nodes[4]);
+        nodes[0].connect(null, "autocomplete", nodes[1]);
+        nodes[1].connect(null, "date", nodes[4]);
+        // This node was removed to put start and end dates
+        // on the same page
+        // nodes[2].connect(null, "otherwise", nodes[3]);
+
+        // IGNORE THIS NODE
+        // nodes[3].connect(null, "otherwise", nodes[4]);
         nodes[4].connect("Travelling alone", "normal", nodes[7]);
         nodes[4].connect("With friends", "normal", nodes[5]);
         nodes[5].connect(null, "otherwise", nodes[6]);
         nodes[6].connect("The cost will be shared", "normal", nodes[8]);
         nodes[6].connect("One person will be paying", "normal", nodes[9]);
-        nodes[7].connect(null, "otherwise", nodes[13]);
+        nodes[7].connect(null, "money", nodes[13]);
         nodes[8].connect(null, "otherwise", nodes[10]);
         nodes[9].connect(null, "otherwise", nodes[10]);
         nodes[10].connect("Yes", "normal", nodes[11]);
@@ -134,8 +143,72 @@ Node.find({}).remove(function() {
   });
 });
 
+// Trip.find({}).remove(function() {
+//   Trip.create({
+//     name: "Paris 2014",
+//     days: [{
+//       date: 'Mon Jan 02 2012 00:00:00 GMT+0100 (CET)',
+//       activities: [{
+//         name: "Uva Enoteca",
+//         location: {
+//           address: "568 Haight St, San Francisco, CA 94117, United States",
+//           coords: {
+//             latitude: 37.772125,
+//             longitude: -122.43161199999997
+//           }
+//         },
+//         description: "bar",
+//         time: 'Mon Jan 02 2012 00:10:00 GMT+0100 (CET)',
+//         cost: 2
+//       }]
+//     }],
+//     budget: 3000
+//   }, {
+//     name: "Brussels 2014",
+//     days: [{
+//       date: 'Mon Jan 02 2012 00:00:00 GMT+0100 (CET)',
+//       activities: [{
+//         name: "Uva Enoteca",
+//         location: {
+//           address: "568 Haight St, San Francisco, CA 94117, United States",
+//           coords: {
+//             latitude: 37.772125,
+//             longitude: -122.43161199999997
+//           }
+//         },
+//         description: "bar",
+//         time: 'Mon Jan 02 2012 00:10:00 GMT+0100 (CET)',
+//         cost: 2
+//       }]
+//     }],
+//     budget: 3000
+//   }, {
+//     name: "London 2014",
+//     days: [{
+//       date: 'Mon Jan 02 2012 00:00:00 GMT+0100 (CET)',
+//       activities: [{
+//         name: "Uva Enoteca",
+//         location: {
+//           address: "568 Haight St, San Francisco, CA 94117, United States",
+//           coords: {
+//             latitude: 37.772125,
+//             longitude: -122.43161199999997
+//           }
+//         },
+//         description: "bar",
+//         time: 'Mon Jan 02 2012 00:10:00 GMT+0100 (CET)',
+//         cost: 2
+//       }]
+//     }],
+//     budget: 3000
+//   })
+// });
 
+var testTrip = {name: "London 2014", days: [{date: 'Mon Jan 02 2012 00:00:00 GMT+0100 (CET)', activities: [{name: "Uva Enoteca", location: {address: "568 Haight St, San Francisco, CA 94117, United States", coords: {latitude: 37.772125, longitude: -122.43161199999997 } }, description: "bar", time: 'Mon Jan 02 2012 00:10:00 GMT+0100 (CET)', cost: 2 }] }], budget: 3000 }
 
+var testTrip2 = {name: "Spain 2014", days: [{date: 'Mon Jan 02 2012 00:00:00 GMT+0100 (CET)', activities: [{name: "Uva Enoteca", location: {address: "568 Haight St, San Francisco, CA 94117, United States", coords: {latitude: 37.772125, longitude: -122.43161199999997 } }, description: "bar", time: 'Mon Jan 02 2012 00:10:00 GMT+0100 (CET)', cost: 2 }] }], budget: 3000 }
+
+var testTrip3 = {name: "France 2014", days: [{date: 'Mon Jan 02 2012 00:00:00 GMT+0100 (CET)', activities: [{name: "Uva Enoteca", location: {address: "568 Haight St, San Francisco, CA 94117, United States", coords: {latitude: 37.772125, longitude: -122.43161199999997 } }, description: "bar", time: 'Mon Jan 02 2012 00:10:00 GMT+0100 (CET)', cost: 2 }] }], budget: 3000 };
 
 User.find({}).remove(function() {
   User.create({
@@ -150,6 +223,14 @@ User.find({}).remove(function() {
     email: 'admin@admin.com',
     password: 'admin'
   }, function() {
+      User.find({}, function(err, data) {
+        var users = data;
+        users[0].trips.push(testTrip);
+        users[0].trips.push(testTrip2);
+        users[0].trips.push(testTrip3);
+        console.log(users[0].trips);
+        users[0].save();
+      })
       console.log('finished populating users');
     }
   );
