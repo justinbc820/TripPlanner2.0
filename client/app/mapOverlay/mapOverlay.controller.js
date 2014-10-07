@@ -99,6 +99,8 @@ angular.module('tripPlannerApp')
           }
       };
 
+      this.end = {};
+
       this.searchFieldOptions = {
           bounds: bounds
       };
@@ -114,6 +116,17 @@ angular.module('tripPlannerApp')
       this.getSearchResults = function() {
           return planData.getSearchResults();
       }
+
+      this.addToTrip = function(details, end) {
+        console.log(details);
+        console.log(end);
+      };
+
+      $scope.$watch('start', function(newVal, oldVal) {
+        if(newVal) {
+          console.log($scope.start);
+        }
+      })
 
       $rootScope.$on('detailsReturned', function(event, placeId) {
           $scope.currDetails = search.getReturnedDetails(placeId);

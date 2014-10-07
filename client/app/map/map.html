@@ -63,7 +63,7 @@
         </div>
       </div>
 
-    <div ng-show="currDetails" id="details-panel" class="can-click" ng-animate=" 'animate '">
+    <div ng-show="currDetails" id="details-panel" class="can-click">
       <div class="dottedline-top"></div>
       <div class="placephoto-banner-outer">
         <div class="placephoto-banner" style="background:url('{{currDetails.photoUrl}}')">
@@ -72,6 +72,8 @@
           </div>
         </div>
       </div>
+      <button ng-click="overlay.addToTrip(currDetails, start)" date-time ng-model="start">Add</button>
+      <input type="datetime" date-time ng-model="start" max-view="hours">
 
       <ul>
         <li>

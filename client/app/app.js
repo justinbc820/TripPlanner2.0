@@ -14,7 +14,8 @@ angular.module('tripPlannerApp', [
   'ngAutocomplete',
   'ngDialog',
   'mgcrea.ngStrap',
-  'ngBootstrap'
+  'ngBootstrap',
+  'datePicker'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

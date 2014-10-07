@@ -23,7 +23,8 @@
     "ngDialog": "~0.3.0",
     "angular-strap": "~2.1.1",
     "animate-css": "~3.2.0",
-    "ng-bs-daterangepicker": "~0.0.3"
+    "ng-bs-daterangepicker": "~0.0.3",
+    "angular-datepicker": "https://github.com/g00fy-/angular-datepicker.git#master"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
