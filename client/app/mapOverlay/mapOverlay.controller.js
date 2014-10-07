@@ -2,25 +2,56 @@
 
 angular.module('tripPlannerApp')
   .controller('MapOverlayCtrl', function ($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search) {
+    // currentTrip will contain high-level data about the trip, especially the 
+    // location and duration of the trip
+    var currentTrip = planData.getCurrentTrip();
+
   	// Sets the autocomplete box to search a location with a radius of meters
-  	var currentTrip = planData.getCurrentTrip();
     var bounds = new google.maps.Circle({
     	center: new google.maps.LatLng(
     		currentTrip.location.latitude,
     		currentTrip.location.longitude
     		),
-    	// radius: 2000
-    })
-    .getBounds();
-
-    this.details = {};
+    	radius: 5000
+    }).getBounds();
 
     this.toggleView = function(view) {
         this.initialButtonState = false;
     	planData.toggleView(view);
     };
 
+    this.radarIcons = [
+      {
+        route:'../../assets/images/icons/eiffel.png',
+        details:'tourist',
+        text: 'Attractions'
+      },
+      {
+        route:'../../assets/images/icons/bed.png',
+        details:'lodging',
+        text: 'Lodging'
+      },
+      {
+        route:'../../assets/images/icons/chef-hat.png',
+        details:'restaurant',
+        text: 'Food'
+      },
+      {
+        route:'../../assets/images/icons/wave.png',
+        details:'amusement',
+        text: 'Fun'
+      },
+    ];
+
+    this.iconRadarSearch = function(index) {
+      var self = this;
+      var searchType = self.radarIcons[index].details;
+      self.radarSearch(searchType);
+    }
+
     this.initialButtonState = true;
+
+    this.details = {};
 
     this.placesSearch = function(autocomplete) {
     	var self = this;
@@ -41,14 +72,14 @@ angular.module('tripPlannerApp')
     		}
     	}, 50, 10);
 
-		$timeout(function() {
-			if(!alreadyDetails) {
-				ngGPlacesAPI.textSearch({'query':autocomplete})
-					.then(function(data) {
-						planData.setSearchResults(data);
-					});
-			}
-		},500);
+  		$timeout(function() {
+  			if(!alreadyDetails) {
+  				ngGPlacesAPI.textSearch({'query':autocomplete})
+  					.then(function(data) {
+  						planData.setSearchResults(data);
+  					});
+  			}
+  		},500);
 
     };
 
@@ -85,7 +116,6 @@ angular.module('tripPlannerApp')
 
     $rootScope.$on('detailsReturned', function(event, placeId) {
       $scope.currDetails = search.getReturnedDetails(placeId);
-      console.log("currDetails", $scope.currDetails)
     });
 
   });
