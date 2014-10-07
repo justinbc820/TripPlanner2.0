@@ -78,8 +78,6 @@
           </div>
         </div>
       </div>
-      <button ng-click="overlay.addToTrip(currDetails, start)" date-time ng-model="start">Add</button>
-      <input type="datetime" date-time ng-model="start" max-view="hours">
 
       <div class="separator"></div>
 
@@ -98,15 +96,12 @@
         <li><b>Telephone:</b>{{currDetails.international_phone_number}}</li>
       </ul>
 
-      <div class="button-wrapper"><button id="add-to-trip">ADD TO TRIP</button></div>
+      <!-- <div class="button-wrapper" ng-click="overlay.addToTrip(currDetails)" date-time max-view="hours" ng-model="start">
+        <button id="add-to-trip">ADD TO TRIP</button>
+      </div> -->
+      <div date-picker="start" min-view="date"></div>
       <div class="dottedline-bottom"></div>
     </div>
-
-<!--             <div style="width:250px; height: 50px; float:left;">
-              <b>Rating:</b>
-              <span style="width: 100%; height:100%; z-index: 1; position:relative;"> <img src="../../assets/images/icons/stars.png"></span>
-              <span id="star-filling" style="width: 65%; height: 100%; background-color: #f7931d; z-index: 0; position:relative; top:-50px; left: 50px; display:block;"></span>
-            </div> -->
 
     <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults().length > 1">
       <div class="results-place" ng-repeat="place in overlay.getSearchResults()">

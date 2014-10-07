@@ -117,9 +117,8 @@ angular.module('tripPlannerApp')
           return planData.getSearchResults();
       }
 
-      this.addToTrip = function(details, end) {
+      this.addToTrip = function(details) {
         console.log(details);
-        console.log(end);
       };
 
       $scope.$watch('start', function(newVal, oldVal) {
