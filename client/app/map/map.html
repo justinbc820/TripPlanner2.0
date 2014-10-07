@@ -13,10 +13,6 @@
 
 <div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click" style="margin-top:100px;">
   <div class="col-lg-4 col-md-4" class="clearfix full-height">
-    <!-- <div id="toggle-buttons" class="can-click">
-      <button ng-click="overlay.toggleView('map')" ng-show="overlay.showCalendar()" ng-hide="overlay.initialButtonState" class="opaque toggle-button btn">map</button>
-      <button ng-click="overlay.toggleView('calendar')" ng-show="overlay.showMap()" class="opaque toggle-button btn">calendar</button>
-    </div> -->
   </div>
   <div class="col-lg-5 col-md-5 full-height" style="background-color: 'green'">
     <div id="day-panel">
@@ -68,7 +64,7 @@
 
         <div class="dottedline-bottom"></div>
 
-    <div ng-show="currDetails" id="details-panel" class="can-click">
+    <div ng-show="currDetails" id="details-panel" class="can-click clearfix">
       <div class="dottedline-top"></div>
       <div class="placephoto-banner-outer">
         <div class="placephoto-banner" style="background:url('{{currDetails.photoUrl}}')">
@@ -96,10 +92,11 @@
         <li><b>Telephone:</b>{{currDetails.international_phone_number}}</li>
       </ul>
 
-      <!-- <div class="button-wrapper" ng-click="overlay.addToTrip(currDetails)" date-time max-view="hours" ng-model="start">
-        <button id="add-to-trip">ADD TO TRIP</button>
+      <!-- <div class="button-wrapper">
+        <button id="add-to-trip" date-time max-view="date" min-view="hours" ng-model="start" ng-click="overlay.addToTrip(currDetails)">ADD TO TRIP</button>
       </div> -->
-      <div date-picker="start" min-view="date"></div>
+      <button id="add-to-trip" ng-click="overlay.addToTrip(currDetails)">ADD TO TRIP</button>
+      <!-- <div ng-show="overlay.calendarShowing" date-picker="start" max-view="date" min-view="hours" id="add-calendar"></div> -->
       <div class="dottedline-bottom"></div>
     </div>
 

@@ -1,8 +1,14 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('DashboardCtrl', function ($scope, Auth) {
+  .controller('DashboardCtrl', function ($scope, Auth, $http, planData, $location) {
     this.getCurrentUser = Auth.getCurrentUser;
     this.userData = this.getCurrentUser();
-    console.log('User data', this.userData);
+
+    $scope.createTrip = function() {
+    	$http.post('/api/trips/').success(function(trip) {
+    		planData.setCurrentTrip(trip);
+    		$location.path('/map');
+    	});
+    };
   });

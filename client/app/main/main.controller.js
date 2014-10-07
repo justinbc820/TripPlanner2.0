@@ -23,7 +23,6 @@ angular.module('tripPlannerApp')
       self.currNode.answer = answer;
       self.historyNodes.push(self.currNode);
 
-      // console.log(self.historyNodes);
       $http.get('/api/nodes/'+ nextId).success(function(data) {
           self.currNode = data;
       });

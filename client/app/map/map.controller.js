@@ -118,11 +118,9 @@ angular.module('tripPlannerApp')
       //'click' property here is the 'onClicked' under the click tag in the markers directive in map.html
 
       click: function (gMarker, eventName, model) {
-        console.log(gMarker);
         if(model.$id) {
           model = model.coords;
         }
-        // console.log(model.place_id);
         search.getDetails(model.place_id);
       }
     }
@@ -131,14 +129,7 @@ angular.module('tripPlannerApp')
   		return planData.getMapStatus();
   	};
 
-    // $scope.getDetails = function(place_id) {
-    //   // console.log('called getDetails', place_id);
-    //   search.getDetails(place_id);
-    // }
-
     $rootScope.$on('radarResults', function(event, key) {
-      console.log("$scope.map", $scope.map);
       $scope.markers = search.getMarkers(key);
-      console.log('Marker data: ', $scope.markers);
     });
   });

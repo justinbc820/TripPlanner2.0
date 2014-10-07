@@ -27,7 +27,6 @@ angular.module('tripPlannerApp')
       self.currNode.answer = answer;
       self.historyNodes.push(self.currNode);
 
-      // console.log(self.historyNodes);
       $http.get('/api/nodes/'+ nextId).success(function(data) {
           self.currNode = data;
       });
@@ -46,7 +45,6 @@ angular.module('tripPlannerApp')
       var self = this;
       self.questionnaire.location = $scope.setupTrip.autocomplete;
       self.questionnaire.date = $scope.setupTrip.daterange;
-      console.log(this.questionnaire);
       $http.post('/api/trips', {questionnaire: this.questionnaire})
         .success(function(trip) {
           planData.setTrip(trip._id);

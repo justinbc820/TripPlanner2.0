@@ -18,14 +18,9 @@ angular.module('tripPlannerApp')
       this.details = {};
       $scope.currDetails = false;
 
-      this.toggleView = function(view) {
-          this.initialButtonState = false;
-          planData.toggleView(view);
-      };
-
       this.radarIcons = [{
           route: '../../assets/images/icons/eiffel.png',
-          details: 'tourist',
+          details: 'monument',
           text: 'see'
       }, {
           route: '../../assets/images/icons/bed.png',
@@ -46,8 +41,6 @@ angular.module('tripPlannerApp')
           var searchType = self.radarIcons[index].details;
           self.radarSearch(searchType);
       }
-
-      this.initialButtonState = true;
 
       this.details = {};
 
@@ -105,27 +98,13 @@ angular.module('tripPlannerApp')
           bounds: bounds
       };
 
-      this.showCalendar = function() {
-          return planData.getCalendarStatus();
-      };
-
-      this.showMap = function() {
-          return planData.getMapStatus();
-      };
-
       this.getSearchResults = function() {
           return planData.getSearchResults();
-      }
-
-      this.addToTrip = function(details) {
-        console.log(details);
       };
 
-      $scope.$watch('start', function(newVal, oldVal) {
-        if(newVal) {
-          console.log($scope.start);
-        }
-      })
+      this.addToTrip = function(details) {
+        planData.addToTrip(details);
+      };
 
       $rootScope.$on('detailsReturned', function(event, placeId) {
           $scope.currDetails = search.getReturnedDetails(placeId);

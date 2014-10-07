@@ -9,7 +9,8 @@ var TripSchema = new Schema({
   travelers: [{ type: Schema.Types.ObjectId, ref:"User" }],
   invitees: [{ type: Schema.Types.ObjectId, ref:"User" }],
   budget: { type: Number, default: 0},
-  questionnaire: {}
+  questionnaire: {},
+  wishlist: [ActivitySchema]
 });
 
 var DaySchema = new Schema({

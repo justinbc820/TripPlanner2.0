@@ -11,7 +11,8 @@ angular.module('tripPlannerApp')
       laundry: [], 
       playthings: [],
       tourist: [],
-      amusement: []
+      amusement: [],
+      monument:[]
     };
 
     // This object represents the returned values of a details call to Google

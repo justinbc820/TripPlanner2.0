@@ -1,12 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .factory('planData', function () {
-    var mapCalendarViews = {
-      map: true,
-      calendar: true
-    };
-
+  .factory('planData', function ($http) {
     var currentTrip = {
       location: {
         latitude:37.775,
@@ -20,23 +15,12 @@ angular.module('tripPlannerApp')
 
     // Public API here
     return {
-      toggleView: function(view) {
-        if(view == 'map') {
-          mapCalendarViews.map = true;
-          mapCalendarViews.calendar = false;
-        }
-        if(view == 'calendar') {
-          mapCalendarViews.map = false;
-          mapCalendarViews.calendar = true;
-        }
-      },
-
-      getMapStatus: function() {
-        return mapCalendarViews.map;
-      },
-
-      getCalendarStatus: function() {
-        return mapCalendarViews.calendar;
+      setCurrentTrip: function(trip) {
+        currentTrip = trip;
+        currentTrip.location = {
+          latitude:37.775,
+          longitude:-122.419
+        };
       },
 
       getCurrentTrip: function() {
@@ -49,6 +33,25 @@ angular.module('tripPlannerApp')
 
       getTrip: function() {
         return trip.tripId;
+      },
+
+      addToTrip: function(obj) {
+        var tripId = currentTrip._id;
+
+        var name = obj.name;
+        var address = obj.formatted_address;
+        var latitude = obj.geometry.location.k;
+        var longitude = obj.geometry.location.B;
+        var cost = obj.price_level || 9; // 9 means undefined price
+        $http.put('/api/trips/wishlist/' + tripId, {
+          name:name, 
+          address:address,
+          latitude:latitude,
+          longitude:longitude,
+          cost:cost
+        }).success(function(trip) {
+          console.log("new trip from DB ", trip);
+        })
       },
 
       setInitialTrip: function(trip) {
