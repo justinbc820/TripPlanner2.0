@@ -12,7 +12,7 @@
 </div>
 
 <div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click" style="margin-top:100px;">
-  <div class="col-lg-4 col-md-4" class="clearfix can-click full-height">
+  <div class="col-lg-4 col-md-4" class="clearfix full-height">
     <!-- <div id="toggle-buttons" class="can-click">
       <button ng-click="overlay.toggleView('map')" ng-show="overlay.showCalendar()" ng-hide="overlay.initialButtonState" class="opaque toggle-button btn">map</button>
       <button ng-click="overlay.toggleView('calendar')" ng-show="overlay.showMap()" class="opaque toggle-button btn">calendar</button>
@@ -57,28 +57,49 @@
       <!-- Filter dropdowns end here -->
 
       <div id="search-radarbuttons">
-          <button class="btn opaque can-click" ng-click="overlay.radarSearch('restaurant')">Restaurants</button>
+       <!--    <button class="btn opaque can-click" ng-click="overlay.radarSearch('restaurant')">Restaurants</button>
 
           <button class="btn opaque can-click" ng-click="overlay.radarSearch('lodging')">Hotels</button>
 
-          <button class="btn opaque can-click" ng-click="overlay.radarSearch('laundry')">Tourist Attractions</button>
+          <button class="btn opaque can-click" ng-click="overlay.radarSearch('laundry')">Tourist Attractions</button> -->
+      <div ng-repeat="icon in overlay.radarIcons" class="can-click radar-icons">
+        <img ng-src="{{icon.route}}" ng-click="overlay.iconRadarSearch([$index])" class="can-click">
+        <div class="can-click"><p>{{icon.text}}</p></div>
       </div>
     </div>
 
-    <div id="details-panel">
-      Name: {{currDetails.name}}
-      <br>
-      Address: {{currDetails.formatted_address}}
-      <br>
-
-      <div style="width:250px; height: 50px; float:right;">
-        Rating:
-        <span style="width: 100%; height:100%; z-index: 1; position:relative;"> <img src="../../assets/images/icons/stars.png"></span>
-        <span id="star-filling" style="width: 65%; height: 100%; background-color: #f7931d; z-index: 0; position:relative; top:-50px; left: 50px; display:block;"></span>
+    <div ng-show="currDetails" id="details-panel" class="can-click">
+      <div class="dottedline-top"></div>
+      <div class="placephoto-banner-outer">
+        <div class="placephoto-banner" style="background:url('{{currDetails.photoUrl}}')">
+          <div class="placephoto-banner-overlay">
+            <h3>{{currDetails.name}}</h3>
+          </div>
+        </div>
       </div>
+
+      <ul>
+        <li>
+          <b>Rating:</b>
+          <span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+          </span>
+        </li>
+        <li><b>Website:</b> <a ng-href="{{currDetails.website}}">{{currDetails.website}}</a></li>
+        <li><b>Telephone:</b>{{currDetails.international_phone_number}}</li>
+        <li><b>Address:</b> {{currDetails.formatted_address}}</li>
+      </ul>
     </div>
 
-
+<!--             <div style="width:250px; height: 50px; float:left;">
+              <b>Rating:</b>
+              <span style="width: 100%; height:100%; z-index: 1; position:relative;"> <img src="../../assets/images/icons/stars.png"></span>
+              <span id="star-filling" style="width: 65%; height: 100%; background-color: #f7931d; z-index: 0; position:relative; top:-50px; left: 50px; display:block;"></span>
+            </div> -->
 
     <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults().length > 1">
       <div class="results-place" ng-repeat="place in overlay.getSearchResults()">
