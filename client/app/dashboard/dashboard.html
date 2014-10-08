@@ -2,22 +2,19 @@
 
 <div ng-controller="DashboardCtrl as dashboard" class="col-md-12 page-body animated fadeIn">
 
-  <button ng-click="createTrip()">New Trip</button>
+  <button ng-click="dashboard.createTrip()">New Trip</button>
 
 
   <h3>Trips</h3>
     <ul>
-      <div class="well" ng-repeat="trip in dashboard.userData.trips">
-        <ul>
-          <a href="#"><li>{{ trip.name }}</li></a>
-          <!-- redirect to dashboard of trip -->
-        </ul>
-      </div>
+      <li class="well" ng-repeat="trip in userData.trips">
+        <h4 ng-click="dashboard.tripEditView(tripId)" style="cursor:pointer;">Trip {{$index}}</h4>
+      </li>
     </ul>
   <h3>Invitations</h3>
     <ul>
-      <li ng-repeat="invite in dashboard.userData.invitations"></li>
+      <li ng-repeat="invite in userData.invitations"></li>
     </ul>
 
-<p>This is the current user: {{ dashboard.userData }}</p>
+<p>This is the current user: {{ userData }}</p>
 </div>
