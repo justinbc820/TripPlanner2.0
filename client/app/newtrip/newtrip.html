@@ -13,7 +13,7 @@
         {{connection.option}}
       </button>
 
-      <div ng-show="connection.option == null">
+      <div ng-show="connection.option == null" class="animate fadeIn">
         <input ng-show="connection.type === 'autocomplete'" ng-autocomplete ng-model="setupTrip.autocomplete" options="newtrip.setupTrip.options" details="newtrip.setupTrip.details">
         <input ng-show="connection.type === 'otherwise'" ng-model="newtrip.currNode.answer" placeholder="otherwise">
         <input type="daterange" ng-show="connection.type === 'date'" ng-model="setupTrip.daterange" format="MMM DD,YYYY">
