@@ -1,0 +1,14 @@
+<div ng-controller="TripeditCtrl as edit" class="col-md-12 page-body animated fadeIn">
+	<ul>
+		<li>
+			<h3>NAME:</h3> 
+			<span type="text" editable-text="currentTrip.name" placeholder="change name">{{currentTrip.name || "empty" }}</span>
+		</li>
+		<li>
+			<h3>BUDGET:</h3> 
+			<span type="text" editable-text="currentTrip.budget" placeholder="change budget">{{currentTrip.budget || "empty" }}</span>
+		</li>
+	</ul>
+
+</div>
+

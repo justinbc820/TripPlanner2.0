@@ -24,7 +24,8 @@
     "angular-strap": "~2.1.1",
     "animate-css": "~3.2.0",
     "ng-bs-daterangepicker": "~0.0.3",
-    "angular-datepicker": "https://github.com/g00fy-/angular-datepicker.git#master"
+    "angular-datepicker": "https://github.com/g00fy-/angular-datepicker.git#master",
+    "angular-xeditable": "~0.1.8"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

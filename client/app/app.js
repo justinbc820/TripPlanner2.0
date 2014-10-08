@@ -15,7 +15,8 @@ angular.module('tripPlannerApp', [
   'ngDialog',
   'mgcrea.ngStrap',
   'ngBootstrap',
-  'datePicker'
+  'datePicker',
+  'xeditable'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -51,7 +52,7 @@ angular.module('tripPlannerApp', [
     };
   })
 
-  .run(function ($rootScope, $location, Auth) {
+  .run(function ($rootScope, $location, Auth, editableOptions) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
@@ -60,4 +61,5 @@ angular.module('tripPlannerApp', [
         }
       });
     });
+    editableOptions.theme = 'bs3';
   });

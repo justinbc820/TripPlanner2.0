@@ -20,7 +20,6 @@ angular.module('tripPlannerApp')
           $http.get('/api/users/me').success(function(data) {
             var userId = data._id;
             var tripId=planData.getTrip();
-            debugger;
             $http.put('/api/users/'+userId, {id: tripId}).success(function(data) {
               planData.setInitialTrip(data);
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .factory('planData', function ($http) {
+  .factory('planData', function ($http, $rootScope) {
     var currentTrip = {
       location: {
         latitude:37.775,
@@ -21,6 +21,7 @@ angular.module('tripPlannerApp')
           latitude:37.775,
           longitude:-122.419
         };
+        $rootScope.$broadcast('newCurrentTrip');
       },
 
       getCurrentTrip: function() {

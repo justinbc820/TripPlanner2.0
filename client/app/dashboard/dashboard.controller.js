@@ -5,9 +5,11 @@ angular.module('tripPlannerApp')
     this.getCurrentUser = Auth.getCurrentUser;
     $scope.userData = this.getCurrentUser();
 
-    this.tripEditView = function(trip) {
-        $http.get('/api/trips/' + trip).success(function(trip) {
+    this.tripEditView = function(tripId) {
+        $http.get('/api/trips/' + tripId).success(function(trip) {
+            planData.setCurrentTrip(trip);
             console.log(trip);
+            $location.path('/dashboard/' + trip._id);
         })
     };
 
