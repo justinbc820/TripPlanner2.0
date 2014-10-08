@@ -2,7 +2,10 @@
 
 angular.module('tripPlannerApp')
   .controller('NewtripCtrl', function ($scope, Auth, $location, $window, $http, User, planData, ngDialog) {
+    this.getCurrentUser = Auth.getCurrentUser;
+    $scope.currentUser = this.getCurrentUser();
 
+    $scope.isLoggedIn = Auth.isLoggedIn;
     this.questionnaire = {};
     this.historyNodes = [];
     $scope.setupTrip = {
@@ -48,7 +51,16 @@ angular.module('tripPlannerApp')
       $http.post('/api/trips', {questionnaire: this.questionnaire})
         .success(function(trip) {
           planData.setTrip(trip._id);
-          self.signup();
+          if(!$scope.isLoggedIn()) {
+            self.signup();
+          } else {
+            $http.put('/api/users/' + $scope.currentUser._id, {
+              id:trip._id
+            }).success(function(updatedUser) {
+              console.log(updatedUser);
+              $location.path('/dashboard');
+            })
+          }
         });
     };
 

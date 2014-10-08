@@ -20,8 +20,7 @@ var UserSchema = new Schema({
   twitter: {},
   google: {},
   github: {},
-  // trips: [{ type: Schema.Types.ObjectId, ref:'Trip' }],
-  trips: [],
+  trips: [{ type: Schema.Types.ObjectId, ref:'Trip' }],
   invitations: [{ type: Schema.Types.ObjectId, ref: 'Trip' }],
   friends: [{ type: Schema.Types.ObjectId, ref:'User' }],
   calendar: String

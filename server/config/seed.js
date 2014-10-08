@@ -210,28 +210,29 @@ var testTrip2 = {name: "Spain 2014", days: [{date: 'Mon Jan 02 2012 00:00:00 GMT
 
 var testTrip3 = {name: "France 2014", days: [{date: 'Mon Jan 02 2012 00:00:00 GMT+0100 (CET)', activities: [{name: "Uva Enoteca", location: {address: "568 Haight St, San Francisco, CA 94117, United States", coords: {latitude: 37.772125, longitude: -122.43161199999997 } }, description: "bar", time: 'Mon Jan 02 2012 00:10:00 GMT+0100 (CET)', cost: 2 }] }], budget: 3000 };
 
-User.find({}).remove(function() {
-  User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin'
-  }, function() {
-      User.find({}, function(err, data) {
-        var users = data;
-        users[0].trips.push(testTrip);
-        users[0].trips.push(testTrip2);
-        users[0].trips.push(testTrip3);
-        console.log(users[0].trips);
-        users[0].save();
-      })
-      console.log('finished populating users');
-    }
-  );
-});
+
+// User.find({}).remove(function() {
+//   User.create({
+//     provider: 'local',
+//     name: 'Test User',
+//     email: 'test@test.com',
+//     password: 'test'
+//   }, {
+//     provider: 'local',
+//     role: 'admin',
+//     name: 'Admin',
+//     email: 'admin@admin.com',
+//     password: 'admin'
+//   }, function() {
+//       User.find({}, function(err, data) {
+//         var users = data;
+//         users[0].trips.push(testTrip);
+//         users[0].trips.push(testTrip2);
+//         users[0].trips.push(testTrip3);
+//         console.log(users[0].trips);
+//         users[0].save();
+//       })
+//       console.log('finished populating users');
+//     }
+//   );
+// });
