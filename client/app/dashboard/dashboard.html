@@ -8,7 +8,7 @@
   <h3>Trips</h3>
     <ul>
       <li class="well" ng-repeat="trip in userData.trips">
-        <h4 ng-click="dashboard.tripEditView(trip)" style="cursor:pointer;">{{trip}}</h4>
+        <h4 ng-click="dashboard.tripEditView($index)" style="cursor:pointer;">{{trip.questionnaire.location}}</h4>
       </li>
     </ul>
   <h3>Invitations</h3>
@@ -17,4 +17,5 @@
     </ul>
 
 <p>This is the current user: {{ userData }}</p>
+<p>This is the current trip: {{ trip }}</p>
 </div>
