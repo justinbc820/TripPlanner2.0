@@ -19,17 +19,18 @@ var DaySchema = new Schema({
 });
 
 var ActivitySchema = new Schema({
-  name: String,
-  location: {
-    address: String,
-    coords: {
-      latitude: Number,
-      longitude: Number
-    }
-  },
-  description: String,
-  time: Date,
-  cost: Number
+  activityObj: {}
+  // name: String,
+  // location: {
+  //   address: String,
+  //   coords: {
+  //     latitude: Number,
+  //     longitude: Number
+  //   }
+  // },
+  // description: String,
+  // time: Date,
+  // cost: Number
 });
 
 module.exports = mongoose.model('Trip', TripSchema);

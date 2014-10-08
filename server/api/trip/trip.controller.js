@@ -55,21 +55,7 @@ exports.addToWishlist = function(req, res) {
     if (err) { return handleError(res, err); }
     if(!trip) { return res.send(404); }
 
-    var activity = {
-      name: req.body.name,
-      location: {
-        address: req.body.address,
-        coords: {
-          latitude: req.body.latitude,
-          longitude: req.body.longitude
-        }
-      },
-      description: null,
-      time: null,
-      cost: req.body.cost
-    };
-
-    trip.wishlist.push(activity);
+    trip.wishlist.push(req.body);
         
     trip.save(function (err) {
       if (err) { return handleError(res, err); }

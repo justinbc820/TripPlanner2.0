@@ -39,18 +39,8 @@ angular.module('tripPlannerApp')
       addToTrip: function(obj) {
         var tripId = currentTrip._id;
 
-        var name = obj.name;
-        var address = obj.formatted_address;
-        var latitude = obj.geometry.location.k;
-        var longitude = obj.geometry.location.B;
-        var cost = obj.price_level || 9; // 9 means undefined price
-        $http.put('/api/trips/wishlist/' + tripId, {
-          name:name, 
-          address:address,
-          latitude:latitude,
-          longitude:longitude,
-          cost:cost
-        }).success(function(trip) {
+        $http.put('/api/trips/wishlist/' + tripId, obj)
+        .success(function(trip) {
           console.log("new trip from DB ", trip);
         })
       },

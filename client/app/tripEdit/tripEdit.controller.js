@@ -5,13 +5,12 @@ angular.module('tripPlannerApp')
   	$scope.currentTrip = planData.getCurrentTrip();
     $rootScope.$on('newCurrentTrip', function() {
     	$scope.currentTrip = planData.getCurrentTrip();
-    	console.log($scope.currentTrip);
     });
 
-    $scope.updateTrip = function(updatedTrip) {
-    	$http.put('/api/trips/' + $scope.currentTrip._id, {
-    		// Send trip to backend, update with newly changed trip
-    	})
+    $scope.updateTrip = function(updates) {
+    	$http.put('/api/trips/' + $scope.currentTrip._id, updates).success(function(updatedTrip) {
+            $scope.currentTrip = updatedTrip;
+        })
     };
 
     $scope.$watch('currentTrip', function(newVal, oldVal) {
