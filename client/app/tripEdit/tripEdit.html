@@ -17,12 +17,12 @@
       <li>
         <h3>WISH LIST:</h3>
           <ul>
-            <li ng-repeat="wish in currentTrip.wishlist">
-              <a ng-click="showDatePicker()">{{wish.name || "empty" }}</a>
-              <div ng-click="selectActivityTime()" ng-model="wish" ng-hide="closed" date-range start="start" end="end" max-view="month" min-view="hours"></div>
+            <li ng-model="wish" ng-repeat="wish in currentTrip.wishlist">
+              <a ng-click="showDatePicker($index)">{{wish.name || "empty" }}</a>
             </li>
+              <div date-picker="start" ng-hide="closed" max-view="month" min-view="hours" ng-click="selectActivityTime()"></div>
+              <!-- <div ng-model="start" ng-change="selectActivityTime()">{{ start }}</div> -->
           </ul>
-          <!-- show/hide when wish clicked -->
       </li>
   	</ul>
     <hr>

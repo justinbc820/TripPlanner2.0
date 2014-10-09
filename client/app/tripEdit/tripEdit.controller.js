@@ -1,7 +1,11 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('TripeditCtrl', function ($scope, $rootScope, $http, planData) {
+  .controller('TripeditCtrl', function ($scope, $rootScope, $http, planData, $stateParams) {
+
+    var tripId = $stateParams.id;
+    console.log(tripId);
+
   	$scope.currentTrip = planData.getCurrentTrip();
     $rootScope.$on('newCurrentTrip', function() {
     	$scope.currentTrip = planData.getCurrentTrip();
@@ -20,19 +24,26 @@ angular.module('tripPlannerApp')
 
     $scope.closed = true;
 
-    $scope.showDatePicker = function() {
+    $scope.showDatePicker = function(index) {
       $scope.closed = !$scope.closed;
+      $scope.currentWish = $scope.currentTrip.wishlist[index]
     }
 
-
-    this.selectActivityTime = function() {
+    $scope.currentWish;
+    $scope.start;
+    $scope.selectActivityTime = function() {
       // pop up date and time selector
-      console.log('This is the wish thats been clicked: ', $scope.wish);
-
+      if($scope.start !== undefined) {
+        console.log('This is the wish thats been clicked: ', $scope.start);
+        console.log('wish: ', $scope.currentWish);
+        // $scope.addToCal($scope.wish);
+      }
     }
 
-    this.addToCal = function() {
+    $scope.addToCal = function() {
       // push into trip schema
       // push into event array from plan data factory
     }
-  });
+  })
+  // .contoller('PickerCtrl', function() {})
+  ;
