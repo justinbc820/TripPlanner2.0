@@ -52,7 +52,7 @@ angular.module('tripPlannerApp')
 
     $scope.getRecommendations = function(lat, lng, loc) {
       $http.post('/api/getrecommendations/'+lat+'/'+lng, {location: loc}).success(function(data) {
-        $scope.recommendationsArr = data;
+        planData.setRecommendations(data);
         console.log(data);
       });
     };

@@ -13,6 +13,8 @@ angular.module('tripPlannerApp')
 
     var currentSearch = {searchResults:[]};
 
+    var recommendations = {};
+
     // Public API here
     return {
       setCurrentTrip: function(trip) {
@@ -45,7 +47,7 @@ angular.module('tripPlannerApp')
         var longitude = obj.geometry.location.B;
         var cost = obj.price_level || 9; // 9 means undefined price
         $http.put('/api/trips/wishlist/' + tripId, {
-          name:name, 
+          name:name,
           address:address,
           latitude:latitude,
           longitude:longitude,
@@ -70,6 +72,16 @@ angular.module('tripPlannerApp')
 
       getSearchResults: function() {
         return currentSearch.searchResults;
+      },
+
+      setRecommendations: function(data) {
+        recommendations.arr = data;
+        console.log(recommendations.arr);
+      },
+
+      getRecommendations: function() {
+        console.log(recommendations.arr);
+        return recommendations.arr;
       }
     };
   });

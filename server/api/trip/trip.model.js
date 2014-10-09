@@ -10,7 +10,8 @@ var TripSchema = new Schema({
   invitees: [{ type: Schema.Types.ObjectId, ref:"User" }],
   budget: { type: Number, default: 0},
   questionnaire: {},
-  wishlist: [ActivitySchema]
+  wishlist: [ActivitySchema],
+  recommendations: []
 });
 
 var DaySchema = new Schema({

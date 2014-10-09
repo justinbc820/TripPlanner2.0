@@ -1,6 +1,8 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('RecommendCtrl', function ($scope) {
-    $scope.message = 'Hello';
+  .controller('RecommendCtrl', function ($scope, planData) {
+
+    $scope.recommendations = planData.getRecommendations();
+    console.log("recs", $scope.recommendations);
   });

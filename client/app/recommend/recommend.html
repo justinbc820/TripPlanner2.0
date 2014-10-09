@@ -1,3 +1,6 @@
-<div class="col-md-12">
-This is the recommend view.
+<div class="animated fadeIn home-body-page-1" ng-controller="RecommendCtrl as rec">
+  <div id="rec-container" ng-repeat="rec in recommendations.array">
+    {{rec.name}}
+  </div>
+
 </div>
