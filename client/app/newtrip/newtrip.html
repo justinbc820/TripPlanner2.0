@@ -13,8 +13,8 @@
         {{connection.option}}
       </button>
 
-      <div ng-show="connection.option == null" class="animate fadeIn">
-        <input ng-show="connection.type === 'autocomplete'" ng-autocomplete ng-model="setupTrip.autocomplete" options="newtrip.setupTrip.options" details="newtrip.setupTrip.details">
+      <div ng-show="connection.option == null">
+        <input ng-show="connection.type === 'autocomplete'" ng-autocomplete ng-model="setupTrip.autocomplete" options="setupTrip.options" details="setupTrip.details">
         <input ng-show="connection.type === 'otherwise'" ng-model="newtrip.currNode.answer" placeholder="otherwise">
         <input type="daterange" ng-show="connection.type === 'date'" ng-model="setupTrip.daterange" format="MMM DD,YYYY">
         <input ng-show="connection.type === 'money'" ng-model="newtrip.currNode.answer" placeholder="money">
@@ -33,7 +33,7 @@
   </div>
 
 <!-- QUESTIONNAIRE ENDS HERE -->
-
+<!--
 <script type="text/ng-template" id="signup.html">
     <div class="row clearfix">
             <div class="col-sm-12">
@@ -113,3 +113,4 @@
           <hr>
         </div>
 </script>
+ -->

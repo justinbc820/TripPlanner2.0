@@ -9,7 +9,7 @@
   </a>
   <nav id="menu-top-right">
     <ul>
-      <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/signup')}"><a href="/#" ng-click="navbar.signup()">Sign up</a></li>
+      <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/signup')}"><a href="" ng-click="navbar.signup()">Sign up</a></li>
       <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/login')}"><a href="/login">Login</a></li>
       <li ng-show="navbar.isLoggedIn()"><p class="navbar-text">Hello {{ navbar.getCurrentUser().name }}</p> </li>
       <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
@@ -72,7 +72,7 @@
                 </div>
 
                 <div>
-                  <button class="btn btn-inverse btn-lg btn-login" type="submit">
+                  <button class="btn btn-inverse btn-lg btn-login" type="submit" >
                     Sign up
                   </button>
                   <a class="btn btn-default btn-lg btn-register" href="/login">
