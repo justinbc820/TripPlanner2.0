@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('SignupCtrl', function ($scope, Auth, $modal, $location, $window, planData, $http) {
+  .controller('SignupCtrl', function ($scope, Auth, $modal, $location, $window, planData, $http, ngDialog) {
 
     $scope.user = {};
     $scope.errors = {};
 
     $scope.register = function(form) {
+      ngDialog.close();
+
       $scope.submitted = true;
 
       if(form.$valid) {
@@ -16,16 +18,20 @@ angular.module('tripPlannerApp')
           password: $scope.user.password,
         })
         .then( function() {
+
           // Account created, redirect to home
           $http.get('/api/users/me').success(function(data) {
             var userId = data._id;
             var tripId=planData.getTrip();
-            debugger;
             $http.put('/api/users/'+userId, {id: tripId}).success(function(data) {
               planData.setInitialTrip(data);
 
               $http.put('/api/trips/'+tripId, {travelerId: userId}).success(function(data) {
-                $location.path('/map');
+                if ($location.url() === '/newtrip') {
+                  $location.path('/recommend');
+                } else {
+                  $location.path('/newtrip');
+                }
               });
             });
           });
