@@ -12,6 +12,11 @@ angular.module('tripPlannerApp')
   	      longitude: currentMapOpts.location.longitude
   	  },
       zoom: currentMapOpts.zoom,
+      // events: {
+      //   getBounds: function() {
+
+      //   }
+      // },
       options: {
         zoomControlOptions: {
           position:google.maps.ControlPosition.LEFT_BOTTOM,
