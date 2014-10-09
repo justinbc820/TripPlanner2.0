@@ -78,7 +78,7 @@ angular.module('tripPlannerApp')
             $http.put('/api/users/' + $scope.currentUser._id, {
               id:trip._id
             }).success(function(updatedUser) {
-              $location.path('/dashboard');
+              $location.path('/dashboard/' + trip._id);
             })
           }
         });

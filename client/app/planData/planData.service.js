@@ -69,15 +69,15 @@ angular.module('tripPlannerApp')
 
       getInitialTrip: function() {
         return trip.initialTrip;
-      },
-
-      setSearchResults: function(data) {
-        currentSearch.searchResults.length=0;
-        currentSearch.searchResults = data;
-      },
-
-      getSearchResults: function() {
-        return currentSearch.searchResults;
       }
+
+      // setSearchResults: function(data) {
+      //   currentSearch.searchResults.length=0;
+      //   currentSearch.searchResults = data;
+      // },
+
+      // getSearchResults: function() {
+      //   return currentSearch.searchResults;
+      // }
     };
   });

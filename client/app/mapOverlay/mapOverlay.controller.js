@@ -54,10 +54,14 @@ angular.module('tripPlannerApp')
             then it's assumed that we should query google for a list of results rather
             than just the details of the place that they selected.
             */
+
+          // The autocomplete will populate self.details.details if a specific place is
+          // returned from the autocomplete
           var checkForDetails = $interval(function() {
               if (self.details.details !== undefined) {
                   $interval.cancel(checkForDetails);
-                  planData.setSearchResults(self.details.details);
+                  // planData.setSearchResults(self.details.details);
+                  search.setMarkers('textSearch', self.details.details);
                   self.details.details = undefined;
                   alreadyDetails = true;
               }
@@ -69,7 +73,8 @@ angular.module('tripPlannerApp')
                           'query': autocomplete
                       })
                       .then(function(data) {
-                          planData.setSearchResults(data);
+                          // planData.setSearchResults(data);
+                          search.setMarkers('textSearch', data);
                       });
               }
           }, 500);
@@ -100,9 +105,9 @@ angular.module('tripPlannerApp')
           bounds: bounds
       };
 
-      this.getSearchResults = function() {
-          return planData.getSearchResults();
-      };
+      // this.getSearchResults = function() {
+      //     return planData.getSearchResults();
+      // };
 
       this.addToTrip = function(details) {
         planData.addToTrip(details);
