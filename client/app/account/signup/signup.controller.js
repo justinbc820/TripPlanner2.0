@@ -25,14 +25,17 @@ angular.module('tripPlannerApp')
             var tripId=planData.getTrip();
             $http.put('/api/users/'+userId, {id: tripId}).success(function(data) {
               planData.setInitialTrip(data);
-
-              $http.put('/api/trips/'+tripId, {travelerId: userId}).success(function(data) {
-                if ($location.url() === '/newtrip') {
-                  $location.path('/recommend');
-                } else {
-                  $location.path('/newtrip');
-                }
-              });
+              if(tripId) {
+                $http.put('/api/trips/'+tripId, {travelerId: userId}).success(function(data) {
+                  if ($location.url() === '/newtrip') {
+                    $location.path('/recommend');
+                  } else {
+                    $location.path('/newtrip');
+                  }
+                });
+              } else {
+                $location.path('/newtrip');
+              }
             });
           });
         })
