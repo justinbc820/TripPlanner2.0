@@ -2,12 +2,15 @@
 
 angular.module('tripPlannerApp')
   .factory('planData', function ($http, $rootScope) {
-    var currentTrip = {
+    var currentTrip = {};
+
+    var currentMapOpts = {
       location: {
-        latitude:37.775,
-        longitude:-122.419
-      }
-    };
+        latitude:37.579413,
+        longitude:-2.900391
+      },
+      zoom:3
+    }
 
     var trip = {};
 
@@ -17,15 +20,20 @@ angular.module('tripPlannerApp')
     return {
       setCurrentTrip: function(trip) {
         currentTrip = trip;
-        currentTrip.location = {
-          latitude:37.775,
-          longitude:-122.419
-        };
         $rootScope.$broadcast('newCurrentTrip');
       },
 
       getCurrentTrip: function() {
         return currentTrip;
+      },
+
+      setMapOpts: function(coords, zoom) {
+        currentMapOpts.location = coords;
+        currentMapOpts.zoom = zoom;
+      },
+
+      getMapOpts: function() {
+        return currentMapOpts;
       },
 
       setTrip: function(id) {

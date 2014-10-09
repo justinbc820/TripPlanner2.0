@@ -33,7 +33,6 @@ angular.module('tripPlannerApp')
       self.currNode.answer = answer;
       self.historyNodes.push(self.currNode);
       $scope.justAnsweredNode = self.currNode.num;
-      console.log(self.currNode);
 
       $http.get('/api/nodes/'+ nextId).success(function(data) {
           self.currNode = data;
@@ -53,7 +52,6 @@ angular.module('tripPlannerApp')
     $scope.getRecommendations = function(lat, lng, loc) {
       $http.post('/api/getrecommendations/'+lat+'/'+lng, {location: loc}).success(function(data) {
         $scope.recommendationsArr = data;
-        console.log(data);
       });
     };
 
@@ -61,6 +59,7 @@ angular.module('tripPlannerApp')
       if (newval === 2) {
         var lat = $scope.setupTrip.details.geometry.location.k;
         var lng = $scope.setupTrip.details.geometry.location.B;
+        planData.setMapOpts({latitude:lat, longitude:lng}, 11);
         var loc = $scope.setupTrip.autocomplete;
         $scope.getRecommendations(lat, lng, loc);
       }
@@ -79,7 +78,6 @@ angular.module('tripPlannerApp')
             $http.put('/api/users/' + $scope.currentUser._id, {
               id:trip._id
             }).success(function(updatedUser) {
-              console.log(updatedUser);
               $location.path('/dashboard');
             })
           }
