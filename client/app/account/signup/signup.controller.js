@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
+<<<<<<< HEAD
     .controller('SignupCtrl', function($scope, Auth, $modal, $location, $window, planData, $http, ngDialog) {
 
         $scope.user = {};
@@ -28,15 +29,20 @@ angular.module('tripPlannerApp')
                                     id: tripId
                                 }).success(function(data) {
                                     planData.setInitialTrip(data);
-                                    $http.put('/api/trips/' + tripId, {
-                                        travelerId: userId
-                                    }).success(function(data) {
-                                        if ($location.url() === '/newtrip') {
-                                            $location.path('/recommend');
-                                        } else {
-                                            $location.path('/newtrip');
-                                        }
-                                    });
+
+                                    if(tripId) {
+                                           $http.put('/api/trips/' + tripId, {
+                                            travelerId: userId
+                                        }).success(function(data) {
+                                            if ($location.url() === '/newtrip') {
+                                                $location.path('/recommend');
+                                            } else {
+                                                $location.path('/newtrip');
+                                            }
+                                        });
+                                      } else {
+                                        $location.path('/newtrip');
+                                      }
                                 });
                             });
                         }

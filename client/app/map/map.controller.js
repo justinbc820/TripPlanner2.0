@@ -5,13 +5,13 @@ angular.module('tripPlannerApp')
 
     $scope.currDetails = {};
 
-    var currentTrip = planData.getCurrentTrip();
+    var currentMapOpts = planData.getMapOpts();
   	this.map = {
   	  center: {
-  	      latitude: currentTrip.location.latitude,
-  	      longitude: currentTrip.location.longitude
+  	      latitude: currentMapOpts.location.latitude,
+  	      longitude: currentMapOpts.location.longitude
   	  },
-      zoom: 11,
+      zoom: currentMapOpts.zoom,
       options: {
         zoomControlOptions: {
           position:google.maps.ControlPosition.LEFT_BOTTOM,

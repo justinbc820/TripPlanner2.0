@@ -12,7 +12,9 @@ angular.module('tripPlannerApp')
       playthings: [],
       tourist: [],
       amusement: [],
-      monument:[]
+      monument:[],
+      // This array represents marker items returned from Autocomplete textbox
+      textSearch:[]
     };
 
     // This object represents the returned values of a details call to Google
@@ -35,6 +37,11 @@ angular.module('tripPlannerApp')
       // This function takes the raw data returned from a radar Search, loops through
       // each object and formats them into the radarSearchMarkers object.
       setMarkers: function (key, array) {
+        // if it's not an array, but an object with one marker, do the following
+        if(array.geometry) {
+          array = [{geometry: array.geometry, place_id:array.place_id}];
+        }
+        console.log(array);
         radarSearchMarkers[key].length = 0;
         for (var i=0, n=array.length; i < n; i++) {
           radarSearchMarkers[key].push(new Marker(i, array[i]));

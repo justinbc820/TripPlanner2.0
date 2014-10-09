@@ -32,7 +32,6 @@ exports.getRecommendations = function(req, res) {
           var checkForImgUrl = function(place, done) {
             if (!place.tn_big[0]) {  //if TIXIK api does not return an img url, search flickr api for image.  Push any results from flickr to the object returned from TIXIK.
                 Flickr.tokenOnly(flickrOptions, function(err, flickr) {
-                    console.log("hit this1");
                     flickr.photos.search({
                     text: place.name,
                     safe_search: 1,
@@ -40,8 +39,6 @@ exports.getRecommendations = function(req, res) {
                     lon: req.params.lng,
                     per_page: 1
                 }, function(err, result) {
-                    console.log("hit results");
-                    console.log(result);
                     if (result.photos.photo[0]) {
                          var id = result.photos.photo[0].id,
                             farm = result.photos.photo[0].farm,
@@ -55,7 +52,6 @@ exports.getRecommendations = function(req, res) {
                   });
                 })
             } else { //if img url available from TIXIK api, just extract relevant properties from from TIXIK and add to new place object
-              console.log("hit else statement")
               var newplace = new Place(place.name[0], req.body.location, place.gps_x[0], place.gps_y[0], place.tn_big[0]);
               returnArr.push(newplace);
               done(null);
@@ -63,7 +59,6 @@ exports.getRecommendations = function(req, res) {
         };
 
           async.each(placesArr, checkForImgUrl, function(err) { //iterate over each of the places returned by TIXIK using checkForImgUrl as iterating function
-            console.log("Urls added to all places successfully.")
             return res.json({array: returnArr});
           }); //close async
 

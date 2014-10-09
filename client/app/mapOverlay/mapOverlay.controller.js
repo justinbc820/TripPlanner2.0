@@ -4,13 +4,13 @@ angular.module('tripPlannerApp')
     .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search) {
       // currentTrip will contain high-level data about the trip, especially the
       // location and duration of the trip
-      var currentTrip = planData.getCurrentTrip();
+      var currentMapOpts = planData.getMapOpts();
 
       // Sets the autocomplete box to search a location with a radius of meters
       var bounds = new google.maps.Circle({
           center: new google.maps.LatLng(
-              currentTrip.location.latitude,
-              currentTrip.location.longitude
+              currentMapOpts.location.latitude,
+              currentMapOpts.location.longitude
           ),
           radius: 5000
       }).getBounds();
@@ -54,10 +54,14 @@ angular.module('tripPlannerApp')
             then it's assumed that we should query google for a list of results rather
             than just the details of the place that they selected.
             */
+
+          // The autocomplete will populate self.details.details if a specific place is
+          // returned from the autocomplete
           var checkForDetails = $interval(function() {
               if (self.details.details !== undefined) {
                   $interval.cancel(checkForDetails);
-                  planData.setSearchResults(self.details.details);
+                  // planData.setSearchResults(self.details.details);
+                  search.setMarkers('textSearch', self.details.details);
                   self.details.details = undefined;
                   alreadyDetails = true;
               }
@@ -69,7 +73,8 @@ angular.module('tripPlannerApp')
                           'query': autocomplete
                       })
                       .then(function(data) {
-                          planData.setSearchResults(data);
+                          // planData.setSearchResults(data);
+                          search.setMarkers('textSearch', data);
                       });
               }
           }, 500);
@@ -78,9 +83,11 @@ angular.module('tripPlannerApp')
 
       this.radarSearch = function(type) {
           if (!search.radarSearchMarkers[type][0]) {
+            var lat = currentMapOpts.location.latitude;
+            var lng = currentMapOpts.location.longitude;
               ngGPlacesAPI.radarSearch({
                       // populate location based on survey
-                      'location': new google.maps.LatLng(37.775, -122.419),
+                      'location': new google.maps.LatLng(lat, lng),
                       'radius': 5000,
                       'keyword': type
                   })
@@ -98,9 +105,9 @@ angular.module('tripPlannerApp')
           bounds: bounds
       };
 
-      this.getSearchResults = function() {
-          return planData.getSearchResults();
-      };
+      // this.getSearchResults = function() {
+      //     return planData.getSearchResults();
+      // };
 
       this.addToTrip = function(details) {
         planData.addToTrip(details);
@@ -108,12 +115,14 @@ angular.module('tripPlannerApp')
 
       $rootScope.$on('detailsReturned', function(event, placeId) {
           $scope.currDetails = search.getReturnedDetails(placeId);
-          var width = $scope.currDetails.photos[0].width;
-          var height = $scope.currDetails.photos[0].height;
-          $scope.currDetails.photoUrl = $scope.currDetails.photos[0].getUrl({
-              'maxWidth': width,
-              'maxHeight': height
-          });
+          if($scope.currDetails.phots) {
+            var width = $scope.currDetails.photos[0].width;
+            var height = $scope.currDetails.photos[0].height;
+            $scope.currDetails.photoUrl = $scope.currDetails.photos[0].getUrl({
+                'maxWidth': width,
+                'maxHeight': height
+            });
+          }
       });
 
 });

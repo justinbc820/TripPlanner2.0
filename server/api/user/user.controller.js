@@ -87,8 +87,9 @@ exports.update = function(req, res) {
   User.findById(userId, function (err, user) {
     if (err) { return handleError(res, err); }
     if(!user) { return res.send(404); }
-    if (tripId) {
-    user.trips.push(tripId);
+
+    if(tripId) {
+      user.trips.push(tripId);
     }
     user.save(function (err) {
       if (err) { return handleError(res, err); }
