@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-<<<<<<< HEAD
+
     .controller('SignupCtrl', function($scope, Auth, $modal, $location, $window, planData, $http, ngDialog) {
 
         $scope.user = {};
