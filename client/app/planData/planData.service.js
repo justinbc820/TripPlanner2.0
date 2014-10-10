@@ -19,6 +19,8 @@ angular.module('tripPlannerApp')
       })
     }
 
+    var recommendations = {};
+
     var tempActivityDetailsObj;
     var selectTripModal = function() {
       ngDialog.open({template: 'chooseTrip.html', controller:'DashboardCtrl'});
@@ -64,7 +66,6 @@ angular.module('tripPlannerApp')
     // Public API here
 
     var factoryObj = {
-      recommendations: {},
 
       getTempActivity: function() {
         return tempActivityDetailsObj;
