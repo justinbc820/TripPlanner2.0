@@ -25,11 +25,11 @@ angular.module('tripPlannerApp')
 
     this.changeTo = 'Hungarian';
     /* event source that pulls from google.com */
-    this.eventSource = {
-            url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-            className: 'gcal-event',           // an option!
-            currentTimezone: 'America/Chicago' // an option!
-    };
+    // this.eventSource = {
+    //         url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+    //         className: 'gcal-event',           // an option!
+    //         currentTimezone: 'America/Chicago' // an option!
+    // };
     /* event source that contains custom events on the scope */
     this.events = [
       {title: 'All Day Event',start: new Date(y, m, 1)},
@@ -45,7 +45,7 @@ angular.module('tripPlannerApp')
       var e = new Date(end).getTime() / 1000;
       var m = new Date(start).getMonth();
       var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
-      callback(events);
+      // callback(events);
     };
 
     this.calEventsExt = {
@@ -133,7 +133,7 @@ angular.module('tripPlannerApp')
       }
     };
     /* event sources array*/
-    this.eventSources = [this.events, this.eventSource, this.eventsF];
+    this.eventSources = [this.events, this.eventsF];
     this.eventSources2 = [this.calEventsExt, this.eventsF, this.events];
   });
 

@@ -1,12 +1,22 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('AsideCtrl', function ($scope, $aside, $location) {
+  .controller('AsideCtrl', function ($scope, $aside, $location, planData) {
+    console.log("planData", planData.getCurrentTrip());
+    var currentTrip;
+    if(planData.getCurrentTrip()) {
+      currentTrip = {
+        text: planData.getCurrentTrip().questionnaire.location,
+        link: '/dashboard/' + planData.getCurrentTrip()._id,
+        icon: '../../assets/images/icons/airplane.png'
+      }
+    }
   	this.views = {
   		// map: {
   		// 	'text': 'MAP',
   		// 	'link': '/map'
   		// },
+      currentTrip: currentTrip || undefined,
   		dashboard: {
   			'text': 'MANAGE TRIPS',
   			'link': '/dashboard',

@@ -20,13 +20,17 @@
             <li ng-model="wish" ng-repeat="wish in currentTrip.wishlist">
               <a ng-click="showDatePicker($index)">{{wish.name || "empty" }}</a>
             </li>
-              <div date-picker="start" ng-hide="closed" max-view="month" min-view="hours" ng-click="selectActivityTime()"></div>
-              <!-- <div ng-model="start" ng-change="selectActivityTime()">{{ start }}</div> -->
+            <li>
+              <form ng-submit="addToWishlist()">
+                <input type="text" ng-model="autocomplete.autocomplete" ng-autocomplete details="autocomplete.details" placeholder="Add to your wishlist">
+                <button type="submit">Submit</button>
+              </form>
+            </li>
           </ul>
+          <div date-picker="start" ng-hide="closed" max-view="month" min-view="hours" ng-click="selectActivityTime()"></div>
+
       </li>
   	</ul>
-    <hr>
-    <p>This is the current trip: {{ currentTrip }}</p>
   </div>
 
   <div class="col-lg-9 full-height">
