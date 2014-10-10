@@ -9,7 +9,7 @@ angular.module('tripPlannerApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
 
 
-    this.questionnaire = {};
+    $scope.questionnaire = {};
     this.historyNodes = [];
 
     $scope.justAnsweredNode = 0;
@@ -42,7 +42,7 @@ angular.module('tripPlannerApp')
 
     this.getNext = function(nextId, answer) {
       var self = this;
-      self.questionnaire[self.currNode.name] = answer;
+      $scope.questionnaire[self.currNode.name] = answer;
       self.currNode.answer = answer;
       self.historyNodes.push(self.currNode);
       $scope.justAnsweredNode = self.currNode.num;
@@ -65,7 +65,7 @@ angular.module('tripPlannerApp')
     $scope.getRecommendations = function(lat, lng, loc) {
       $http.post('/api/getrecommendations/'+lat+'/'+lng, {location: loc}).success(function(data) {
         $scope.recommendations = data;
-        console.log("recommendations set", $scope.recommendations);
+        console.log("recommendations fetched", $scope.recommendations);
       });
     };
 
@@ -79,10 +79,9 @@ angular.module('tripPlannerApp')
       }
     }, true);
 
-    this.done = function(answers) {
-      var self = this;
-      self.questionnaire.location = $scope.setupTrip.destination.autocomplete;
-      self.questionnaire.date = $scope.setupTrip.daterange;
+    $scope.done = function(answers) {
+      $scope.questionnaire.location = $scope.setupTrip.destination.autocomplete;
+      $scope.questionnaire.date = $scope.setupTrip.daterange;
       $http.post('/api/trips', {questionnaire: this.questionnaire})
         .success(function(trip) {
           planData.setTripIdReminder(trip._id); //communicating with signup controller to populate new user with this trip's id
@@ -98,4 +97,18 @@ angular.module('tripPlannerApp')
           }
         });
     };
+
+    $scope.stillFetchingRecs = false;
+
+    this.displayLoadingView = function() {
+      $scope.stillFetchingRecs = true;
+    };
+
+    $scope.$watch('recommendations', function(newval, oldval) {
+      if (newval && $scope.stillFetchingRecs) {
+        $scope.done($scope.questionnaire);
+      }
+    });
+
+
   }); //END HERE
