@@ -38,7 +38,8 @@ exports.getRecommendations = function(req, res) {
                     safe_search: 1,
                     lat: req.params.lat,
                     lon: req.params.lng,
-                    per_page: 1
+                    per_page: 1,
+                    geo_context:2
                 }, function(err, result) {
                     if (result.photos.photo[0]) {
                          var id = result.photos.photo[0].id,

@@ -2,7 +2,8 @@
 
 angular.module('tripPlannerApp')
 
-  .factory('planData', function ($http, $rootScope, ngDialog) {
+  .factory('planData', function ($http, $rootScope, ngDialog, Auth, $location) {
+    var isLoggedIn = Auth.isLoggedIn;
     var currentTrip;
     var user;
 
@@ -96,18 +97,22 @@ angular.module('tripPlannerApp')
 
       addToTrip: function(obj) {
         tempActivityDetailsObj = obj;
-        if(!currentTrip) {
-          if(!user) {
-            fetchUserFromDB();
-          } else {
-            if(user.trips.length === 1) {
-              setCurrentTrip(user.trips[0])
+        if(isLoggedIn()) {
+          if(!currentTrip) {
+            if(!user) {
+              fetchUserFromDB();
             } else {
-              selectTripModal();
+              if(user.trips.length === 1) {
+                setCurrentTrip(user.trips[0])
+              } else {
+                selectTripModal();
+              }
             }
+          } else {
+            pushTripToDB(obj);
           }
         } else {
-          pushTripToDB(obj);
+          $location.path('/login');
         }
       },
 
