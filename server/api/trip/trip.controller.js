@@ -39,6 +39,8 @@ exports.update = function(req, res) {
     if(!trip) { return res.send(404); }
     if (req.body.travelerId) {
       trip.travelers.push(req.body.travelerId);
+    } else if (req.body.recommendations) {
+      trip.recommendations.push(req.body.recommendations);
     } else {
       var trip = _.merge(trip, req.body);
     }
@@ -100,7 +102,7 @@ exports.addDetails = function(req, res) {
     };
 
     trip.wishlist.push(activity);
-        
+
     trip.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, trip);

@@ -22,7 +22,8 @@ exports.getRecommendations = function(req, res) {
           var results = [];
           var Place = function(name, loc, gps_x, gps_y, url) {
             return {
-              name: name + ", "+loc, //concat destination name to the name of place for easy google api text search following trip set up phase
+              query: name + ", "+loc, //concat destination name to the name of place for easy google api text search following trip set up phase
+              name: name,
               latitude: gps_x,
               longitude: gps_y,
               imgUrl: url

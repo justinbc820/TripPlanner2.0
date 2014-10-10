@@ -3,6 +3,16 @@
     background-size: cover;
     height:100%;
     overflow:hidden;
+
+}
+
+.home-body-page-2 {
+    background-image: url('../../assets/images/houses-cliff.jpg');
+    background-size: cover;
+    height:100%;
+    width:100%;
+    overflow:scroll;
+    position: fixed;
 }
 
 #newtrip {
