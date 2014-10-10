@@ -7,7 +7,7 @@ angular.module('tripPlannerApp')
     var user;
 
     var fetchUserFromDB = function() {
-      $http.get('/api/users/me').success(function(user) {
+      return $http.get('/api/users/me').success(function(user) {
         if(user) {
           user = user;
         }
@@ -18,6 +18,7 @@ angular.module('tripPlannerApp')
         }
       })
     }
+    fetchUserFromDB();
 
     var recommendations = {};
 
@@ -95,6 +96,7 @@ angular.module('tripPlannerApp')
       },
 
       addToTrip: function(obj) {
+        debugger;
         tempActivityDetailsObj = obj;
         if(!currentTrip) {
           if(!user) {

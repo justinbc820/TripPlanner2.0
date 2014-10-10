@@ -82,7 +82,7 @@ exports.addToWishlist = function(req, res) {
 };
 
 // push wish into trip activity aray
-exports.activities = function(req, res) {
+exports.addActivity = function(req, res) {
   Trip.findById(req.params.id, function(err, trip) {
     if (err) { return handleError(res, err); }
 

@@ -62,10 +62,11 @@ angular.module('tripPlannerApp')
 
     $scope.addToCal = function() {
       // push into trip schema
-      $http.put('/api/trips/' + $scope.currentTrip._id + '/activities', {title: $scope.currentWish.name, googleDetails: $scope.currentWish, start: $scope.start})
+      $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {title: $scope.currentWish.name, googleDetails: $scope.currentWish, start: $scope.start})
       .success(function(data){
         console.log("wish saved to the server: ", $scope.currentTrip);
         $scope.closed = true;
+        $rootScope.$broadcast('addToCal');
       })
       // push into event array from plan data factory
     }
