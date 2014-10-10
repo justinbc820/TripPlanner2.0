@@ -9,6 +9,7 @@ router.get('/', controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
+router.put('/:id/activities', controller.activities);
 router.put('/:id/addDetails', controller.addDetails);
 router.put('/wishlist/:id', controller.addToWishlist);
 router.patch('/:id', controller.update);
