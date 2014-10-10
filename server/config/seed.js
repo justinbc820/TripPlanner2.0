@@ -138,7 +138,7 @@ Node.find({}).remove(function() {
         nodes[14].connect(null, "otherwise", nodes[15]);
         nodes[15].connect("Yes", "normal", nodes[16]);
         nodes[15].connect("No", "normal", nodes[17]);
-        nodes[16].connect(null, "otherwise", nodes[17]);
+        nodes[16].connect(null, "autocomplete", nodes[17]);
       });
   });
 });

@@ -16,7 +16,8 @@ angular.module('tripPlannerApp', [
   'mgcrea.ngStrap',
   'ngBootstrap',
   'datePicker',
-  'xeditable'
+  'xeditable',
+  'wu.masonry'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

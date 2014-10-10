@@ -19,23 +19,23 @@ angular.module('tripPlannerApp')
                         password: $scope.user.password,
                     })
                     .then(function() {
-                        if (!planData.getTrip()) {
+                        if (!planData.getTripIdReminder()) {
                             $location.path('/newtrip');
                         } else {
                             $http.get('/api/users/me').success(function(data) {
                                 var userId = data._id;
-                                var tripId = planData.getTrip();
+                                var tripId = planData.getTripIdReminder();
                                 $http.put('/api/users/' + userId, {
                                     id: tripId
                                 }).success(function(data) {
-                                    planData.setInitialTrip(data);
+                                    // planData.setInitialTrip(data);
 
                                     if(tripId) {
                                            $http.put('/api/trips/' + tripId, {
                                             travelerId: userId
                                         }).success(function(data) {
                                             if ($location.url() === '/newtrip') {
-                                                $location.path('/recommend');
+                                                $location.path('/recommend/'+tripId);
                                             } else {
                                                 $location.path('/newtrip');
                                             }

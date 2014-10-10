@@ -1,6 +1,23 @@
-<div class="animated fadeIn home-body-page-1" ng-controller="RecommendCtrl as rec">
-  <div id="rec-container" ng-repeat="rec in recommendations.array">
-    {{rec.name}}
-  </div>
 
+<div class="home-body-page-2">
+<div id="recommendations-container" class="" ng-controller="RecommendCtrl as rec">
+
+  <div class="recommendations-body">
+    <h1>
+      And you're done! We thought you might like to check out these places in <br><span id="destination">{{destination}}</span>
+    </h1>
+
+
+  <div class="image-grid" reload-on-show item-selector=".masonry-brick" masonry>
+    <ul>
+      <li ng-repeat="rec in recommendations" class="masonry-brick">
+        <div class="overlay"><span class="rec-name">{{rec.name}}</span>
+          <br>
+          <button>+</button></div>
+        <img ng-src="{{ rec.imgUrl }}" alt="">
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
 </div>

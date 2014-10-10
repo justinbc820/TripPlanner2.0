@@ -3,6 +3,7 @@
 angular.module('tripPlannerApp')
   .factory('planData', function ($http, $rootScope) {
     var currentTrip = {};
+    var testTrip = {};
 
     var currentMapOpts = {
       location: {
@@ -12,14 +13,16 @@ angular.module('tripPlannerApp')
       zoom:3
     }
 
-    var trip = {};
+    var tripreminder = {};
 
     var currentSearch = {searchResults:[]};
 
     var recommendations = {};
 
     // Public API here
-    return {
+    var factoryObj = {
+      recommendations: {},
+
       setCurrentTrip: function(trip) {
         currentTrip = trip;
         $rootScope.$broadcast('newCurrentTrip');
@@ -38,12 +41,12 @@ angular.module('tripPlannerApp')
         return currentMapOpts;
       },
 
-      setTrip: function(id) {
-        trip.tripId = id;
+      setTripIdReminder: function(id) {
+        tripreminder.tripId = id;
       },
 
-      getTrip: function() {
-        return trip.tripId;
+      getTripIdReminder: function() {
+        return tripreminder.tripId;
       },
 
       addToTrip: function(obj) {
@@ -84,12 +87,19 @@ angular.module('tripPlannerApp')
 
       setRecommendations: function(data) {
         recommendations.arr = data;
-        console.log(recommendations.arr);
+        $http.put('/api/trips/'+tripreminder.tripId, {recommendations: recommendations.arr}).success(function(tripWithRecommendations) {
+          console.log("recommendations successfully saved under current trip.", tripWithRecommendations);
+        });
       },
 
-      getRecommendations: function() {
-        console.log(recommendations.arr);
-        return recommendations.arr;
+
+      getRecommendations: function(tripId) {
+        // console.log(tripId);
+        // return 4;
+        return $http.get('/api/trips/'+tripId).success(function(trip) {
+          factoryObj.recommendations = trip;
+        });
       }
-    };
-  });
+    }
+    return factoryObj;
+});
