@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
 var TripSchema = new Schema({
   name: { type: String, default: ""},
-  days: [DaySchema],
+  activities: [ActivitySchema],
   travelers: [{ type: Schema.Types.ObjectId, ref:"User" }],
   invitees: [{ type: Schema.Types.ObjectId, ref:"User" }],
   budget: { type: Number, default: 0},
@@ -14,13 +14,13 @@ var TripSchema = new Schema({
   recommendations: []
 });
 
-var DaySchema = new Schema({
-  date: Date,
-  activities: [ActivitySchema]
-});
+// var DaySchema = new Schema({
+//   date: Date,
+//   activities: [ActivitySchema]
+// });
 
 var ActivitySchema = new Schema({
-  name: String,
+  title: String,
   location: {
     address: String,
     coords: {
@@ -29,7 +29,9 @@ var ActivitySchema = new Schema({
     }
   },
   description: String,
-  time: Date,
+  details: {},
+  start: Date,
+  end: Date,
   cost: Number
 });
 

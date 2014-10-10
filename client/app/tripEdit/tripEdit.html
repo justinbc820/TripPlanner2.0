@@ -1,14 +1,43 @@
-<div ng-controller="TripeditCtrl as edit" class="col-md-12 page-body animated fadeIn">
-	<ul>
-		<li>
-			<h3>NAME:</h3> 
-			<span type="text" editable-text="currentTrip.name" placeholder="change name">{{currentTrip.name || "empty" }}</span>
-		</li>
-		<li>
-			<h3>BUDGET:</h3> 
-			<span type="text" editable-text="currentTrip.budget" placeholder="change budget">{{currentTrip.budget || "empty" }}</span>
-		</li>
-	</ul>
+<div ng-controller="TripeditCtrl as edit" class="col-md-12 full-height animated fadeIn">
+<div class="page-body">
+  <div class="col-lg-3 full-height">
+  	<ul>
+  		<li>
+  			<h3>NAME:</h3>
+  			<span type="text" editable-text="currentTrip.name" placeholder="change name">{{currentTrip.name || "Give your trip a name!" }}</span>
+  		</li>
+      <li>
+        <h3>LOCATION:</h3>
+        <span>{{currentTrip.questionnaire.location || "empty" }}</span>
+      </li>
+  		<li>
+  			<h3>BUDGET:</h3>
+  			<span type="text" editable-text="currentTrip.budget" placeholder="change budget">{{currentTrip.budget || "empty" }}</span>
+  		</li>
+      <li>
+        <h3>WISH LIST:</h3>
+          <ul>
+            <li ng-model="wish" ng-repeat="wish in currentTrip.wishlist">
+              <a ng-click="showDatePicker($index)">{{wish.name || "empty" }}</a>
+            </li>
+            <li>
+              <form ng-submit="addToWishlist()">
+                <input type="text" ng-model="autocomplete.autocomplete" ng-autocomplete details="autocomplete.details" placeholder="Add to your wishlist">
+                <button type="submit">Submit</button>
+              </form>
+            </li>
+          </ul>
+          <div date-picker="start" ng-hide="closed" max-view="month" min-view="hours" ng-click="selectActivityTime()"></div>
 
+      </li>
+  	</ul>
+  </div>
+
+  <div class="col-lg-9 full-height">
+    <div ng-controller="CalendarCtrl as calendar" class="full-height">
+      <div id="calendar-container" class="full-height" ui-calendar="calendar.uiConfig.calendar" ng-model="calendar.eventSources"></div>
+    </div>
+  </div>
+<div>
 </div>
 
