@@ -1,8 +1,8 @@
 <!-- <div ng-include="'components/navbar/navbar.html'"></div> -->
 
-<div ng-controller="DashboardCtrl as dashboard" class="col-md-12 page-body animated fadeIn">
+<div ng-controller="DashboardCtrl as dashboard" class="col-md-12 page-body animated fadeIn full-height">
 
-  <button ng-click="dashboard.createTrip()">New Trip</button>
+  <!-- <button ng-click="dashboard.createTrip()">New Trip</button>
 
 
   <h3>Trips</h3>
@@ -14,8 +14,19 @@
   <h3>Invitations</h3>
     <ul>
       <li ng-repeat="invite in userData.invitations"></li>
-    </ul>
+    </ul> -->
 
-<p>This is the current user: {{ userData }}</p>
-<p>This is the current trip: {{ trip }}</p>
+  <div ng-repeat="trip in userData.trips" class="col-lg-12" id="individual-trip">
+    <div class="col-lg-3 full-height">
+      <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/031/cache/netherlands_3127_600x450.jpg" style="z-index:10;">
+    </div>
+    <div class="col-lg-9 full-height" id="days-container">
+      <ul class="clearfix full-height">
+        <li class="trip-days full-height" ng-repeat="traveler in trip.travelers">
+          <div class="full-height">{{traveler}}</div>
+        </li>
+      </ul>
+    </div>
+    {{trip}}
+  </div>  
 </div>

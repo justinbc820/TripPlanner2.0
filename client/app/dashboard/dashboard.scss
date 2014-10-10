@@ -1,0 +1,27 @@
+#individual-trip {
+	background-color:gray;
+	height:30%;
+	min-height:300px;
+	width:100%;
+	padding-left:0;
+	img {
+		margin-left:-5px;
+		height:100%;
+	}
+	#days-container {
+		height:95%;
+		overflow-x:scroll;
+		overflow-y:hidden;
+		ul {
+			width:10000px;
+			overflow-y:hidden;
+		}
+		.trip-days {
+			display:block;
+			background-color:whitesmoke;
+			width:300px;
+			float:left;
+			margin:10px;
+		}
+	}
+}
