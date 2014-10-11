@@ -1,23 +1,47 @@
-
 <div class="home-body-page-2">
-<div id="recommendations-container" class="" ng-controller="RecommendCtrl as rec">
-  <div class="recommendations-body">
-    <button ng-click="rec.redirect()">Plan Trip!</button>
-    <h1>
-      And you're done! We thought you might like to check out these places in <br><span id="destination">{{destination}}</span>
-    </h1>
+  <div id="recommendations-container" class="" ng-controller="RecommendCtrl as rec">
+    <div class="recommendations-body">
+      <h1>
+        And you're done! We thought you might like to check out these places in
+        <br>
+        <span id="destination">{{destination}}</span>
+      </h1>
+      <div id="recommendations-container" ng-controller="RecommendCtrl as rec">
 
+        <div class="recommendations-body">
+          <h1>
+            And you're done! We thought you might like to check out these places in
+            <br>
+            <span id="destination">{{destination}}</span>
+          </h1>
 
-  <div class="image-grid" reload-on-show item-selector=".masonry-brick" masonry>
-    <ul>
-      <li ng-repeat="rec in recommendations" class="masonry-brick">
-        <div class="overlay"><span class="rec-name">{{rec.name}}</span>
-          <br>
-          <button>+</button></div>
-        <img ng-src="{{ rec.imgUrl }}" alt="">
-      </li>
-    </ul>
+          <div class="image-grid" reload-on-show item-selector=".masonry-brick" masonry>
+            <ul>
+              <li ng-repeat="recommendation in recommendations" class="masonry-brick">
+                <a href="" ng-click="addToWishList($index, recommendation.query); overlayStyle= {background: 'rgba(158,204,70,0.5)', opacity: '1'}; plusIcon = {display: 'none'}" ng-class="{'cant-click': selected[$index] == true}">
+                  <div class="overlay" ng-style="overlayStyle">
+                    <div class="overlay-inner-container">
+
+                      <h1 ng-style="plusIcon">+</h1>
+
+                      <h1 ng-show="selected[$index]"><i class="icon ion-checkmark"></i>
+                      </h1>
+                      <p>wishlist</p>
+                      <span class="rec-name">{{recommendation.name}}</span>
+                    </div>
+                  </div>
+                </a>
+                <img ng-src="{{ recommendation.imgUrl }}" alt="{{recommendation.name}}">
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <footer>
+          <button ng-click="goToDashboard()">START PLANNING</button>
+        </footer>
+
+      </div>
+    </div>
   </div>
-</div>
-</div>
-</div>
