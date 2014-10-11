@@ -15,6 +15,10 @@ angular.module('tripPlannerApp')
           radius: 5000
       }).getBounds();
 
+      $rootScope.$on('newCurrentTrip', function(event) {
+        console.log(planData.getCurrentTrip());
+      })
+
       this.details = {};
       $scope.currDetails = false;
 

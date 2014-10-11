@@ -54,14 +54,20 @@ angular.module('tripPlannerApp')
     $scope.selectActivityTime = function() {
       // pop up date and time selector
       if($scope.start !== undefined) {
-        console.log('This is the wish thats been clicked: ', $scope.start);
         console.log('wish: ', $scope.currentWish);
-        // $scope.addToCal($scope.wish);
+        console.log('Time selected for wish: ', $scope.start);
+        $scope.addToCal();
       }
     }
 
     $scope.addToCal = function() {
       // push into trip schema
+      $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {title: $scope.currentWish.name, googleDetails: $scope.currentWish, start: $scope.start})
+      .success(function(data){
+        console.log("wish saved to the server: ", $scope.currentTrip);
+        $scope.closed = true;
+        $rootScope.$broadcast('addToCal');
+      })
       // push into event array from plan data factory
     }
   })

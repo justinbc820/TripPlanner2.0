@@ -74,7 +74,23 @@ exports.addToWishlist = function(req, res) {
     };
 
     trip.wishlist.push(activity);
-        
+
+    trip.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, trip);
+    });
+  });
+};
+
+// push wish into trip activity aray
+exports.addActivity = function(req, res) {
+  Trip.findById(req.params.id, function(err, trip) {
+    if (err) { return handleError(res, err); }
+
+    var activity = req.body;
+
+    trip.activities.push(activity);
+
     trip.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, trip);

@@ -12,7 +12,7 @@ angular.module('tripPlannerApp')
 
     this.logout = function() {
       Auth.logout();
-      $location.path('/login');
+      $location.path('/');
     };
 
     this.isActive = function(route) {
