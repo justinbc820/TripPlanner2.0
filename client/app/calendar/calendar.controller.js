@@ -32,7 +32,6 @@ angular.module('tripPlannerApp')
     var self = this;
 
     var updatePlanData = function() {
-      debugger;
         $http.get('/api/trips/' + tripId).success(function(trip) {
           $scope.currentTrip = trip;
 
@@ -42,7 +41,6 @@ angular.module('tripPlannerApp')
             return {title: event.title, start: new Date(event.start)};
           });
           // $scope.$apply();
-          console.log('this.events: ', self.events)
         });
     };
     if(!planData.getCurrentTrip()) {

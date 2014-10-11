@@ -65,7 +65,6 @@ angular.module('tripPlannerApp')
     $scope.getRecommendations = function(lat, lng, loc) {
       $http.post('/api/getrecommendations/'+lat+'/'+lng, {location: loc}).success(function(data) {
         $scope.recommendations = data;
-        console.log("recommendations fetched", $scope.recommendations);
       });
     };
 
@@ -81,12 +80,12 @@ angular.module('tripPlannerApp')
 
 
     $scope.done = function(answers) {
-      var daysArray = planData.calculateDays(self.questionnaire.date);
+      $scope.questionnaire.date = $scope.setupTrip.daterange;
+      var daysArray = planData.calculateDays($scope.questionnaire.date);
       var latLng = $scope.setupTrip.destination.details.geometry.location;
       $scope.questionnaire.location = $scope.setupTrip.destination.autocomplete;
-      $scope.questionnaire.date = $scope.setupTrip.daterange;
       $http.post('/api/trips', {
-          questionnaire: this.questionnaire,
+          questionnaire: $scope.questionnaire,
           days: daysArray,
           latLng: latLng
       }).success(function(trip) {
@@ -116,7 +115,6 @@ angular.module('tripPlannerApp')
     };
 
     $scope.$watch('recommendations', function(newval, oldval) {
-
       if (newval && $scope.stillFetchingRecs) {
         $scope.done($scope.questionnaire);
       }
