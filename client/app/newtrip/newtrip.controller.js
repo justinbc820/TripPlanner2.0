@@ -3,7 +3,7 @@
 angular.module('tripPlannerApp')
   .controller('NewtripCtrl', function ($scope, Auth, $location, $window, $http, User, planData, ngDialog) {
 
-
+    var self = this;
     this.getCurrentUser = Auth.getCurrentUser;
     $scope.currentUser = this.getCurrentUser();
     $scope.isLoggedIn = Auth.isLoggedIn;
@@ -102,9 +102,13 @@ angular.module('tripPlannerApp')
 
     this.displayLoadingView = function() {
       $scope.stillFetchingRecs = true;
+      if ($scope.recommendations) {
+        $scope.done($scope.questionnaire);
+      }
     };
 
     $scope.$watch('recommendations', function(newval, oldval) {
+
       if (newval && $scope.stillFetchingRecs) {
         $scope.done($scope.questionnaire);
       }
