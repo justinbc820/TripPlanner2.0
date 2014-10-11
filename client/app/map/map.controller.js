@@ -1,22 +1,31 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('MapCtrl', function ($scope, $rootScope, planData, search) {
+  .controller('MapCtrl', function ($scope, $rootScope, planData, search, $timeout) {
 
     $scope.currDetails = {};
 
-    var currentMapOpts = planData.getMapOpts();
-  	this.map = {
-  	  center: {
-  	      latitude: currentMapOpts.location.latitude,
-  	      longitude: currentMapOpts.location.longitude
-  	  },
-      zoom: currentMapOpts.zoom,
-      // events: {
-      //   getBounds: function() {
+    $scope.currentMapOpts = planData.getMapOpts();
+    $rootScope.$on('newCurrentTrip', function(event) {
+      $scope.currentMapOpts = planData.getMapOpts();
+      $scope.map.center.latitude = $scope.currentMapOpts.location.k;
+      $scope.map.center.longitude = $scope.currentMapOpts.location.B;
+      $scope.map.zoom = $scope.currentMapOpts.zoom;
+    });
 
-      //   }
-      // },
+    $scope.$watch('map.bounds', function(newVal, oldVal) {
+      if(newVal) {
+        search.setSearchBounds(newVal);
+      }
+    }, true);
+
+  	$scope.map = {
+      bounds:{},
+  	  center: {
+  	      latitude: $scope.currentMapOpts.location.k,
+  	      longitude: $scope.currentMapOpts.location.B
+  	  },
+      zoom: $scope.currentMapOpts.zoom,
       options: {
         zoomControlOptions: {
           position:google.maps.ControlPosition.LEFT_BOTTOM,
@@ -118,7 +127,7 @@ angular.module('tripPlannerApp')
         }
   	};
 
-    this.markersEvents = {
+    $scope.markersEvents = {
 
       //'click' property here is the 'onClicked' under the click tag in the markers directive in map.html
 
