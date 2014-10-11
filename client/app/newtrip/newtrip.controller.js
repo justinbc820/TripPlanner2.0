@@ -83,8 +83,10 @@ angular.module('tripPlannerApp')
       var self = this;
       self.questionnaire.location = $scope.setupTrip.destination.autocomplete;
       self.questionnaire.date = $scope.setupTrip.daterange;
+      planData.setCurrentTrip
       $http.post('/api/trips', {questionnaire: this.questionnaire})
         .success(function(trip) {
+          planData.setCurrentTrip(trip);
           planData.setTripIdReminder(trip._id); //communicating with signup controller to populate new user with this trip's id
           planData.setRecommendations($scope.recommendations); //setting recommendations
           if(!$scope.isLoggedIn()) {  //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up

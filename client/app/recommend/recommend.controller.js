@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('RecommendCtrl', function ($scope, planData, $stateParams) {
+  .controller('RecommendCtrl', function ($scope, planData, $stateParams, $location) {
     var tripId = $stateParams.tripid;
     var getRecommendations = function() {
       planData.getRecommendations(tripId).success(function(data) {
@@ -10,5 +10,10 @@ angular.module('tripPlannerApp')
         console.log("returned", data);
       });
     };
+    
+    this.redirect = function() {
+      $location.path('/dashboard/' + tripId);
+    };
+
     getRecommendations();
   });
