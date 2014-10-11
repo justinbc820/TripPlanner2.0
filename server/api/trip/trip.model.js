@@ -12,7 +12,8 @@ var TripSchema = new Schema({
   questionnaire: {},
   wishlist: [ActivitySchema],
   days:[],
-  recommendations: []
+  recommendations: [],
+  latLng:{}
 });
 
 // var DaySchema = new Schema({

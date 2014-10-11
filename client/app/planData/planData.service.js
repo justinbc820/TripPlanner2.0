@@ -25,14 +25,15 @@ angular.module('tripPlannerApp')
     var recommendations = {};
 
     var tempActivityDetailsObj;
+
     var selectTripModal = function() {
       ngDialog.open({template: 'chooseTrip.html', controller:'DashboardCtrl'});
     };
 
     var currentMapOpts = {
       location: {
-        latitude:37.579413,
-        longitude:-2.900391
+        k:37.579413,
+        B:-2.900391
       },
       zoom:3
     };
@@ -43,6 +44,8 @@ angular.module('tripPlannerApp')
 
     var setCurrentTrip = function(trip) {
       currentTrip = trip;
+      currentMapOpts.location = trip.latLng;
+      currentMapOpts.zoom = 7;
       $rootScope.$broadcast('newCurrentTrip');
     };
 
@@ -98,7 +101,6 @@ angular.module('tripPlannerApp')
       },
 
       addToTrip: function(obj) {
-        debugger;
         tempActivityDetailsObj = obj;
         if(isLoggedIn()) {
           if(!currentTrip) {
@@ -125,6 +127,7 @@ angular.module('tripPlannerApp')
           console.log("recommendations successfully saved under current trip.", tripWithRecommendations);
         });
       },
+
       getRecommendations: function(tripId) {
         // console.log(tripId);
         // return 4;
@@ -132,6 +135,7 @@ angular.module('tripPlannerApp')
           factoryObj.recommendations = trip;
         });
       },
+      
       calculateDays: function(dateRange) {
         var oneDay = 24*60*60*1000; // Number of milliseconds in one day
         var startDate = dateRange.startDate._d.getTime(); //milliseconds of start

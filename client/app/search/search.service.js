@@ -26,11 +26,13 @@ angular.module('tripPlannerApp')
     function Marker(idNum, marker) {
       return {
       id: idNum,
-      longitude: marker.geometry.location.B,
       latitude: marker.geometry.location.k,
+      longitude: marker.geometry.location.B,
       place_id: marker.place_id
       };
-    }
+    };
+
+    var searchBounds = {};
 
     // Public API here
     return {
@@ -41,7 +43,6 @@ angular.module('tripPlannerApp')
         if(array.geometry) {
           array = [{geometry: array.geometry, place_id:array.place_id}];
         }
-        console.log(array);
         radarSearchMarkers[key].length = 0;
         for (var i=0, n=array.length; i < n; i++) {
           radarSearchMarkers[key].push(new Marker(i, array[i]));
@@ -64,6 +65,16 @@ angular.module('tripPlannerApp')
       getReturnedDetails: function(place_id) {
         return details[place_id];
       },
+
+      setSearchBounds: function(newBounds) {
+        searchBounds = newBounds;
+        $rootScope.$broadcast('newSearchBounds');
+      },
+
+      getSearchBounds: function() {
+        return searchBounds;
+      },
+
       radarSearchMarkers:radarSearchMarkers
     };
   });

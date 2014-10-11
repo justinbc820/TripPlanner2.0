@@ -26,7 +26,8 @@ exports.create = function(req, res) {
 
   var questionnaire = req.body.questionnaire;
   var days = req.body.days;
-  Trip.create({ questionnaire: questionnaire, days: days }, function(err, trip) {
+  var latLng = req.body.latLng;
+  Trip.create({ questionnaire: questionnaire, days: days, latLng:latLng }, function(err, trip) {
     if(err) { return handleError(res, err); }
     return res.json(201, trip);
   });

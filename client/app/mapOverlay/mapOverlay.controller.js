@@ -2,24 +2,26 @@
 
 angular.module('tripPlannerApp')
     .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search) {
-      // currentTrip will contain high-level data about the trip, especially the
-      // location and duration of the trip
-      var currentMapOpts = planData.getMapOpts();
 
-      // Sets the autocomplete box to search a location with a radius of meters
-      var bounds = new google.maps.Circle({
-          center: new google.maps.LatLng(
-              currentMapOpts.location.latitude,
-              currentMapOpts.location.longitude
-          ),
-          radius: 5000
-      }).getBounds();
-
-      $rootScope.$on('newCurrentTrip', function(event) {
-        console.log(planData.getCurrentTrip());
+      $rootScope.$on('newSearchBounds', function() {
+        if(search.getSearchBounds().northeast) {
+          $scope.search = {
+            autocomplete: undefined,
+            details: {},
+            options: {
+              bounds: {},
+            },
+            coords:{}
+          };
+          var rawBounds = search.getSearchBounds();
+          var SW = new google.maps.LatLng(rawBounds.southwest.latitude, rawBounds.southwest.longitude);
+          var NE = new google.maps.LatLng(rawBounds.northeast.latitude, rawBounds.northeast.longitude);
+          $scope.search.options.bounds = new google.maps.LatLngBounds(SW,NE);
+          $scope.search.coords.centerLat = rawBounds.southwest.latitude + ((rawBounds.northeast.latitude - rawBounds.southwest.latitude)/2);
+          $scope.search.coords.centerLong = rawBounds.southwest.longitude + ((rawBounds.northeast.longitude - rawBounds.southwest.longitude)/2)
+        }
       })
 
-      this.details = {};
       $scope.currDetails = false;
 
       this.radarIcons = [{
@@ -46,18 +48,16 @@ angular.module('tripPlannerApp')
           self.radarSearch(searchType);
       }
 
-      this.details = {};
-
       this.placesSearch = function(autocomplete) {
           var self = this;
           var alreadyDetails = false;
-          /*
-            If something is selected from the autocomplete list, the user wants that
-            specific location, not 20 search results, so, this function will check 10
-            times within 500ms to see if there are any place details.  If there aren't,
-            then it's assumed that we should query google for a list of results rather
-            than just the details of the place that they selected.
-            */
+          
+          // If something is selected from the autocomplete list, the user wants that
+          // specific location, not 20 search results, so, this function will check 10
+          // times within 500ms to see if there are any place details.  If there aren't,
+          // then it's assumed that we should query google for a list of results rather
+          // than just the details of the place that they selected.
+            
 
           // The autocomplete will populate self.details.details if a specific place is
           // returned from the autocomplete
@@ -73,39 +73,37 @@ angular.module('tripPlannerApp')
           $timeout(function() {
               if (!alreadyDetails) {
                   ngGPlacesAPI.textSearch({
-                          'query': autocomplete
+                          'query': autocomplete,
+                          'location': new google.maps.LatLng(
+                            $scope.search.coords.centerLat, 
+                            $scope.search.coords.centerLong
+                          ),
+                          'radius': 10000 
                       })
                       .then(function(data) {
                           search.setMarkers('textSearch', data);
                       });
               }
           }, 500);
-
       };
 
       this.radarSearch = function(type) {
-          if (!search.radarSearchMarkers[type][0]) {
-            var lat = currentMapOpts.location.latitude;
-            var lng = currentMapOpts.location.longitude;
-              ngGPlacesAPI.radarSearch({
-                      // populate location based on survey
-                      'location': new google.maps.LatLng(lat, lng),
-                      'radius': 5000,
-                      'keyword': type
-                  })
-                  .then(function(data) {
-                      search.setMarkers(type, data);
-                  });
-          } else {
-              $rootScope.$broadcast('radarResults', type);
-          }
+        ngGPlacesAPI.radarSearch({
+                // populate location based on survey
+                'location': new google.maps.LatLng(
+                  $scope.search.coords.centerLat,
+                  $scope.search.coords.centerLong
+                ),
+                'radius': 50000,
+                'keyword': type
+            })
+            .then(function(data) {
+                search.setMarkers(type, data);
+            });
+        $rootScope.$broadcast('radarResults', type);
       };
 
       this.end = {};
-
-      this.searchFieldOptions = {
-          bounds: bounds
-      };
 
       this.addToTrip = function(details) {
         planData.addToTrip(details);

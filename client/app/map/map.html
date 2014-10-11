@@ -1,8 +1,8 @@
 <!-- <div ng-include="'components/navbar/navbar.html'"></div> -->
 <div class="col-lg-12 col-md-12 full-height animated fadeIn" id="map-wrapper">
-  <div ng-controller="MapCtrl as map" id="map-container">
-    <google-map center="map.map.center" zoom="map.map.zoom" class="full-height" options="map.map.options" events="map.map.events">
-        <markers models="markers" click="'onClicked'" events="map.markersEvents" coords="'self'" idKey="'id'" doCluster="true" fit="true" doRebuildAll="true"></markers>
+  <div ng-controller="MapCtrl" id="map-container">
+    <google-map center="map.center" zoom="map.zoom" class="full-height" options="map.options" bounds="map.bounds">
+        <markers models="markers" click="'onClicked'" events="markersEvents" coords="'self'" idKey="'id'" doCluster="true" fit="true" doRebuildAll="true"></markers>
     </google-map>
   </div>
 
@@ -11,8 +11,8 @@
 <div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click" style="margin-top:100px;">
   <div class="col-lg-4 col-md-4" class="clearfix full-height">
   </div>
-  <div class="col-lg-5 col-md-5 full-height can-click" style="background-color: 'green'">
-    <div id="day-panel">
+  <div class="col-lg-5 col-md-5 full-height" style="background-color: 'green'">
+    <div id="day-panel" class="can-click">
       Day 1 2 3
     </div>
   </div>
@@ -21,8 +21,8 @@
     <div class="opaque" id="search-container">
 
       <div id="search-input">
-          <form ng-submit="overlay.placesSearch(overlay.autocomplete)">
-            <input type="text" ng-model="overlay.autocomplete" ng-autocomplete options="overlay.searchFieldOptions" details="overlay.details.details" id="map-search" placeholder="search" class="can-click" >
+          <form ng-submit="overlay.placesSearch(search.autocomplete)">
+            <input type="text" ng-model="search.autocomplete" ng-autocomplete options="search.options" details="search.details" id="map-search" placeholder="search" class="can-click" >
             <button type="submit" class="can-click" style="visibility:hidden; display:none;"></button>
           </form>
       </div>

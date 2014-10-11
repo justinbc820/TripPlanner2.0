@@ -79,25 +79,32 @@ angular.module('tripPlannerApp')
       }
     }, true);
 
+
     $scope.done = function(answers) {
+      var daysArray = planData.calculateDays(self.questionnaire.date);
+      var latLng = $scope.setupTrip.destination.details.geometry.location;
       $scope.questionnaire.location = $scope.setupTrip.destination.autocomplete;
       $scope.questionnaire.date = $scope.setupTrip.daterange;
-      $http.post('/api/trips', {questionnaire: this.questionnaire})
-        .success(function(trip) {
+      $http.post('/api/trips', {
+          questionnaire: this.questionnaire,
+          days: daysArray,
+          latLng: latLng
+      }).success(function(trip) {
           planData.setCurrentTrip(trip);
           planData.setTripIdReminder(trip._id); //communicating with signup controller to populate new user with this trip's id
           planData.setRecommendations($scope.recommendations); //setting recommendations
-          if(!$scope.isLoggedIn()) {  //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
-            self.signup();
-          } else {  //If user is logged in when questionnaire is finished, then redirect to recommendations
-            $http.put('/api/users/' + $scope.currentUser._id, {
-              id:trip._id
-            }).success(function(updatedUser) {
-              $location.path('/recommend/'+trip._id); //redirect to recommendations
-            })
+          if (!$scope.isLoggedIn()) { //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
+              self.signup();
+          } else { //If user is logged in when questionnaire is finished, then redirect to recommendations
+              $http.put('/api/users/' + $scope.currentUser._id, {
+                  id: trip._id
+              }).success(function(updatedUser) {
+                  $location.path('/recommend/' + trip._id); //redirect to recommendations
+              })
           }
-        });
+      });
     };
+
 
     $scope.stillFetchingRecs = false;
 
