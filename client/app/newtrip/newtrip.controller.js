@@ -83,7 +83,8 @@ angular.module('tripPlannerApp')
       var self = this;
       self.questionnaire.location = $scope.setupTrip.destination.autocomplete;
       self.questionnaire.date = $scope.setupTrip.daterange;
-      $http.post('/api/trips', {questionnaire: this.questionnaire})
+      var daysArray = planData.calculateDays(self.questionnaire.date);
+      $http.post('/api/trips', {questionnaire: this.questionnaire, days: daysArray})
         .success(function(trip) {
           planData.setTripIdReminder(trip._id); //communicating with signup controller to populate new user with this trip's id
           planData.setRecommendations($scope.recommendations); //setting recommendations

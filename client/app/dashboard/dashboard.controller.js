@@ -7,6 +7,7 @@ angular.module('tripPlannerApp')
 
     $http.get('/api/users/me').success(function(user) {
         $scope.userData = user;
+        console.log($scope.userData);
         if(planData.getCurrentTrip()) {
             var tripId = planData.getCurrentTrip()._id;
             $http.get('/api/trips/' + tripId).success(function(trip) {

@@ -25,7 +25,8 @@ exports.create = function(req, res) {
   // var userId = req.body.userId;
 
   var questionnaire = req.body.questionnaire;
-  Trip.create({ questionnaire: questionnaire }, function(err, trip) {
+  var days = req.body.days;
+  Trip.create({ questionnaire: questionnaire, days: days }, function(err, trip) {
     if(err) { return handleError(res, err); }
     return res.json(201, trip);
   });

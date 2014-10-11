@@ -11,6 +11,7 @@ var TripSchema = new Schema({
   budget: { type: Number, default: 0},
   questionnaire: {},
   wishlist: [ActivitySchema],
+  days:[],
   recommendations: []
 });
 

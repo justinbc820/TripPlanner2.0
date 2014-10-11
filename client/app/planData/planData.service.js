@@ -18,7 +18,7 @@ angular.module('tripPlannerApp')
           selectTripModal();
         }
       })
-    }
+    };
 
     var recommendations = {};
 
@@ -128,6 +128,21 @@ angular.module('tripPlannerApp')
         return $http.get('/api/trips/'+tripId).success(function(trip) {
           factoryObj.recommendations = trip;
         });
+      },
+      calculateDays: function(dateRange) {
+        var oneDay = 24*60*60*1000; // Number of milliseconds in one day
+        var startDate = dateRange.startDate._d.getTime(); //milliseconds of start
+        var endDate = dateRange.endDate._d.getTime(); // millisedonds of end
+        var startDay = dateRange.startDate._d.getDate(); // date of first day
+        var dayDiff = Math.round(Math.abs(startDate - endDate)/oneDay); // num days between
+        // start and ending dates
+        var daysArray = [];
+        for(var i=0; i<dayDiff; i++) {
+          var newDate = new Date(dateRange.startDate._d.setDate(startDay + i)); // start at
+          // the first day and add one day at a time and push that new date to an array
+          daysArray.push(newDate);
+        }
+        return daysArray;
       }
     };
 
