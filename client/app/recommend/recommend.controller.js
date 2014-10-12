@@ -62,7 +62,7 @@ angular.module('tripPlannerApp')
           cost:cost,
           details:details
         }).success(function(trip) {
-          console.log("new trip updated wishlist", trip);
+          planData.setCurrentTrip(trip);
         })
       });
     }; //end to addToWishList

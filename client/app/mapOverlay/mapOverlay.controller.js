@@ -22,6 +22,20 @@ angular.module('tripPlannerApp')
         }
       })
 
+      $scope.currentTrip = planData.getCurrentTrip();
+      $rootScope.$on('newCurrentTrip', function() {
+        $scope.currentTrip = planData.getCurrentTrip();
+        $scope.selectedDay = $scope.currentTrip.days[0];
+        $scope.selectedDayCss = 0;
+      });
+
+
+      $scope.daySelect = function(index) {
+        $scope.selectedDayCss = index;
+        $scope.selectedDay = $scope.currentTrip.days[index];
+        console.log($scope.selectedDay);
+      }
+
       $scope.currDetails = false;
 
       this.radarIcons = [{

@@ -2,7 +2,6 @@
 
 angular.module('tripPlannerApp')
   .controller('AsideCtrl', function ($scope, $aside, $location, planData) {
-    console.log("planData", planData.getCurrentTrip());
     var currentTrip;
     if(planData.getCurrentTrip()) {
       currentTrip = {

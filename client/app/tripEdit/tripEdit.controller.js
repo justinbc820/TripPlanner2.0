@@ -8,12 +8,12 @@ angular.module('tripPlannerApp')
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         $scope.currentTrip = trip;
+        planData.setCurrentTrip(trip);
       })
     }
 
     $rootScope.$on('newCurrentTrip', function() {
     	$scope.currentTrip = planData.getCurrentTrip();
-    	console.log($scope.currentTrip);
     });
 
     $scope.updateTrip = function(updatedTrip) {

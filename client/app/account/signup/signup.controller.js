@@ -33,7 +33,8 @@ angular.module('tripPlannerApp')
                                     if(tripId) {
                                            $http.put('/api/trips/' + tripId, {
                                             travelerId: userId
-                                        }).success(function(data) {
+                                        }).success(function(trip) {
+                                            planData.setCurrentTrip(trip);
                                             if ($location.url() === '/newtrip') {
                                                 $location.path('/recommend/'+tripId);
                                             } else {

@@ -145,10 +145,11 @@ angular.module('tripPlannerApp')
         // start and ending dates
         var daysArray = [];
         for(var i=0; i<dayDiff; i++) {
-          var newDate = new Date(dateRange.startDate._d.setDate(startDay + i)); // start at
+          var newDate = new Date(dateRange.startDate._d.setDate(startDay + i)).setHours(9); // start at
           // the first day and add one day at a time and push that new date to an array
           daysArray.push(newDate);
         }
+        console.log(daysArray);
         return daysArray;
       }
     };

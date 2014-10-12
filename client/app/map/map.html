@@ -8,12 +8,17 @@
 
 </div>
 
-<div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click" style="margin-top:100px;">
-  <div class="col-lg-4 col-md-4" class="clearfix full-height">
+<div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click">
+  <div class="col-lg-3 col-md-3" class="clearfix full-height">
   </div>
-  <div class="col-lg-5 col-md-5 full-height" style="background-color: 'green'">
+  <div class="col-lg-6 col-md-6 full-height" id="day-info-container">
+    <h1>{{selectedDay | date:'mediumDate'}}</h1>
     <div id="day-panel" class="can-click">
-      Day 1 2 3
+      <div style="width:1000px;">
+        <button ng-repeat="day in currentTrip.days" ng-class="{'map-day-selected':$index == selectedDayCss }" ng-click="daySelect($index)" class="map-day">
+          <span>{{$index + 1}}</span>
+        </button>
+      </div>
     </div>
   </div>
   <div class="col-lg-3 col-md-3 full-height">
