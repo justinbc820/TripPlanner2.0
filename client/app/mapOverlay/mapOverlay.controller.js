@@ -3,16 +3,18 @@
 angular.module('tripPlannerApp')
     .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search) {
 
+      $scope.search = {
+        autocomplete: undefined,
+        details: {},
+        options: {
+          bounds: {},
+        },
+        coords:{}
+      };
       $rootScope.$on('newSearchBounds', function() {
         if(search.getSearchBounds().northeast) {
-          $scope.search = {
-            autocomplete: undefined,
-            details: {},
-            options: {
-              bounds: {},
-            },
-            coords:{}
-          };
+          console.log($scope.search.details);
+          console.log($scope.search.options.bounds);
           var rawBounds = search.getSearchBounds();
           var SW = new google.maps.LatLng(rawBounds.southwest.latitude, rawBounds.southwest.longitude);
           var NE = new google.maps.LatLng(rawBounds.northeast.latitude, rawBounds.northeast.longitude);
@@ -73,13 +75,13 @@ angular.module('tripPlannerApp')
           // than just the details of the place that they selected.
             
 
-          // The autocomplete will populate self.details.details if a specific place is
+          // The autocomplete will populate $scope.search.details if a specific place is
           // returned from the autocomplete
           var checkForDetails = $interval(function() {
-              if (self.details.details !== undefined) {
+              if ($scope.search.details !== undefined) {
                   $interval.cancel(checkForDetails);
-                  search.setMarkers('textSearch', self.details.details);
-                  self.details.details = undefined;
+                  search.setMarkers('textSearch', $scope.search.details);
+                  $scope.search.details = undefined;
                   alreadyDetails = true;
               }
           }, 50, 10);
@@ -87,11 +89,8 @@ angular.module('tripPlannerApp')
           $timeout(function() {
               if (!alreadyDetails) {
                   ngGPlacesAPI.textSearch({
-                          'query': autocomplete,
-                          'location': new google.maps.LatLng(
-                            $scope.search.coords.centerLat, 
-                            $scope.search.coords.centerLong
-                          ),
+                          'query': $scope.search.autocomplete,
+                          'location': $scope.search.options.bounds,
                           'radius': 10000 
                       })
                       .then(function(data) {
@@ -125,7 +124,7 @@ angular.module('tripPlannerApp')
 
       $rootScope.$on('detailsReturned', function(event, placeId) {
           $scope.currDetails = search.getReturnedDetails(placeId);
-          if($scope.currDetails.phots) {
+          if($scope.currDetails.photos) {
             var width = $scope.currDetails.photos[0].width;
             var height = $scope.currDetails.photos[0].height;
             $scope.currDetails.photoUrl = $scope.currDetails.photos[0].getUrl({

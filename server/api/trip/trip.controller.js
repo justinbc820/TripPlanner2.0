@@ -23,7 +23,6 @@ exports.show = function(req, res) {
 // Creates a new trip in the DB.
 exports.create = function(req, res) {
   // var userId = req.body.userId;
-
   var questionnaire = req.body.questionnaire;
   var days = req.body.days;
   var latLng = req.body.latLng;
