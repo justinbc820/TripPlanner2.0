@@ -7,14 +7,14 @@ var request = require('request');
 var Flickr = require('flickrapi');
 var async = require('async');
 var flickrOptions = {
-  api_key: "53226b5e399dde0a88c01bd8fc5574a6", //Jonah's Flickr Key
-  secret: "4af75b9e0d695d4c"
+  api_key: "ffad72ee886d811d6cdff9080804852b", //Jonah's Flickr Key
+  secret: "2639b6119b8ba8bf"
 };
 
 //Get list of recommendations from TIXIK API and if no img url returned from TIXIK, search for relevant images on flickr
 
 exports.getRecommendations = function(req, res) {
-  request('http://www.tixik.com/en/api/nearby/?lat='+req.params.lat+'&lng='+req.params.lng +'&limit=100&key=demo', function (err, response, body) {
+  request('http://www.tixik.com/en/api/nearby/?lat='+req.params.lat+'&lng='+req.params.lng +'&limit=50&key=demo', function (err, response, body) {
 
         parseString(body, function(err, result) { //Open parsestring
           var placesArr = result.tixik.items[0].item;
@@ -38,8 +38,8 @@ exports.getRecommendations = function(req, res) {
                     safe_search: 1,
                     lat: req.params.lat,
                     lon: req.params.lng,
-                    per_page: 1,
-                    geo_context:2
+                    per_page: 1
+                    // geo_context:2
                 }, function(err, result) {
                     if (result.photos.photo[0]) {
                          var id = result.photos.photo[0].id,

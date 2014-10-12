@@ -65,21 +65,21 @@ angular.module('tripPlannerApp')
       this.placesSearch = function(autocomplete) {
           var self = this;
           var alreadyDetails = false;
-          
+
           // If something is selected from the autocomplete list, the user wants that
           // specific location, not 20 search results, so, this function will check 10
           // times within 500ms to see if there are any place details.  If there aren't,
           // then it's assumed that we should query google for a list of results rather
           // than just the details of the place that they selected.
-            
 
-          // The autocomplete will populate self.details.details if a specific place is
+
+          // The autocomplete will populate $scope.search.details if a specific place is
           // returned from the autocomplete
           var checkForDetails = $interval(function() {
-              if (self.details.details !== undefined) {
+              if ($scope.search.details !== undefined) {
                   $interval.cancel(checkForDetails);
-                  search.setMarkers('textSearch', self.details.details);
-                  self.details.details = undefined;
+                  search.setMarkers('textSearch', $scope.search.details);
+                  $scope.search.details = undefined;
                   alreadyDetails = true;
               }
           }, 50, 10);
@@ -87,12 +87,12 @@ angular.module('tripPlannerApp')
           $timeout(function() {
               if (!alreadyDetails) {
                   ngGPlacesAPI.textSearch({
-                          'query': autocomplete,
+                          'query': $scope.search.autocomplete,
                           'location': new google.maps.LatLng(
-                            $scope.search.coords.centerLat, 
+                            $scope.search.coords.centerLat,
                             $scope.search.coords.centerLong
                           ),
-                          'radius': 10000 
+                          'radius': 10000
                       })
                       .then(function(data) {
                           search.setMarkers('textSearch', data);
@@ -125,7 +125,7 @@ angular.module('tripPlannerApp')
 
       $rootScope.$on('detailsReturned', function(event, placeId) {
           $scope.currDetails = search.getReturnedDetails(placeId);
-          if($scope.currDetails.phots) {
+          if($scope.currDetails.photos) {
             var width = $scope.currDetails.photos[0].width;
             var height = $scope.currDetails.photos[0].height;
             $scope.currDetails.photoUrl = $scope.currDetails.photos[0].getUrl({
