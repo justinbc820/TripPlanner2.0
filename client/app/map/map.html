@@ -2,7 +2,7 @@
 <div class="col-lg-12 col-md-12 full-height animated fadeIn" id="map-wrapper">
   <div ng-controller="MapCtrl" id="map-container">
     <google-map center="map.center" zoom="map.zoom" class="full-height" options="map.options" bounds="map.bounds">
-        <markers models="markers" click="'onClicked'" events="markersEvents" coords="'self'" idKey="'id'" doCluster="true" fit="true" doRebuildAll="true"></markers>
+      <markers models="markers" click="'onClicked'" events="markersEvents" coords="'self'" idKey="'id'" doCluster="true" fit="true" doRebuildAll="true"></markers>
     </google-map>
   </div>
 
@@ -26,31 +26,33 @@
     <div class="opaque" id="search-container">
 
       <div id="search-input">
-          <form ng-submit="overlay.placesSearch(search.autocomplete)">
-            <input type="text" ng-model="search.autocomplete" ng-autocomplete options="search.options" details="search.details" id="map-search" placeholder="search" class="can-click" >
-            <button type="submit" class="can-click" style="visibility:hidden; display:none;"></button>
-          </form>
+        <form ng-submit="overlay.placesSearch(search.autocomplete)">
+          <input type="text" ng-model="search.autocomplete" ng-autocomplete options="search.options" details="search.details" id="map-search" placeholder="search" class="can-click">
+          <button type="submit" class="can-click" style="visibility:hidden; display:none;"></button>
+        </form>
       </div>
 
 
       <!-- Filter dropdowns start here-->
       <div>
         <div id="search-dropdowns">
-            <select class="can-click" id="pricefilter">
-              <option value="" disabled selected>filter by price <img src="../../assets/images/icons/arrow-down.png" style="width:15px; height:15px; margin-left: 3px"></option>
-              <option value="1">$</option>
-              <option value="2">$$</option>
-              <option value="3">$$$</option>
-              <option value="4">$$$$</option>
-            </select>
+          <select class="can-click" id="pricefilter">
+            <option value="" disabled selected>filter by price
+              <img src="../../assets/images/icons/arrow-down.png" style="width:15px; height:15px; margin-left: 3px">
+            </option>
+            <option value="1">$</option>
+            <option value="2">$$</option>
+            <option value="3">$$$</option>
+            <option value="4">$$$$</option>
+          </select>
 
-            <select class="can-click" id="distancefilter">
-              <option value="" disabled selected>filter by distance</option>
-              <option value="1">0.5 miles</option>
-              <option value="2">Within 2 miles</option>
-              <option value="3">Within 5 miles</option>
-              <option value="4">Anywhere</option>
-            </select>
+          <select class="can-click" id="distancefilter">
+            <option value="" disabled selected>filter by distance</option>
+            <option value="1">0.5 miles</option>
+            <option value="2">Within 2 miles</option>
+            <option value="3">Within 5 miles</option>
+            <option value="4">Anywhere</option>
+          </select>
         </div>
 
         <!-- Filter dropdowns end here -->
@@ -60,72 +62,60 @@
         <div id="search-radarbuttons">
           <div ng-repeat="icon in overlay.radarIcons" class="can-click radar-icons">
             <img ng-src="{{icon.route}}" ng-click="overlay.iconRadarSearch([$index])" class="can-click">
-            <div class="can-click"><p>{{icon.text}}</p></div>
+            <div class="can-click">
+              <p>{{icon.text}}</p>
+            </div>
           </div>
         </div>
 
         <div class="dottedline-bottom"></div>
 
-    <div ng-show="currDetails" id="details-panel" class="can-click clearfix">
-      <div class="dottedline-top"></div>
-      <div class="placephoto-banner-outer">
-        <div class="placephoto-banner" style="background:url('{{currDetails.photoUrl}}')">
-          <div class="placephoto-banner-overlay">
-            <h3 class="uppercase">{{currDetails.name}}</h3>
-            <h5>{{currDetails.formatted_address}}</h5>
+        <div ng-show="currDetails" id="details-panel" class="can-click clearfix">
+          <div class="dottedline-top"></div>
+          <div class="placephoto-banner-outer">
+            <div class="placephoto-banner" style="background:url('{{currDetails.photoUrl}}')">
+              <div class="placephoto-banner-overlay">
+                <h3 class="uppercase">{{currDetails.name}}</h3>
+                <h5>{{currDetails.formatted_address}}</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="separator"></div>
+
+          <ul>
+            <li>
+              <b>Rating:</b>
+              <span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+              </span>
+            </li>
+            <li><b>Website:</b>  <a ng-href="{{currDetails.website}}">{{currDetails.website}}</a>
+            </li>
+            <li><b>Telephone:</b>{{currDetails.international_phone_number}}</li>
+          </ul>
+
+          <!-- <div class="button-wrapper">
+        <button id="add-to-trip" date-time max-view="date" min-view="hours" ng-model="start" ng-click="overlay.addToTrip(currDetails)">ADD TO TRIP</button>
+      </div> -->
+          <button id="add-to-trip" ng-click="overlay.addToTrip(currDetails)">ADD TO TRIP</button>
+          <!-- <div ng-show="overlay.calendarShowing" date-picker="start" max-view="date" min-view="hours" id="add-calendar"></div> -->
+          <div class="dottedline-bottom"></div>
+        </div>
+
+        <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults().length > 1">
+          <div class="results-place" ng-repeat="place in overlay.getSearchResults()">
+            <p>{{place.name}}</p>
+            <small>
+              <small>
+                <p>rating: {{place.rating}}</p>
+              </small>
+              <small>
           </div>
         </div>
       </div>
-
-      <div class="separator"></div>
-
-      <ul>
-        <li>
-          <b>Rating:</b>
-          <span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-          </span>
-        </li>
-        <li><b>Website:</b> <a ng-href="{{currDetails.website}}">{{currDetails.website}}</a></li>
-        <li><b>Telephone:</b>{{currDetails.international_phone_number}}</li>
-      </ul>
-
-      <!-- <div class="button-wrapper">
-        <button id="add-to-trip" date-time max-view="date" min-view="hours" ng-model="start" ng-click="overlay.addToTrip(currDetails)">ADD TO TRIP</button>
-      </div> -->
-      <button id="add-to-trip" ng-click="overlay.addToTrip(currDetails)">ADD TO TRIP</button>
-      <!-- <div ng-show="overlay.calendarShowing" date-picker="start" max-view="date" min-view="hours" id="add-calendar"></div> -->
-      <div class="dottedline-bottom"></div>
     </div>
-
-    <div class="opaque can-click" id="search-results" ng-show="overlay.getSearchResults().length > 1">
-      <div class="results-place" ng-repeat="place in overlay.getSearchResults()">
-        <p>{{place.name}}</p>
-        <small><small><p>rating: {{place.rating}}</p></small><small>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL FOR TripPicker -->
-<!--  -->
-<!--  -->
-<!--  -->
-
-<script type="text/ng-template" id="chooseTrip.html">
-  <div class="modal-header">
-    <button ng-if="modal.dismissable" type="button" ng-click="$dismiss()" class="close">&times;</button>
-    <h4 class="modal-title">Pick your trip!</h4>
-  </div>
-  <div class="modal-body">
-    <div ng-repeat="trip in userData.trips" ng-click="setCurrentTrip(trip)">{{trip.questionnaire.location}}</div>
-  </div>
-  <div class="modal-footer">
-    <!-- //<button ng-repeat="button in modal.buttons" ng-class="button.classes" ng-click="button.click($event)" ng-bind="button.text" class="btn"></button> -->
-    <button ng-click="button.click($event)" class="btn">Submit</button>
-  </div>
-</script>

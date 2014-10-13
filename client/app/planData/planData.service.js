@@ -2,7 +2,7 @@
 
 angular.module('tripPlannerApp')
 
-  .factory('planData', function ($http, $rootScope, ngDialog, Auth, $location) {
+  .factory('planData', function ($http, $rootScope, Auth, $location, $modal) {
     var isLoggedIn = Auth.isLoggedIn;
     var currentTrip;
     var user;
@@ -15,7 +15,7 @@ angular.module('tripPlannerApp')
         if(user.trips.length === 1) {
           setCurrentTrip(user.trips[0]);
         } else {
-          selectTripModal();
+          showSelectTripModal();
         }
       })
     };
@@ -26,8 +26,11 @@ angular.module('tripPlannerApp')
 
     var tempActivityDetailsObj;
 
-    var selectTripModal = function() {
-      ngDialog.open({template: 'chooseTrip.html', controller:'DashboardCtrl'});
+    var selectTripModal = $modal({title: 'SELECT A TRIP', template: '../mapOverlay/tripPicker.html', show: false, placement: 'center'});
+
+    var showSelectTripModal = function() {
+      // ngDialog.open({template: 'chooseTrip.html', controller:'DashboardCtrl'});
+      selectTripModal.show();
     };
 
     var currentMapOpts = {
@@ -110,7 +113,7 @@ angular.module('tripPlannerApp')
               if(user.trips.length === 1) {
                 setCurrentTrip(user.trips[0])
               } else {
-                selectTripModal();
+                showSelectTripModal();
               }
             }
           } else {
@@ -135,7 +138,7 @@ angular.module('tripPlannerApp')
           factoryObj.recommendations = trip;
         });
       },
-      
+
       calculateDays: function(dateRange) {
         var oneDay = 24*60*60*1000; // Number of milliseconds in one day
         var startDate = dateRange.startDate._d.getTime(); //milliseconds of start

@@ -2,13 +2,14 @@
 
 angular.module('tripPlannerApp')
 
-    .controller('SignupCtrl', function($scope, Auth, $modal, $location, $window, planData, $http, ngDialog) {
+    .controller('SignupCtrl', function($scope, Auth, $location, $window, planData, $http, $rootScope, $modal) {
 
         $scope.user = {};
         $scope.errors = {};
 
+        var loginModal = $modal({title: 'LOGIN', template: '../app/account/login/login.html', show: false, placement: 'center'});
+
         $scope.register = function(form) {
-            ngDialog.close();
 
             $scope.submitted = true;
 
@@ -19,6 +20,8 @@ angular.module('tripPlannerApp')
                         password: $scope.user.password,
                     })
                     .then(function() {
+                        $rootScope.$broadcast('signedUp');
+
                         if (!planData.getTripIdReminder()) {
                             $location.path('/newtrip');
                         } else {
@@ -62,5 +65,9 @@ angular.module('tripPlannerApp')
 
         $scope.loginOauth = function(provider) {
             $window.location.href = '/auth/' + provider;
+        };
+
+        this.login = function() {
+          $rootScope.$broadcast('closeSignupModalAndDisplayLogin');
         };
     });

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('NewtripCtrl', function ($scope, Auth, $location, $window, $http, User, planData, ngDialog) {
+  .controller('NewtripCtrl', function ($scope, Auth, $location, $window, $http, User, planData, $rootScope) {
 
     var self = this;
     this.getCurrentUser = Auth.getCurrentUser;
@@ -58,7 +58,7 @@ angular.module('tripPlannerApp')
     };
 
     this.signup = function() {
-      ngDialog.open({template: 'signup.html', controller: 'SignupCtrl'});
+      $rootScope.$broadcast('showSignupModal');
     };
 
     ////Tixik/Flickr API call
@@ -91,7 +91,6 @@ angular.module('tripPlannerApp')
       }).success(function(trip) {
           planData.setCurrentTrip(trip);
           planData.setTripIdReminder(trip._id); //communicating with signup controller to populate new user with this trip's id
-          console.log($scope.recommendations);
           planData.setRecommendations($scope.recommendations); //setting recommendations
           if (!$scope.isLoggedIn()) { //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
               self.signup();

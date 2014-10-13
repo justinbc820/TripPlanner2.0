@@ -12,7 +12,6 @@ angular.module('tripPlannerApp', [
   'ui.calendar',
   'ngGPlaces',
   'ngAutocomplete',
-  'ngDialog',
   'mgcrea.ngStrap',
   'ngBootstrap',
   'datePicker',
