@@ -4,32 +4,38 @@ angular.module('tripPlannerApp')
 
   .factory('planData', function ($http, $rootScope, ngDialog, Auth, $location) {
     var isLoggedIn = Auth.isLoggedIn;
-    var currentTrip;
-    var user;
+    var currentTrip; // this represents ALL information about the currently selected global trip
+    var user; // this represents information about the user, such as their id, etc.
 
+    // Gets information about the user from the database
     var fetchUserFromDB = function() {
-      return $http.get('/api/users/me').success(function(user) {
-        if(user) {
-          user = user;
-        }
-        if(user.trips.length === 1) {
-          setCurrentTrip(user.trips[0]);
-        } else {
-          selectTripModal();
-        }
-      })
+      return $http.get('/api/users/me')
+        .success(function(user) {
+          if(user) {
+            user = user;
+          }
+          // if the user only has one trip, make that the current Trip, otherwise,
+          // pop up a modal to have them select the current trip.
+          if(user.trips.length === 1) {
+            setCurrentTrip(user.trips[0]);
+          } else {
+            selectTripModal();
+          }
+        })
     };
 
+    // calls the above function when the app loads
     fetchUserFromDB();
 
-    var recommendations = {};
+    var recommendations = {}; // This object contains recommendations for the recommendations view
 
-    var tempActivityDetailsObj;
-
+    // This function is called when someone doesn't have a current trip and need to select one
     var selectTripModal = function() {
       ngDialog.open({template: 'chooseTrip.html', controller:'DashboardCtrl'});
     };
 
+    // This variable houses LatLng and zoom specifications for initial map load and then
+    // every time the map viewport is changed.
     var currentMapOpts = {
       location: {
         k:37.579413,
@@ -38,10 +44,15 @@ angular.module('tripPlannerApp')
       zoom:3
     };
 
-    var tripreminder = {};
 
-    var currentSearch = {searchResults:[]};
+    var tripreminder = {}; // This caches the trip in case the person tries to add a trip, but isn't logged in or signed up
 
+    // var currentSearch = {searchResults:[]};
+
+    /*
+     * This function sets the current trip when someone selects it from dashboard
+     * Also, sets all search options to be in relation to the trip's LatLng
+    */
     var setCurrentTrip = function(trip) {
       currentTrip = trip;
       currentMapOpts.location = trip.latLng;
@@ -49,6 +60,10 @@ angular.module('tripPlannerApp')
       $rootScope.$broadcast('newCurrentTrip');
     };
 
+    /*
+     * This takes an object and formats it for the server-side mongoose model
+     * It then writes the formatted trip to the DB
+    */
     var pushTripToDB = function(obj) {
       var tripId = currentTrip._id;
       var name = obj.name;
@@ -69,15 +84,25 @@ angular.module('tripPlannerApp')
       })
     };
 
-    // Public API here
+    // this caches the current activity just in case the user wasn't logged in or 
+    // didn't have a trip selected when they clicked on add to trip.
+    // It is then fetched from the dashboard controller once they are logged in or they
+    // have a current trip selected.
+    var tempActivityDetailsObj; 
 
+
+    // Public API here
     var factoryObj = {
 
+      // This fetches the cached activity for when a person wasn't logged in or didnt
+      // have a trip selected
       getTempActivity: function() {
         return tempActivityDetailsObj;
       },
 
-      setCurrentTrip: setCurrentTrip,
+      // This is a function that was housed outside the return object because other
+      // functions within the object needed access to it
+      setCurrentTrip: setCurrentTrip, 
 
       getCurrentTrip: function() {
         return currentTrip;
@@ -92,6 +117,7 @@ angular.module('tripPlannerApp')
         return currentMapOpts;
       },
 
+      // These functions get and set the cached trip when a person
       setTripIdReminder: function(id) {
         tripreminder.tripId = id;
       },
@@ -100,6 +126,8 @@ angular.module('tripPlannerApp')
         return tripreminder.tripId;
       },
 
+      // This will add an activity to the current trip. It will check to make sure
+      // that the person is logged in and has a current trip.
       addToTrip: function(obj) {
         tempActivityDetailsObj = obj;
         if(isLoggedIn()) {
@@ -121,21 +149,29 @@ angular.module('tripPlannerApp')
         }
       },
 
+      // This function writes all trip recommendations to the trip record in the DB
       setRecommendations: function(data) {
         recommendations.arr = data;
-        $http.put('/api/trips/'+tripreminder.tripId, {recommendations: recommendations.arr}).success(function(tripWithRecommendations) {
-          console.log("recommendations successfully saved under current trip.", tripWithRecommendations);
-        });
+        $http.put('/api/trips/'+tripreminder.tripId, {recommendations: recommendations.arr})
+          .success(function(tripWithRecommendations) {
+            console.log("recommendations successfully saved under current trip.", tripWithRecommendations);
+          });
       },
 
+      // This function will fetch recommendations from the DB
       getRecommendations: function(tripId) {
-        // console.log(tripId);
-        // return 4;
-        return $http.get('/api/trips/'+tripId).success(function(trip) {
-          factoryObj.recommendations = trip;
-        });
+        return $http.get('/api/trips/'+tripId)
+          .success(function(trip) {
+            factoryObj.recommendations = trip;
+          });
       },
       
+      /*
+       * This function is called when a person completes the newTrip survey.  It takes
+       * the date range, calculates the number of days between the two, makes an array
+       * of that length, then pushes each intervening date into an array of dates.  This
+       * data is made available to the map overlay controller to populate the day selection bar
+      */
       calculateDays: function(dateRange) {
         var oneDay = 24*60*60*1000; // Number of milliseconds in one day
         var startDate = dateRange.startDate._d.getTime(); //milliseconds of start
@@ -145,11 +181,10 @@ angular.module('tripPlannerApp')
         // start and ending dates
         var daysArray = [];
         for(var i=0; i<dayDiff; i++) {
-          var newDate = new Date(dateRange.startDate._d.setDate(startDay + i)).setHours(9); // start at
-          // the first day and add one day at a time and push that new date to an array
+          // start at the first day and add one day at a time and push that new date to an array
+          var newDate = new Date(dateRange.startDate._d.setDate(startDay + i)).setHours(9); 
           daysArray.push(newDate);
         }
-        console.log(daysArray);
         return daysArray;
       }
     };

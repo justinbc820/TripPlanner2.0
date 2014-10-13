@@ -3,9 +3,12 @@
 angular.module('tripPlannerApp')
   .controller('MapCtrl', function ($scope, $rootScope, planData, search, $timeout) {
 
-    $scope.currDetails = {};
+    // $scope.currDetails = {};
 
+    // This object contains the center LatLng and the zoom level of the map
     $scope.currentMapOpts = planData.getMapOpts();
+
+    // Whenever planData currentTrip is updated, this sets the map options and updates the map
     $rootScope.$on('newCurrentTrip', function(event) {
       $scope.currentMapOpts = planData.getMapOpts();
       $scope.map.center.latitude = $scope.currentMapOpts.location.k;
@@ -13,12 +16,20 @@ angular.module('tripPlannerApp')
       $scope.map.zoom = $scope.currentMapOpts.zoom;
     });
 
+    // when search factory has new markers representing the activities of a day, this updates them
+    $rootScope.$on('newDayMarkers', function() {
+      $scope.currentDayMarkers = search.getDayMarkers();
+    });
+
+    // This watches for someone to resize or pan the map and then updates the current
+    // search parameters to that searches are biased within the viewport
     $scope.$watch('map.bounds', function(newVal, oldVal) {
       if(newVal) {
         search.setSearchBounds(newVal);
       }
     }, true);
 
+    // This object contains map options including styling options
   	$scope.map = {
       bounds:{},
   	  center: {
@@ -128,9 +139,7 @@ angular.module('tripPlannerApp')
   	};
 
     $scope.markersEvents = {
-
       //'click' property here is the 'onClicked' under the click tag in the markers directive in map.html
-
       click: function (gMarker, eventName, model) {
         if(model.$id) {
           model = model.coords;
@@ -139,11 +148,15 @@ angular.module('tripPlannerApp')
       }
     }
 
-  	this.showMap = function() {
-  		return planData.getMapStatus();
-  	};
+  	// this.showMap = function() {
+  	// 	return planData.getMapStatus();
+  	// };
 
+    // When radar results are available from the search factory, this updates the variable
+    // in the scope
     $rootScope.$on('radarResults', function(event, key) {
+      // event parameter is unimportant, but the key is the type of results we are looking
+      // for when we call getMarkers, such as 'lodging' or 'monuments'
       $scope.markers = search.getMarkers(key);
     });
   });

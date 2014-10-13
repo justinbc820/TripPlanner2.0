@@ -3,6 +3,7 @@
   <div ng-controller="MapCtrl" id="map-container">
     <google-map center="map.center" zoom="map.zoom" class="full-height" options="map.options" bounds="map.bounds">
         <markers models="markers" click="'onClicked'" events="markersEvents" coords="'self'" idKey="'id'" doCluster="true" fit="true" doRebuildAll="true"></markers>
+        <markers models="currentDayMarkers" click="'onClicked'" events="markersEvents" coords="'self'" idKey="'id'" doCluster="false" fit="true" doRebuildAll="true"></markers>
     </google-map>
   </div>
 
