@@ -129,6 +129,7 @@ angular.module('tripPlannerApp')
       // This will add an activity to the current trip. It will check to make sure
       // that the person is logged in and has a current trip.
       addToTrip: function(obj) {
+        console.log(obj);
         tempActivityDetailsObj = obj;
         if(isLoggedIn()) {
           if(!currentTrip) {
