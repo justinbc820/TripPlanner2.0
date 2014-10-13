@@ -9,12 +9,6 @@ angular.module('tripPlannerApp')
       $scope.selected.push(false);
     }
 
-    $scope.getOverlayStyle = function() {
-      return {
-       background: 'rgba(158,204,70,0.5)',
-       opacity: 1
-      }
-    };
 
     var getRecommendations = function() {
       planData.getRecommendations(tripId).success(function(data) {
@@ -23,7 +17,7 @@ angular.module('tripPlannerApp')
         console.log("returned", data);
       });
     };
-    
+
     this.redirect = function() {
       $location.path('/dashboard/' + tripId);
     };
@@ -40,7 +34,6 @@ angular.module('tripPlannerApp')
 
     $scope.addToWishList = function(index, query) {
       $scope.selected[index] = true;
-      console.log("index added", $scope.selected);
 
       ngGPlacesAPI.textSearch({
           'query': query

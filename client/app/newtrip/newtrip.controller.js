@@ -91,6 +91,7 @@ angular.module('tripPlannerApp')
       }).success(function(trip) {
           planData.setCurrentTrip(trip);
           planData.setTripIdReminder(trip._id); //communicating with signup controller to populate new user with this trip's id
+          console.log($scope.recommendations);
           planData.setRecommendations($scope.recommendations); //setting recommendations
           if (!$scope.isLoggedIn()) { //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
               self.signup();

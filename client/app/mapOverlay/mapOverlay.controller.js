@@ -67,13 +67,12 @@ angular.module('tripPlannerApp')
       this.placesSearch = function(autocomplete) {
           var self = this;
           var alreadyDetails = false;
-          
+
           // If something is selected from the autocomplete list, the user wants that
           // specific location, not 20 search results, so, this function will check 10
           // times within 500ms to see if there are any place details.  If there aren't,
           // then it's assumed that we should query google for a list of results rather
           // than just the details of the place that they selected.
-            
 
           // The autocomplete will populate $scope.search.details if a specific place is
           // returned from the autocomplete
@@ -90,8 +89,11 @@ angular.module('tripPlannerApp')
               if (!alreadyDetails) {
                   ngGPlacesAPI.textSearch({
                           'query': $scope.search.autocomplete,
-                          'location': $scope.search.options.bounds,
-                          'radius': 10000 
+                          'location': new google.maps.LatLng(
+                            $scope.search.coords.centerLat,
+                            $scope.search.coords.centerLong
+                          ),
+                          'radius': 10000
                       })
                       .then(function(data) {
                           search.setMarkers('textSearch', data);
