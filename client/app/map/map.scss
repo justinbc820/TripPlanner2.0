@@ -51,18 +51,14 @@
 	.overlay.divs {
 		height:100%;
 	}
-  #day-info-container {
-    position: relative;
-    top: 71%;
-    h1 {
-      color:white;
-      -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: black;
-      margin-top:0;
-      margin-bottom:10px;
-    }
+  #day-picker {
+    position:absolute;
+    bottom:100px;
+    left:0;
+    width:100%;
+    height:110px;
     #day-panel {
-      width: 50%;
+      width: 23%;
       height:53px;
       margin-left: auto;
       margin-right: auto;
@@ -103,6 +99,13 @@
     }
     
   }
+  h1 {
+    color:white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    margin-top:0;
+    margin-bottom:10px;
+  } 
 
 	#toggle-buttons {
 		float:right;
@@ -148,16 +151,16 @@
 		margin-left:auto;
 		margin-right:auto;
 		margin-top: 10px;
-    	padding-bottom: 2%;
-      max-height:265px;
-      background-color: rgba(45, 51, 58, 0.9);
+  	padding-bottom: 2%;
+    max-height:265px;
+    background-color: rgba(45, 51, 58, 0.9);
 		#map-search {
 			color: #828282;
 			outline:none;
 			border:none;
 			font-size: 2em;
-      		font-family: 'Open Sans', sans-serif;
-      		letter-spacing: 0.5px;
+  		font-family: 'Open Sans', sans-serif;
+  		letter-spacing: 0.5px;
 			background-color: rgba(255,255,255,0.9);
 			width:100%;
 			padding: 8px 10px 8px 10px;
@@ -203,23 +206,23 @@
 	    }
 	}
 
-    .separator {
-      width: 90%;
-      height: 1%;
-      margin-left: auto;
-      margin-right: auto;
-      border-top: 1px solid rgba(188, 190, 193, 0.6);;
-    }
+  .separator {
+    width: 90%;
+    height: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid rgba(188, 190, 193, 0.6);;
+  }
 
-    .dottedline-bottom {
-      width: 95%;
-      height: 3%;
-      padding-bottom:10px;
-      margin-left: auto;
-      margin-right: auto;
-      border-top: 2px dashed rgba(188, 190, 193, 0.6);
-      clear:both;
-    }
+  .dottedline-bottom {
+    width: 95%;
+    height: 3%;
+    padding-bottom:10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 2px dashed rgba(188, 190, 193, 0.6);
+    clear:both;
+  }
 
   #details-panel {
     height: 50%;
