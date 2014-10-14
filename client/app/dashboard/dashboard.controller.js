@@ -11,7 +11,6 @@ angular.module('tripPlannerApp')
             var tripId = planData.getCurrentTrip()._id;
             $http.get('/api/trips/' + tripId).success(function(trip) {
                 planData.setCurrentTrip(trip);
-                console.log(trip);
                 // $location.path('/dashboard/' + trip._id);
             })
         }

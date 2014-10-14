@@ -3,6 +3,10 @@
 angular.module('tripPlannerApp')
   .controller('CalendarCtrl', function ($scope, planData, $http, $stateParams) {
 
+    this.init = function() {
+      updatePlanData();
+    }
+
     this.uiConfig = {
       calendar:{
         editable: true,
@@ -32,16 +36,17 @@ angular.module('tripPlannerApp')
     var self = this;
 
     var updatePlanData = function() {
-        $http.get('/api/trips/' + tripId).success(function(trip) {
-          planData.setCurrentTrip(trip);
-          $scope.currentTrip = planData.getCurrentTrip();
-          self.events = $scope.currentTrip.activities;
-          self.eventSources[0] = self.events.map(function(event) {
-            return {title: event.title, start: new Date(event.start)};
-          });
-          // $scope.$apply();
+      $http.get('/api/trips/' + tripId).success(function(trip) {
+        planData.setCurrentTrip(trip);
+        $scope.currentTrip = planData.getCurrentTrip();
+        self.events = $scope.currentTrip.activities;
+        self.eventSources[0] = self.events.map(function(event) {
+          return {title: event.title, start: new Date(event.start)};
         });
+        // $scope.$apply();
+      });
     };
+
     if(!planData.getCurrentTrip()) {
       updatePlanData();
     }
@@ -50,15 +55,6 @@ angular.module('tripPlannerApp')
       updatePlanData();
     });
 
-    /* event source that contains custom events on the scope */
-    // this.events = [
-    //   {title: 'All Day Event',start: new Date(y, m, 1)},
-    //   {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-    //   {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
-    //   {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
-    //   {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-    //   {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
-    // ];
 
     /* event source that calls a function on every view switch */
     this.eventsF = function (start, end, callback) {
@@ -127,21 +123,6 @@ angular.module('tripPlannerApp')
         calendar.fullCalendar('render');
       }
     };
-    // /* config object */
-    // this.uiConfig = {
-    //   calendar:{
-    //     height: 450,
-    //     editable: true,
-    //     header:{
-    //       left: 'title',
-    //       center: '',
-    //       right: 'today prev,next'
-    //     },
-    //     eventClick: this.alertOnEventClick,
-    //     eventDrop: this.alertOnDrop,
-    //     eventResize: this.alertOnResize
-    //   }
-    // };
 
     this.changeLang = function() {
       if(this.changeTo === 'Hungarian'){
@@ -158,50 +139,7 @@ angular.module('tripPlannerApp')
     /* event sources array*/
     this.eventSources = [this.events];
     this.eventSources2 = [this.calEventsExt, this.eventsF, this.events];
+
+    this.init();
+
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* event source that pulls from google.com */
-    // this.eventSource = {
-    //         url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-    //         className: 'gcal-event',           // an option!
-    //         currentTimezone: 'America/Chicago' // an option!
-    // };
-
-
-
-
-
-
-
-
-    // this.eventSources = [];
-    // this.uiConfig = {
-    //   calendar:{
-    //     editable: true,
-    //     height: 600,
-    //     header:{
-    //       left: 'month basicWeek basicDay agendaWeek agendaDay',
-    //       center: 'title',
-    //       right: 'today prev,next'
-    //     },
-    //     dayClick: this.alertEventOnClick,
-    //     eventDrop: this.alertOnDrop,
-    //     eventResize: this.alertOnResize
-    //   }
-    // };
-    // this.showCalendar = function() {
-    //   return planData.getCalendarStatus();
-    // };
