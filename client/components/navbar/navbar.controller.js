@@ -6,17 +6,32 @@ angular.module('tripPlannerApp')
     this.isAdmin = Auth.isAdmin;
     this.getCurrentUser = Auth.getCurrentUser;
 
+
+
+    if (this.isLoggedIn()) {
+      $scope.logoRedirect = {url: '/dashboard'};
+    } else {
+      $scope.logoRedirect = {url: '/'};
+    }
+
+    $scope.$on('loggedIn', function() {
+      $scope.logoRedirect.url = '/dashboard';
+      loginModal.$promise.then(loginModal.hide);
+    });
+
+    $scope.$on('logout', function() {
+      $scope.logoRedirect.url = '/';
+    })
+
     var signUpModal = $modal({title: 'CREATE AN ACCOUNT', template: '../app/account/signup/signup.html', show: false, placement: 'center'});
 
     var loginModal = $modal({title: 'LOGIN', template: '../app/account/login/login.html', show: false, placement: 'center'});
 
     $scope.$on('signedUp', function() {
+      $scope.logoRedirect.url = '/dashboard';
       signUpModal.$promise.then(signUpModal.hide);
     });
 
-    $scope.$on('loggedIn', function() {
-      loginModal.$promise.then(loginModal.hide);
-    });
 
     $scope.$on('closeSignupModalAndDisplayLogin', function() {
       signUpModal.$promise.then(signUpModal.hide);

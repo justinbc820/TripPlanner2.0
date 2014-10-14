@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location, $window, $modal, $rootScope, planData) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, $window, $modal, $rootScope, planData, $http) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -23,8 +23,17 @@ angular.module('tripPlannerApp')
         .then( function() {
           $rootScope.$broadcast('loggedIn');
           // Logged in, redirect to home
-          if ($location.url() === '/newtrip') {
-            $location.path('/recommend/'+planData.getTripIdReminder());
+          if (planData.getCurrentTrip()) {
+            console.log("this is tripidReminder", planData.getTripIdReminder());
+            $http.get('/api/users/me').success(function(user) {
+              $http.put('/api/users/'+user._id, {tripId: planData.getTripIdReminder()}).success(function(user) {
+                console.log('updated user', user)
+                $http.put('/api/trips/'+planData.getTripIdReminder(), {travelerId: user._id}).success(function(trip) {
+                  console.log('updated trip', trip);
+                  $location.path('/recommend/'+planData.getTripIdReminder());
+                });
+              });
+            });
           } else {
             $location.path('/dashboard');
           }

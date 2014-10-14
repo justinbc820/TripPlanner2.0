@@ -7,6 +7,8 @@ angular.module('tripPlannerApp')
     var currentTrip; // this represents ALL information about the currently selected global trip
     var user; // this represents information about the user, such as their id, etc.
 
+
+
     // Gets information about the user from the database
     var fetchUserFromDB = function() {
       return $http.get('/api/users/me')
@@ -87,12 +89,28 @@ angular.module('tripPlannerApp')
       })
     };
 
-    // this caches the current activity just in case the user wasn't logged in or 
+    // this caches the current activity just in case the user wasn't logged in or
     // didn't have a trip selected when they clicked on add to trip.
     // It is then fetched from the dashboard controller once they are logged in or they
     // have a current trip selected.
-    var tempActivityDetailsObj; 
+    var tempActivityDetailsObj;
 
+
+    //Clears all factories on log out to avoid populated factories if someone logs back in without page refresh
+
+    $rootScope.$on('logout', function() {
+      tripreminder = {};
+      tempActivityDetailsObj = undefined;
+      currentTrip = undefined;
+      currentMapOpts = {
+        location: {
+          k:37.579413,
+          B:-2.900391
+        },
+        zoom:3
+      };
+      user= undefined;
+    });
 
     // Public API here
     var factoryObj = {
@@ -105,7 +123,7 @@ angular.module('tripPlannerApp')
 
       // This is a function that was housed outside the return object because other
       // functions within the object needed access to it
-      setCurrentTrip: setCurrentTrip, 
+      setCurrentTrip: setCurrentTrip,
 
       getCurrentTrip: function() {
         return currentTrip;
@@ -122,6 +140,7 @@ angular.module('tripPlannerApp')
 
       // These functions get and set the cached trip when a person
       setTripIdReminder: function(id) {
+        delete tripreminder.tripId;
         tripreminder.tripId = id;
       },
 
@@ -169,7 +188,7 @@ angular.module('tripPlannerApp')
             factoryObj.recommendations = trip;
           });
       },
-      
+
       /*
        * This function is called when a person completes the newTrip survey.  It takes
        * the date range, calculates the number of days between the two, makes an array
@@ -186,7 +205,7 @@ angular.module('tripPlannerApp')
         var daysArray = [];
         for(var i=0; i<dayDiff; i++) {
           // start at the first day and add one day at a time and push that new date to an array
-          var newDate = new Date(dateRange.startDate._d.setDate(startDay + i)).setHours(9); 
+          var newDate = new Date(dateRange.startDate._d.setDate(startDay + i)).setHours(9);
           daysArray.push(newDate);
         }
         return daysArray;

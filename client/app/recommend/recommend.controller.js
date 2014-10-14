@@ -14,7 +14,7 @@ angular.module('tripPlannerApp')
       planData.getRecommendations(tripId).success(function(data) {
         $scope.recommendations = data.recommendations[0].array;
         $scope.destination = data.questionnaire.location;
-        console.log("returned", data);
+        // console.log("returned", data);
       });
     };
 

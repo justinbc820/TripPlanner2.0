@@ -34,7 +34,7 @@ angular.module('tripPlannerApp')
               var userId = data._id;
               var tripId = planData.getTripIdReminder();
               $http.put('/api/users/' + userId, {
-                id: tripId
+                tripId: tripId
               }).success(function(data) {
                 // planData.setInitialTrip(data);
 

@@ -83,7 +83,7 @@ exports.changePassword = function(req, res, next) {
 
 exports.update = function(req, res) {
   var userId = req.params.id;
-  var tripId = req.body.id;
+  var tripId = req.body.tripId;
   User.findById(userId, function (err, user) {
     if (err) { return handleError(res, err); }
     if(!user) { return res.send(404); }

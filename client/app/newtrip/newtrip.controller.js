@@ -90,16 +90,20 @@ angular.module('tripPlannerApp')
           latLng: latLng
       }).success(function(trip) {
           planData.setCurrentTrip(trip);
+          console.log("previous getTripIdReminder:", planData.getTripIdReminder());
           planData.setTripIdReminder(trip._id); //communicating with signup controller to populate new user with this trip's id
+          console.log("changed TripIdReminder:", planData.getTripIdReminder());
           planData.setRecommendations($scope.recommendations); //setting recommendations
           if (!$scope.isLoggedIn()) { //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
               self.signup();
-          } else { //If user is logged in when questionnaire is finished, then redirect to recommendations
+          } else { //If user is logged in when questionnaire is finished, push trip id to user, push user as traveler to trip and then redirect to recommendations
               $http.put('/api/users/' + $scope.currentUser._id, {
-                  id: trip._id
+                  tripId: trip._id
               }).success(function(updatedUser) {
-                  $location.path('/recommend/' + trip._id); //redirect to recommendations
-              })
+                  $http.put('/api/trips/'+planData.getTripIdReminder(), {travelerId: updatedUser._id}).success(function(trip) { //now trip and user both updated, redirect to recommendations.
+                    $location.path('/recommend/' + trip._id); //redirect to recommendations
+                  });
+              });
           }
       });
     };
