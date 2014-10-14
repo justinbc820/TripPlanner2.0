@@ -9,10 +9,10 @@ angular.module('tripPlannerApp')
       $http.get('/api/trips/' + tripId).success(function(trip) {
         $scope.currentTrip = trip;
         console.log($scope.currentTrip);
-        $scope.autocomplete.options.bounds = new google.maps.LatLngBounds(
-          $scope.currentTrip.latLng.k,
-          $scope.currentTrip.latLng.B
-        );
+        // $scope.autocomplete.options.bounds = new google.maps.LatLngBounds(
+        //   $scope.currentTrip.latLng.k,
+        //   $scope.currentTrip.latLng.B
+        // );
 
         planData.setCurrentTrip(trip);
       })
@@ -38,7 +38,9 @@ angular.module('tripPlannerApp')
 
     $scope.showDatePicker = function(index) {
       $scope.closed = !$scope.closed;
-      $scope.currentWish = $scope.currentTrip.wishlist[index]
+      console.log("currentTrip", $scope.currentTrip.wishlist)
+      $scope.currentWish = $scope.currentTrip.wishlist[index];
+      console.log("currentWish", $scope.currentWish);
     }
 
     $scope.autocomplete = {
@@ -56,7 +58,6 @@ angular.module('tripPlannerApp')
       }, 50, 10);
     };
 
-
     $scope.currentWish;
     $scope.start;
     $scope.selectActivityTime = function() {
@@ -70,7 +71,19 @@ angular.module('tripPlannerApp')
 
     $scope.addToCal = function() {
       // push into trip schema
-      $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {title: $scope.currentWish.name, googleDetails: $scope.currentWish, start: $scope.start})
+      $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {
+        title: $scope.currentWish.title, 
+        googleDetails: $scope.currentWish, 
+        location: {
+          address: $scope.currentWish.location.address,
+          coords: {
+            latitude: $scope.currentWish.location.coords.latitude,
+            longitude: $scope.currentWish.location.coords.longitude
+          }
+        },
+        start: $scope.start,
+        cost: $scope.currentWish.cost
+      })
       .success(function(data){
         console.log("wish saved to the server: ", $scope.currentTrip);
         $scope.closed = true;

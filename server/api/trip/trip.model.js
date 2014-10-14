@@ -24,15 +24,15 @@ var TripSchema = new Schema({
 var ActivitySchema = new Schema({
   title: String,
   googleDetails: {},
-  // location: {
-  //   address: String,
-  //   coords: {
-  //     latitude: Number,
-  //     longitude: Number
-  //   }
-  // },
+  location: {
+    address: String,
+    coords: {
+      latitude: Number,
+      longitude: Number
+    }
+  },
   // description: String,
-  // details: {},
+  details: {},
   start: Date,
   // end: Date,
   cost: Number
