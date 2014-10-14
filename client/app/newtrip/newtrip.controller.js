@@ -84,6 +84,7 @@ angular.module('tripPlannerApp')
       var daysArray = planData.calculateDays($scope.questionnaire.date);
       var latLng = $scope.setupTrip.destination.details.geometry.location;
       $scope.questionnaire.location = $scope.setupTrip.destination.autocomplete;
+
       $http.post('/api/trips', {
           questionnaire: $scope.questionnaire,
           days: daysArray,
@@ -91,17 +92,37 @@ angular.module('tripPlannerApp')
       }).success(function(trip) {
           planData.setCurrentTrip(trip);
           console.log("previous getTripIdReminder:", planData.getTripIdReminder());
-          planData.setTripIdReminder(trip._id); //communicating with signup controller to populate new user with this trip's id
+
+          //communicating with signup controller to populate new user with this trip's id
+
+          planData.setTripIdReminder(trip._id);
           console.log("changed TripIdReminder:", planData.getTripIdReminder());
-          planData.setRecommendations($scope.recommendations); //setting recommendations
-          if (!$scope.isLoggedIn()) { //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
+
+          //setting recommendations
+
+          planData.setRecommendations($scope.recommendations);
+
+          //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
+
+          if (!$scope.isLoggedIn()) {
               self.signup();
-          } else { //If user is logged in when questionnaire is finished, push trip id to user, push user as traveler to trip and then redirect to recommendations
+
+          //If user is logged in when questionnaire is finished, push trip id to user, push user as traveler to trip and then redirect to recommendations
+
+          } else {
+
               $http.put('/api/users/' + $scope.currentUser._id, {
                   tripId: trip._id
               }).success(function(updatedUser) {
-                  $http.put('/api/trips/'+planData.getTripIdReminder(), {travelerId: updatedUser._id}).success(function(trip) { //now trip and user both updated, redirect to recommendations.
-                    $location.path('/recommend/' + trip._id); //redirect to recommendations
+                  $http.put('/api/trips/'+planData.getTripIdReminder(), {travelerId: updatedUser._id}).success(function(trip) {
+
+                    //now trip and user both updated, redirect to recommendations.
+                    //redirect to recommendations
+                    if (planData.getTempActivity()) {
+                      //store stashed activity in wishlist of the trip;
+                    }
+
+                    $location.path('/recommend/' + trip._id);
                   });
               });
           }

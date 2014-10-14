@@ -27,16 +27,31 @@ angular.module('tripPlannerApp')
         .then(function() {
           $rootScope.$broadcast('signedUp');
 
-          if (!planData.getTripIdReminder()) {
+          if (!planData.getTripIdReminder() && !planData.getTempActivity) {
+
+            //If logging in direct from front page, there will be no tripIdReminders or tempActivity stored in planData factory
+
             $location.path('/newtrip');
-          } else {
-            $http.get('/api/users/me').success(function(data) {
-              var userId = data._id;
+
+          } else if (!planData.getTripIdReminder() && planData.getTempActivity()){
+
+              //if user is signing up without any tripIdReminder stored in plandata but there is a tempActivity, this means an unregistered user is signing up after adding activity
+
+              //newtrip will create the new tripid and update the trip and user
+
+
+              //new user created, redirect to /newtrip
+              $location.path('/newtrip');
+
+
+          }  else {
+            $http.get('/api/users/me').success(function(user) {
+              var userId = user._id;
               var tripId = planData.getTripIdReminder();
               $http.put('/api/users/' + userId, {
                 tripId: tripId
-              }).success(function(data) {
-                // planData.setInitialTrip(data);
+              }).success(function(trip) {
+                // planData.setInitialTrip(trip);
 
                 if (tripId) {
                   $http.put('/api/trips/' + tripId, {

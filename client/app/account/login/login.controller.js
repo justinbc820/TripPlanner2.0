@@ -23,13 +23,23 @@ angular.module('tripPlannerApp')
         .then( function() {
           $rootScope.$broadcast('loggedIn');
           // Logged in, redirect to home
-          if (planData.getCurrentTrip()) {
+
+          //!planData.getTripIdReminder() && planData.getTempActivity()
+
+          if (!planData.getCurrentTrip()) {
             console.log("this is tripidReminder", planData.getTripIdReminder());
+            //fetch current user
             $http.get('/api/users/me').success(function(user) {
+
+              //update user with new trip reminder id
               $http.put('/api/users/'+user._id, {tripId: planData.getTripIdReminder()}).success(function(user) {
                 console.log('updated user', user)
+
+                //update trip with user id
                 $http.put('/api/trips/'+planData.getTripIdReminder(), {travelerId: user._id}).success(function(trip) {
                   console.log('updated trip', trip);
+
+                  //trip and user both updated, redirect to recommendations
                   $location.path('/recommend/'+planData.getTripIdReminder());
                 });
               });

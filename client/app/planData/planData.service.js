@@ -169,7 +169,7 @@ angular.module('tripPlannerApp')
               fetchUserFromDB();
             } else {
               if(user.trips.length === 1) {
-                setCurrentTrip(user.trips[0])
+                setCurrentTrip(user.trips[0]);
               } else {
                 $rootScope.$broadcast('showSelectTripModal');
               }
