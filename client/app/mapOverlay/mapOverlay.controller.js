@@ -3,13 +3,13 @@
 angular.module('tripPlannerApp')
     .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search, $http, $modal) {
 
-      var selectTripModal = $modal({title: 'SELECT A TRIP', template: './tripPicker.html', show: false, placement: 'center'}); 
+      var selectTripModal = $modal({title: 'SELECT A TRIP', template: 'app/mapOverlay/tripPicker.html', show: false, placement: 'center'});
       $rootScope.$on('showSelectTripModal', function() {
         selectTripModal.$promise.then(selectTripModal.show);
       })
       /*
        *  This function waits for a message from the Search Factory that indicates that
-       *  the user has changed map bounds, either by resizing or relocating. Once it 
+       *  the user has changed map bounds, either by resizing or relocating. Once it
        *  receives the message, it changes all search bounds to limit to the current
        *  map view
       */
@@ -137,7 +137,7 @@ angular.module('tripPlannerApp')
       };
 
       // THis function does a radar search based on the values passed from the radar
-      // icons.  The values are specified in the radarIcons array in this document 
+      // icons.  The values are specified in the radarIcons array in this document
       // in the details property of each object
       this.radarSearch = function(type) {
         ngGPlacesAPI.radarSearch({

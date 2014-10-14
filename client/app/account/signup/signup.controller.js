@@ -9,7 +9,7 @@ angular.module('tripPlannerApp')
 
   var loginModal = $modal({
     title: 'LOGIN',
-    template: '../app/account/login/login.html',
+    template: 'app/account/login/login.html',
     show: false,
     placement: 'center'
   });

@@ -5,7 +5,7 @@ angular.module('tripPlannerApp')
     $scope.user = {};
     $scope.errors = {};
 
-    var signUpModal = $modal({title: 'SIGN UP', template: '../app/account/signup/signup.html', show: false, placement: 'center'});
+    var signUpModal = $modal({title: 'SIGN UP', template: 'app/account/signup/signup.html', show: false, placement: 'center'});
 
 
     this.signup = function() {
