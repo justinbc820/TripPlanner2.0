@@ -11,7 +11,7 @@ router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.put('/:id/addActivity', controller.addActivity);
 // router.put('/:id/addDetails', controller.addDetails);
-// router.put('/wishlist/:id', controller.addToWishlist);
+router.put('/wishlist/:id', controller.addToWishlist);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
 

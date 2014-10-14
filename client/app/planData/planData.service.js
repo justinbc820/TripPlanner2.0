@@ -78,23 +78,10 @@ angular.module('tripPlannerApp')
         googleDetails: obj,
         start: selectedDay,
         cost: obj.price_level || 9
+      }).success(function(trip) {
+        setCurrentTrip(trip);
       })
-      // var name = obj.name;
-      // var address = obj.formatted_address;
-      // var latitude = obj.geometry.location.k;
-      // var longitude = obj.geometry.location.B;
-      // var cost = obj.price_level || 9; // 9 means undefined price
-      // var details = obj;
-      // $http.put('/api/trips/wishlist/' + tripId, {
-      //   name:name,
-      //   address:address,
-      //   latitude:latitude,
-      //   longitude:longitude,
-      //   cost:cost,
-      //   details:details
-      // }).success(function(trip) {
-      //   console.log("new trip from DB ", trip);
-      // })
+
     };
 
     // this caches the current activity just in case the user wasn't logged in or

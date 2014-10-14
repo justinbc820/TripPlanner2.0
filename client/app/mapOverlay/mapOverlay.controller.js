@@ -11,9 +11,9 @@ angular.module('tripPlannerApp')
         selectTripModal.$promise.then(selectTripModal.show);
       })
 
-        $scope.setCurrentTrip = function(trip) {
-          trip.wishlist.push(planData.getTempActivity());
-          planData.setCurrentTrip(trip);
+      $scope.setCurrentTrip = function(trip) {
+        trip.wishlist.push(planData.getTempActivity());
+        planData.setCurrentTrip(trip);
       };
       /*
        *  This function waits for a message from the Search Factory that indicates that
@@ -61,17 +61,21 @@ angular.module('tripPlannerApp')
       $scope.daySelect = function(index) {
         $scope.selectedDayCss = index;
         $scope.selectedDay = $scope.currentTrip.days[index];
-
+        debugger;
         $scope.currentDayActivities.length = 0; // reset array
         var currDayString = $scope.selectedDay.slice(0,10); //Gets the day selected YYYY-MM-DD
+        var activitiesSkipped = 0;
         for(var i=0; i<$scope.currentTrip.activities.length; i++) {
           var currActivityString = $scope.currentTrip.activities[i].start.slice(0,10);//Gets the date of activity YYYY-MM-DD
           if(currDayString == currActivityString) { // if the activity happens on the currently selected day...
             $scope.currentDayActivities.push($scope.currentTrip.activities[i]);
             //formatting each location so that the markers directive in the html can place markers
-            $scope.currentDayActivities[i].id = i;
-            $scope.currentDayActivities[i].latitude = $scope.currentDayActivities[i].googleDetails.location.coords.latitude;
-            $scope.currentDayActivities[i].longitude = $scope.currentDayActivities[i].googleDetails.location.coords.longitude;
+            var newIndex = i - activitiesSkipped;
+            $scope.currentDayActivities[newIndex].id = newIndex;
+            $scope.currentDayActivities[newIndex].latitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.latitude;
+            $scope.currentDayActivities[newIndex].longitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.longitude;;
+          } else {
+            activitiesSkipped++;
           }
         }
         search.setDayMarkers($scope.currentDayActivities);
