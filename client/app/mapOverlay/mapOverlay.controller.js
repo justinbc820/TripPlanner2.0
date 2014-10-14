@@ -3,10 +3,19 @@
 angular.module('tripPlannerApp')
     .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search, $http, $modal) {
 
+      $http.get('/api/users/me').success(function(user) {
+        $scope.userData=user;
+      });
+
       var selectTripModal = $modal({title: 'SELECT A TRIP', template: 'app/mapOverlay/tripPicker.html', show: false, placement: 'center'});
       $rootScope.$on('showSelectTripModal', function() {
         selectTripModal.$promise.then(selectTripModal.show);
       })
+
+        $scope.setCurrentTrip = function(trip) {
+          trip.wishlist.push(planData.getTempActivity());
+          planData.setCurrentTrip(trip);
+      };
       /*
        *  This function waits for a message from the Search Factory that indicates that
        *  the user has changed map bounds, either by resizing or relocating. Once it

@@ -1,25 +1,15 @@
 <div class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" id="trip-picker-modal">
       <div class="modal-header" ng-show="title">
         <button type="button" class="close" ng-click="$hide()">&times;</button>
         <h4 class="modal-title" ng-bind="title"></h4>
       </div>
 
       <!-- TRIPPICKER BODY STARTS HERE -->
-      <div>
-        <div class="modal-header" ng-controller="MapOverlayCtrl">
-          <button ng-if="modal.dismissable" type="button" ng-click="$dismiss()" class="close">&times;</button>
-          <h4 class="modal-title">Pick your trip!</h4>
-        </div>
-        <div class="modal-body">
-          <div ng-repeat="trip in userData.trips" ng-click="setCurrentTrip(trip)">{{trip.questionnaire.location}}</div>
-        </div>
-        <div class="modal-footer">
-          <!-- //<button ng-repeat="button in modal.buttons" ng-class="button.classes" ng-click="button.click($event)" ng-bind="button.text" class="btn"></button> -->
-          <button ng-click="button.click($event)" class="btn">Submit</button>
-        </div>
-      </div>
+        <div ng-controller="MapOverlayCtrl">
+          <div ng-repeat="trip in userData.trips" ng-click="setCurrentTrip(trip)"><a href="">{{trip.questionnaire.location}}</a><br><br></div>
+
       <!-- TRIPPICKER BODY ENDS HERE -->
 
       <div class="modal-body" ng-bind="content">

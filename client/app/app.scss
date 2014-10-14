@@ -28,6 +28,19 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   text-align: left;
 }
 
+#trip-picker-modal {
+  width: 55%;
+  min-width: 300px;
+  margin: 0 auto;
+  border-radius: 0;
+  background: rgba(45, 51, 58, 0.9);
+  font-family: 'Open Sans', sans-serif;
+  color: #bbbdc0;
+  font-size: 1em;
+  line-height: 1.1em;
+  text-align: center;
+}
+
 #auth-modal {
   width: 55%;
   min-width: 300px;
