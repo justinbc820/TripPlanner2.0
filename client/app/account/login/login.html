@@ -1,61 +1,73 @@
-<!-- <div ng-include="'components/navbar/navbar.html'"></div> -->
+<div class="modal" tabindex="-1" role="dialog" ng-controller="LoginCtrl">
+  <div class="modal-dialog">
+    <div class="modal-content" id="auth-modal">
+      <div class="modal-header" ng-show="title">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title" ng-bind="title"></h4>
+      </div>
+      <br>
+      <br>
 
-<div class="container page-body animated fadeIn">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>Login</h1>
-      <p>Accounts are reset on server restart from <code>server/config/seed.js</code>. Default account is <code>test@test.com</code> / <code>test</code></p>
-      <p>Admin account is <code>admin@admin.com</code> / <code>admin</code></p>
-    </div>
-    <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="login(form)" novalidate>
+        <!-- BEGIN LOGIN FORM -->
 
-        <div class="form-group">
-          <label>Email</label>
+        <div class="col-sm-12">
+          <form class="form" name="form" ng-submit="login(form)" novalidate>
 
-          <input type="email" name="email" class="form-control" ng-model="user.email" required>
+            <div class="form-group auth-form-group">
+              <label>Email</label>
+
+              <input type="email" name="email" class="form-control" ng-model="user.email" required>
+            </div>
+
+            <div class="form-group auth-form-group">
+              <label>Password</label>
+
+              <input type="password" name="password" class="form-control" ng-model="user.password" required>
+            </div>
+
+            <div class="form-group has-error">
+              <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
+                Please enter your email and password.
+              </p>
+              <p class="help-block" ng-show="form.email.$error.email && submitted">
+                Please enter a valid email.
+              </p>
+
+              <p class="help-block">{{ errors.other }}</p>
+            </div>
+
+            <div>
+              <button class="btn btn-inverse btn-lg btn-login" type="submit">
+                LOGIN
+              </button>
+
+          <br>
+              Don't have an account yet?  Sign up <a href="" ng-click="signup()">here</a>
+            </div>
+
+            <hr>
+            <div class="social">
+              <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+                <i class="fa fa-facebook"></i> Connect with Facebook
+              </a>
+              <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
+                <i class="fa fa-google-plus"></i> Connect with Google+
+              </a>
+              <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
+                <i class="fa fa-twitter"></i> Connect with Twitter
+              </a>
+            </div>
+          </form>
         </div>
 
-        <div class="form-group">
-          <label>Password</label>
 
-          <input type="password" name="password" class="form-control" ng-model="user.password" required>
-        </div>
 
-        <div class="form-group has-error">
-          <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
-             Please enter your email and password.
-          </p>
-          <p class="help-block" ng-show="form.email.$error.email && submitted">
-             Please enter a valid email.
-          </p>
 
-          <p class="help-block">{{ errors.other }}</p>
-        </div>
-
-        <div>
-          <button class="btn btn-inverse btn-lg btn-login" type="submit">
-            Login
-          </button>
-          <a class="btn btn-default btn-lg btn-register" href="/signup">
-            Register
-          </a>
-        </div>
-
-        <hr>
-        <div>
-          <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
-            <i class="fa fa-facebook"></i> Connect with Facebook
-          </a>
-          <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
-            <i class="fa fa-google-plus"></i> Connect with Google+
-          </a>
-          <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
-            <i class="fa fa-twitter"></i> Connect with Twitter
-          </a>
-        </div>
-      </form>
+        <!-- FORM ENDS HERE -->
+      <div class="modal-body" ng-bind="content"></div>
+      <div class="modal-footer">
+      </div>
     </div>
   </div>
-  <hr>
 </div>
+

@@ -1,8 +1,12 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-    .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search) {
+    .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search, $http, $modal) {
 
+      var selectTripModal = $modal({title: 'SELECT A TRIP', template: './tripPicker.html', show: false, placement: 'center'}); 
+      $rootScope.$on('showSelectTripModal', function() {
+        selectTripModal.$promise.then(selectTripModal.show);
+      })
       /*
        *  This function waits for a message from the Search Factory that indicates that
        *  the user has changed map bounds, either by resizing or relocating. Once it 
@@ -117,10 +121,12 @@ angular.module('tripPlannerApp')
               if (!alreadyDetails) { // if autocomplete didn't return details
                   ngGPlacesAPI.textSearch({
                           'query': $scope.search.autocomplete,
-                          'location': new google.maps.LatLng(
-                            $scope.search.coords.centerLat,
-                            $scope.search.coords.centerLong
-                          ),
+                          // 'location': new google.maps.LatLng(
+                          //   $scope.search.coords.centerLat,
+                          //   $scope.search.coords.centerLong
+                          // ),
+                          'latitude': $scope.search.coords.centerLat,
+                          'longitude': $scope.search.coords.centerLong,
                           'radius': 10000
                       })
                       .then(function(data) {

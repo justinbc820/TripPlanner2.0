@@ -8,6 +8,10 @@ angular.module('tripPlannerApp')
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         $scope.currentTrip = trip;
+        $scope.autocomplete.options.bounds = new google.maps.LatLng(
+          $scope.currentTrip.latLng.k,
+          $scope.currentTrip.latLng.B
+        );
         planData.setCurrentTrip(trip);
       })
     }
@@ -35,7 +39,9 @@ angular.module('tripPlannerApp')
       $scope.currentWish = $scope.currentTrip.wishlist[index]
     }
 
-    $scope.autocomplete = {};
+    $scope.autocomplete = {
+      options:{}
+    };
 
     $scope.addToWishlist = function() {
       var checkForDetails = $interval(function() {

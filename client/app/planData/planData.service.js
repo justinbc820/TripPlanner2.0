@@ -2,7 +2,7 @@
 
 angular.module('tripPlannerApp')
 
-  .factory('planData', function ($http, $rootScope, ngDialog, Auth, $location) {
+  .factory('planData', function ($http, $rootScope, Auth, $location) {
     var isLoggedIn = Auth.isLoggedIn;
     var currentTrip; // this represents ALL information about the currently selected global trip
     var user; // this represents information about the user, such as their id, etc.
@@ -19,7 +19,7 @@ angular.module('tripPlannerApp')
           if(user.trips.length === 1) {
             setCurrentTrip(user.trips[0]);
           } else {
-            selectTripModal();
+            showSelectTripModal();
           }
         })
     };
@@ -29,9 +29,12 @@ angular.module('tripPlannerApp')
 
     var recommendations = {}; // This object contains recommendations for the recommendations view
 
-    // This function is called when someone doesn't have a current trip and need to select one
-    var selectTripModal = function() {
-      ngDialog.open({template: 'chooseTrip.html', controller:'DashboardCtrl'});
+    // var selectTripModal = $modal({title: 'SELECT A TRIP', template: '../mapOverlay/tripPicker.html', show: false, placement: 'center'});
+
+    var showSelectTripModal = function() {
+      // ngDialog.open({template: 'chooseTrip.html', controller:'DashboardCtrl'});
+      // selectTripModal.show();
+      $rootScope.$broadcast('showSelectTripModal');
     };
 
     // This variable houses LatLng and zoom specifications for initial map load and then
@@ -64,7 +67,7 @@ angular.module('tripPlannerApp')
      * This takes an object and formats it for the server-side mongoose model
      * It then writes the formatted trip to the DB
     */
-    var pushTripToDB = function(obj) {
+    var addToWishlist = function(obj) {
       var tripId = currentTrip._id;
       var name = obj.name;
       var address = obj.formatted_address;
@@ -139,14 +142,14 @@ angular.module('tripPlannerApp')
               if(user.trips.length === 1) {
                 setCurrentTrip(user.trips[0])
               } else {
-                selectTripModal();
+                $rootScope.$broadcast('showSelectTripModal');
               }
             }
           } else {
-            pushTripToDB(obj);
+            addToWishlist(obj);
           }
         } else {
-          $location.path('/login');
+          $rootScope.$broadcast('showSignupModal');
         }
       },
 

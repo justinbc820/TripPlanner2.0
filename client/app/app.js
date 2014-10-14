@@ -12,13 +12,13 @@ angular.module('tripPlannerApp', [
   'ui.calendar',
   'ngGPlaces',
   'ngAutocomplete',
-  'ngDialog',
   'mgcrea.ngStrap',
   'ngBootstrap',
   'datePicker',
   'xeditable',
   'wu.masonry'
 ])
+
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
       .otherwise('/');

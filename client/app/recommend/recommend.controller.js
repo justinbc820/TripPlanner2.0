@@ -34,7 +34,6 @@ angular.module('tripPlannerApp')
 
     $scope.addToWishList = function(index, query) {
       $scope.selected[index] = true;
-
       ngGPlacesAPI.textSearch({
           'query': query
       })
@@ -44,14 +43,14 @@ angular.module('tripPlannerApp')
         var address = gDetails[0].formatted_address;
         var latitude = gDetails[0].geometry.location.k;
         var longitude = gDetails[0].geometry.location.B;
+        var location = new google.maps.LatLng(latitude, longitude);
         var cost = gDetails[0].price_level || 9; // 9 means undefined price
         var details = gDetails[0];
 
         $http.put('/api/trips/wishlist/'+tripId, {
           name:name,
           address:address,
-          latitude:latitude,
-          longitude:longitude,
+          location:location,
           cost:cost,
           details:details
         }).success(function(trip) {

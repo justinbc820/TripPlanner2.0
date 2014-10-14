@@ -2,65 +2,77 @@
 
 angular.module('tripPlannerApp')
 
-    .controller('SignupCtrl', function($scope, Auth, $modal, $location, $window, planData, $http, ngDialog) {
+.controller('SignupCtrl', function($scope, Auth, $location, $window, planData, $http, $rootScope, $modal) {
 
-        $scope.user = {};
-        $scope.errors = {};
+  $scope.user = {};
+  $scope.errors = {};
 
-        $scope.register = function(form) {
-            ngDialog.close();
+  var loginModal = $modal({
+    title: 'LOGIN',
+    template: '../app/account/login/login.html',
+    show: false,
+    placement: 'center'
+  });
 
-            $scope.submitted = true;
+  $scope.register = function(form) {
 
-            if (form.$valid) {
-                Auth.createUser({
-                        name: $scope.user.name,
-                        email: $scope.user.email,
-                        password: $scope.user.password,
-                    })
-                    .then(function() {
-                        if (!planData.getTripIdReminder()) {
-                            $location.path('/newtrip');
-                        } else {
-                            $http.get('/api/users/me').success(function(data) {
-                                var userId = data._id;
-                                var tripId = planData.getTripIdReminder();
-                                $http.put('/api/users/' + userId, {
-                                    id: tripId
-                                }).success(function(data) {
-                                    // planData.setInitialTrip(data);
+    $scope.submitted = true;
 
-                                    if(tripId) {
-                                           $http.put('/api/trips/' + tripId, {
-                                            travelerId: userId
-                                        }).success(function(trip) {
-                                            planData.setCurrentTrip(trip);
-                                            if ($location.url() === '/newtrip') {
-                                                $location.path('/recommend/'+tripId);
-                                            } else {
-                                                $location.path('/newtrip');
-                                            }
-                                        });
-                                      } else {
-                                        $location.path('/newtrip');
-                                      }
-                                });
-                            });
-                        }
-                    })
-                    .catch(function(err) {
-                        err = err.data;
-                        $scope.errors = {};
-                        // Update validity of form fields that match the mongoose errors
-                        angular.forEach(err.errors, function(error, field) {
-                            form[field].$setValidity('mongoose', false);
-                            $scope.errors[field] = error.message;
-                        });
-                    });
-            }
-        };
+    if (form.$valid) {
+      Auth.createUser({
+          name: $scope.user.name,
+          email: $scope.user.email,
+          password: $scope.user.password,
+        })
+        .then(function() {
+          $rootScope.$broadcast('signedUp');
 
-        $scope.loginOauth = function(provider) {
-            $window.location.href = '/auth/' + provider;
-        };
-    });
+          if (!planData.getTripIdReminder()) {
+            $location.path('/newtrip');
+          } else {
+            $http.get('/api/users/me').success(function(data) {
+              var userId = data._id;
+              var tripId = planData.getTripIdReminder();
+              $http.put('/api/users/' + userId, {
+                id: tripId
+              }).success(function(data) {
+                // planData.setInitialTrip(data);
+
+                if (tripId) {
+                  $http.put('/api/trips/' + tripId, {
+                    travelerId: userId
+                  }).success(function(trip) {
+                    planData.setCurrentTrip(trip);
+                    if ($location.url() === '/newtrip') {
+                      $location.path('/recommend/' + tripId);
+                    } else {
+                      $location.path('/newtrip');
+                    }
+                  });
+                } else {
+                  $location.path('/newtrip');
+                }
+              });
+            });
+          }
+        })
+        .catch(function(err) {
+          err = err.data;
+          $scope.errors = {};
+          // Update validity of form fields that match the mongoose errors
+          angular.forEach(err.errors, function(error, field) {
+            form[field].$setValidity('mongoose', false);
+            $scope.errors[field] = error.message;
+          });
+        });
+    }
+  };
+
+  $scope.loginOauth = function(provider) {
+    $window.location.href = '/auth/' + provider;
+  };
+
+  this.login = function() {
+    $rootScope.$broadcast('closeSignupModalAndDisplayLogin');
+  };
+});
