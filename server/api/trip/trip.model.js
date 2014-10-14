@@ -31,10 +31,7 @@ var ActivitySchema = new Schema({
       longitude: Number
     }
   },
-  // description: String,
-  details: {},
   start: Date,
-  // end: Date,
   cost: Number
 });
 

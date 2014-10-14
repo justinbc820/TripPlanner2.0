@@ -40,21 +40,21 @@ angular.module('tripPlannerApp')
       .then(function(gDetails) {
         console.log(gDetails);
         var title = gDetails[0].name;
-        var address = gDetails[0].formatted_address;
-        var latitude = gDetails[0].geometry.location.k;
-        var longitude = gDetails[0].geometry.location.B;
-        // var location = new google.maps.LatLng(latitude, longitude);
-        var cost = gDetails[0].price_level || 9; // 9 means undefined price
         var googleDetails = gDetails[0];
+        var location = {
+          address: gDetails[0].formatted_address,
+          coords: {
+            latitude: gDetails[0].geometry.location.k,
+            longitude: gDetails[0].geometry.location.B
+          }
+        };
+        var cost = gDetails[0].price_level || 9; // 9 means undefined price
 
-        $http.put('/api/trips/wishlist/'+tripId, {
+        $http.put('/api/trips/wishlist/'+ tripId, {
           title:title,
-          address:address,
-          latitude:latitude,
-          longitude:longitude,
-          // location:location,
-          cost:cost,
-          googleDetails:googleDetails
+          googleDetails:googleDetails,
+          location:location,
+          cost:cost
         }).success(function(trip) {
           planData.setCurrentTrip(trip);
         })
