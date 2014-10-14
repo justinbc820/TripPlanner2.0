@@ -17,6 +17,11 @@
 		color: whitesmoke;
 		text-align: center;
 		width: 90%;
+		cursor:pointer;
+		transition:color 0.3s ease-in-out;
+		&:hover {
+			color:#FDBC52;
+		}
 	}
 	button {
 		position:relative;
@@ -39,9 +44,11 @@
 		height:95%;
 		overflow-x:scroll;
 		overflow-y:hidden;
+		padding-left:0;
 		ul {
 			width:10000px;
 			overflow-y:hidden;
+			padding-left:0;
 		}
 		.trip-days {
 			padding-left:10px;

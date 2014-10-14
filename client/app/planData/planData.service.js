@@ -60,7 +60,7 @@ angular.module('tripPlannerApp')
     var setCurrentTrip = function(trip) {
       currentTrip = trip;
       currentMapOpts.location = trip.latLng;
-      currentMapOpts.zoom = 7;
+      currentMapOpts.zoom = 8;
       $rootScope.$broadcast('newCurrentTrip');
     };
 

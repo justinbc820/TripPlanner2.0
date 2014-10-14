@@ -91,7 +91,8 @@
                 <li><b>Telephone:</b>{{currDetails.international_phone_number}}</li>
             </ul>
 
-            <button id="add-to-trip" ng-click="overlay.addToTrip(currDetails)">ADD TO TRIP</button>
+            <button class="add-to-trip" ng-click="overlay.addToTrip(currDetails)">ADD TO TRIP</button>
+            <button class="add-to-trip" ng-click="overlay.addToTrip(currDetails)">ADD TO TRIP</button>
             <div class="dottedline-bottom"></div>
         </div>
     </div>
@@ -100,9 +101,11 @@
             <h1>{{selectedDay | date:'mediumDate'}}</h1>
             <div id="day-panel" class="can-click" ng-show="currentTrip.days">
                 <div style="width:1000px;">
+                    <div class="dottedline-bottom" style="padding-bottom:0;"></div>
                     <button ng-repeat="day in currentTrip.days" ng-class="{'map-day-selected':$index == selectedDayCss }" ng-click="daySelect($index)" class="map-day">
                         <span>{{$index + 1}}</span>
                     </button>
+                    <div class="dottedline-bottom"></div>
                 </div>
             </div>
         </div>
