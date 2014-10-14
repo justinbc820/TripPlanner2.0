@@ -23,9 +23,9 @@ angular.module('tripPlannerApp')
       $scope.logoRedirect.url = '/';
     })
 
-    var signUpModal = $modal({title: 'CREATE AN ACCOUNT', template: '../app/account/signup/signup.html', show: false, placement: 'center'});
+    var signUpModal = $modal({title: 'CREATE AN ACCOUNT', template: 'app/account/signup/signup.html', show: false, placement: 'center'});
 
-    var loginModal = $modal({title: 'LOGIN', template: '../app/account/login/login.html', show: false, placement: 'center'});
+    var loginModal = $modal({title: 'LOGIN', template: 'app/account/login/login.html', show: false, placement: 'center'});
 
     $scope.$on('signedUp', function() {
       $scope.logoRedirect.url = '/dashboard';
