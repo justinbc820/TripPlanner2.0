@@ -6,6 +6,9 @@ angular.module('tripPlannerApp')
     if(planData.getCurrentTrip()) {
       var textArr = planData.getCurrentTrip().questionnaire.location.split(',');
       var text = textArr[0];
+      if(text.length > 15) {
+        text = text.slice(0,15) + '...';
+      };
       currentTrip = {
         text: text,
         link: '/dashboard/' + planData.getCurrentTrip()._id,

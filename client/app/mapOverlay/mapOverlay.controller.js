@@ -38,9 +38,8 @@ angular.module('tripPlannerApp')
       $scope.currentTrip = planData.getCurrentTrip();
       $rootScope.$on('newCurrentTrip', function() {
         $scope.currentTrip = planData.getCurrentTrip();
-        console.log($scope.currentTrip);
         $scope.selectedDay = $scope.currentTrip.days[0]; // initializes the current selected day to the first day of the trip
-        $scope.selectedDayCss = 0; // applies the 'selected' css to the selected day
+        $scope.selectedDayCss = 3; // applies the 'selected' css to the selected day
       });
 
       $scope.currentDayActivities = []; // this array represents markers on the map showing the current day's activities

@@ -1,19 +1,20 @@
 <header ng-controller="NavbarCtrl as navbar">
 
-  <a href="">
-    <img id="menu-button" src="../../assets/images/icons/menu-lines.png" data-template="../../components/aside/aside.html" data-placement="left" data-animation="am-slide-left" bs-aside="aside" data-container="body"></img>
-  </a>
 
-  <a href="/" id="brand_logo">
+  <a ng-href="{{logoRedirect.url}}" id="brand_logo">
     <img id="logo" src = "../../assets/images/tripmonk_horizontal_logo.png">
   </a>
   <nav id="menu-top-right">
     <ul>
+      <li>  <a href="">
+    <img id="menu-button" src="../../assets/images/icons/menu-lines.png" data-template="../../components/aside/aside.html" data-placement="left" data-animation="am-slide-left" bs-aside="aside" data-container="body"></img>
+  </a></li>
       <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/signup')}"><a href="" ng-click="navbar.signup()">Sign up</a></li>
       <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/login')}"><a href="" ng-click="navbar.login()">Login</a></li>
-      <li ng-show="navbar.isLoggedIn()"><p class="navbar-text">Hello {{ navbar.getCurrentUser().name }}</p> </li>
-      <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+      <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/settings')}"><a href="/settings"></a></li>
       <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/logout')}"><a href="" ng-click="navbar.logout()">Logout</a></li>
+      <li ng-show="navbar.isLoggedIn()"><span>Hello {{ navbar.getCurrentUser().name }}</span> <span class="glyphicon glyphicon-cog"></span></li>
+
     </ul>
   </nav>
 </header>
