@@ -325,17 +325,20 @@
   color: white;
 }
 
-.add-to-trip {
-    color: #000000;
-    font-weight: 1.2em;
-    font-family: 'Open Sans', sans-serif;
-    border: 3px solid #231F20;
-    background-color: whitesmoke;
-    padding: 10px;
-    width:30%;
-    min-width:45px;
-    margin:-35px auto 10px auto;
-    text-align:center;
-    display:block;
-    outline:none;
-}
+// #buttons-container {
+  .add-to-trip {
+      color: #000000;
+      font-weight: 1.2em;
+      font-family: 'Open Sans', sans-serif;
+      border: 3px solid #231F20;
+      background-color: whitesmoke;
+      padding: 10px;
+      width:44%;
+      min-width:45px;
+      margin:-35px 10px 10px 10px;
+      text-align:center;
+      display:block;
+      // float:left;
+      outline:none;
+  }  
+// }

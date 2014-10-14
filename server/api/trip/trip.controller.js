@@ -52,35 +52,35 @@ exports.update = function(req, res) {
   });
 };
 
-// Updates an existing trip in the DB.
-exports.addToWishlist = function(req, res) {
-  Trip.findById(req.params.id, function (err, trip) {
-    if (err) { return handleError(res, err); }
-    if(!trip) { return res.send(404); }
+// // Updates an existing trip in the DB.
+// exports.addToWishlist = function(req, res) {
+//   Trip.findById(req.params.id, function (err, trip) {
+//     if (err) { return handleError(res, err); }
+//     if(!trip) { return res.send(404); }
 
-    var activity = {
-      name: req.body.name,
-      location: {
-        address: req.body.address,
-        coords: {
-          latitude: req.body.latitude,
-          longitude: req.body.longitude
-        }
-      },
-      description: null,
-      time: null,
-      cost: req.body.cost,
-      details: req.body.details
-    };
+//     var activity = {
+//       name: req.body.name,
+//       location: {
+//         address: req.body.address,
+//         coords: {
+//           latitude: req.body.latitude,
+//           longitude: req.body.longitude
+//         }
+//       },
+//       description: null,
+//       time: null,
+//       cost: req.body.cost,
+//       details: req.body.details
+//     };
 
-    trip.wishlist.push(activity);
+//     trip.wishlist.push(activity);
 
-    trip.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, trip);
-    });
-  });
-};
+//     trip.save(function (err) {
+//       if (err) { return handleError(res, err); }
+//       return res.json(200, trip);
+//     });
+//   });
+// };
 
 // push wish into trip activity aray
 exports.addActivity = function(req, res) {
@@ -98,34 +98,34 @@ exports.addActivity = function(req, res) {
   });
 };
 
-// Updates an existing trip in the DB.
-exports.addDetails = function(req, res) {
-  Trip.findById(req.params.id, function (err, trip) {
-    if (err) { return handleError(res, err); }
-    if(!trip) { return res.send(404); }
+// // Updates an existing trip in the DB.
+// exports.addDetails = function(req, res) {
+//   Trip.findById(req.params.id, function (err, trip) {
+//     if (err) { return handleError(res, err); }
+//     if(!trip) { return res.send(404); }
 
-    var activity = {
-      name: req.body.name,
-      location: {
-        address: req.body.address,
-        coords: {
-          latitude: req.body.latitude,
-          longitude: req.body.longitude
-        }
-      },
-      description: null,
-      time: null,
-      cost: req.body.cost
-    };
+//     var activity = {
+//       name: req.body.name,
+//       location: {
+//         address: req.body.address,
+//         coords: {
+//           latitude: req.body.latitude,
+//           longitude: req.body.longitude
+//         }
+//       },
+//       description: null,
+//       time: null,
+//       cost: req.body.cost
+//     };
 
-    trip.wishlist.push(activity);
+//     trip.wishlist.push(activity);
 
-    trip.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, trip);
-    });
-  });
-};
+//     trip.save(function (err) {
+//       if (err) { return handleError(res, err); }
+//       return res.json(200, trip);
+//     });
+//   });
+// };
 
 // Deletes a trip from the DB.
 exports.destroy = function(req, res) {

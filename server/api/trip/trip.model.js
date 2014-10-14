@@ -34,7 +34,7 @@ var ActivitySchema = new Schema({
   // description: String,
   // details: {},
   start: Date,
-  end: Date,
+  // end: Date,
   cost: Number
 });
 

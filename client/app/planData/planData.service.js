@@ -68,26 +68,33 @@ angular.module('tripPlannerApp')
 
     /*
      * This takes an object and formats it for the server-side mongoose model
-     * It then writes the formatted trip to the DB
+     * It then writes the formatted activity to the currently selected day
     */
-    var addToWishlist = function(obj) {
+    var addToTrip = function(obj, selectedDay) {
+      var currentDay = currentTrip.days
       var tripId = currentTrip._id;
-      var name = obj.name;
-      var address = obj.formatted_address;
-      var latitude = obj.geometry.location.k;
-      var longitude = obj.geometry.location.B;
-      var cost = obj.price_level || 9; // 9 means undefined price
-      var details = obj;
-      $http.put('/api/trips/wishlist/' + tripId, {
-        name:name,
-        address:address,
-        latitude:latitude,
-        longitude:longitude,
-        cost:cost,
-        details:details
-      }).success(function(trip) {
-        console.log("new trip from DB ", trip);
+      $http.put('api/trips/' + tripId + '/addActivity', {
+        title: obj.name,
+        googleDetails: obj,
+        start: selectedDay,
+        cost: obj.price_level || 9
       })
+      // var name = obj.name;
+      // var address = obj.formatted_address;
+      // var latitude = obj.geometry.location.k;
+      // var longitude = obj.geometry.location.B;
+      // var cost = obj.price_level || 9; // 9 means undefined price
+      // var details = obj;
+      // $http.put('/api/trips/wishlist/' + tripId, {
+      //   name:name,
+      //   address:address,
+      //   latitude:latitude,
+      //   longitude:longitude,
+      //   cost:cost,
+      //   details:details
+      // }).success(function(trip) {
+      //   console.log("new trip from DB ", trip);
+      // })
     };
 
     // this caches the current activity just in case the user wasn't logged in or
@@ -153,7 +160,7 @@ angular.module('tripPlannerApp')
 
       // This will add an activity to the current trip. It will check to make sure
       // that the person is logged in and has a current trip.
-      addToTrip: function(obj) {
+      addToTrip: function(obj, selectedDay) {
         console.log(obj);
         tempActivityDetailsObj = obj;
         if(isLoggedIn()) {
@@ -168,7 +175,7 @@ angular.module('tripPlannerApp')
               }
             }
           } else {
-            addToWishlist(obj);
+            addToTrip(obj, selectedDay);
           }
         } else {
           $rootScope.$broadcast('showSignupModal');

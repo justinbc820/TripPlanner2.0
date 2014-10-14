@@ -2,7 +2,7 @@
 
 angular.module('tripPlannerApp')
     .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search, $http, $modal) {
-
+      
       var selectTripModal = $modal({title: 'SELECT A TRIP', template: 'app/mapOverlay/tripPicker.html', show: false, placement: 'center'});
       $rootScope.$on('showSelectTripModal', function() {
         selectTripModal.$promise.then(selectTripModal.show);
@@ -158,7 +158,8 @@ angular.module('tripPlannerApp')
       // This function is called when someone clicks the addToTrip button in map overlay
       // the place already has all its details fetched, so we pass those to the function
       this.addToTrip = function(details) {
-        planData.addToTrip(details);
+        planData.addToTrip(details, $scope.selectedDay);
+        console.log(details)
       };
 
       // currDetails is a variable that holds the current details displayed on map
