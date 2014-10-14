@@ -44,7 +44,8 @@ angular.module('tripPlannerApp')
         k:37.579413,
         B:-2.900391
       },
-      zoom:3
+      zoom:3,
+      bounds: {}
     };
 
 
@@ -111,9 +112,11 @@ angular.module('tripPlannerApp')
         return currentTrip;
       },
 
-      setMapOpts: function(coords, zoom) {
+      setMapOpts: function(coords, zoom, bounds) {
         currentMapOpts.location = coords;
         currentMapOpts.zoom = zoom;
+        currentMapOpts.bounds = bounds;
+        $rootScope.$broadcast('newMapOpts');
       },
 
       getMapOpts: function() {

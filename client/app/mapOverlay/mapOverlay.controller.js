@@ -27,6 +27,7 @@ angular.module('tripPlannerApp')
           var SW = new google.maps.LatLng(rawBounds.southwest.latitude, rawBounds.southwest.longitude);
           var NE = new google.maps.LatLng(rawBounds.northeast.latitude, rawBounds.northeast.longitude);
           $scope.search.options.bounds = new google.maps.LatLngBounds(SW,NE);
+          planData.setMapOpts(null, null, $scope.search.options.bounds);
           $scope.search.coords.centerLat = rawBounds.southwest.latitude + ((rawBounds.northeast.latitude - rawBounds.southwest.latitude)/2);
           $scope.search.coords.centerLong = rawBounds.southwest.longitude + ((rawBounds.northeast.longitude - rawBounds.southwest.longitude)/2)
         }
