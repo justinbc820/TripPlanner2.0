@@ -1,5 +1,4 @@
-<div ng-controller="TripeditCtrl as edit" ng-init="edit.init()" class="col-md-12 full-height animated fadeIn">
-<div class="page-body">
+<div ng-controller="TripeditCtrl as edit" ng-init="edit.init()" class="full-height animated fadeIn page-body">
   <div class="col-lg-3 full-height">
   	<ul>
   		<li>
@@ -27,17 +26,59 @@
               </form>
             </li>
           </ul>
-          <div date-picker="start" ng-hide="closed" max-view="month" min-view="hours" ng-click="selectActivityTime()"></div>
-
+          <div date-picker="start" ng-hide="closed" max-view="month" min-view="hours" ng-click="selectActivityTime()">
+          </div>
       </li>
-  	</ul>
+    </ul>
+  </div>
+</div>
+
+<div ng-controller="CalendarCtrl as calendar">
+  <!-- <p>Test: {{ currentTrip }}</p> -->
+  <div id="event-details" class="col-lg-3">
+
+  <h3>Event Details</h3>
+    <div ng-show="calendar.showDetails">
+      <div id="details-panel">
+          <div class="dottedline-top"></div>
+          <div class="placephoto-banner-outer">
+              <div class="placephoto-banner" style="background:url('{{calendar.currentEvent.photoUrl}}')">
+                  <div class="placephoto-banner-overlay">
+                      <h3 class="uppercase">{{calendar.currentEvent.title}}</h3>
+                      <h5>{{calendar.currentEvent.formatted_address}}</h5>
+                  </div>
+              </div>
+          </div>
+
+          <div class="separator"></div>
+
+          <ul>
+              <li>
+                  <b>Rating:</b>
+                  <span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                  </span>
+              </li>
+              <li><b>Website:</b>  <a ng-href="{{calendar.currentEvent.website}}">{{calendar.currentEvent.website}}</a>
+              </li>
+              <li><b>Telephone:</b>{{calendar.currentEvent.international_phone_number}}</li>
+          </ul>
+              <button class="add-to-trip" ng-click="calendar.remove(index)">DELETE</button>
+          <div class="dottedline-bottom"></div>
+      </div>
+    </div>
+
+
   </div>
 
   <div class="col-lg-9 full-height">
-    <div ng-controller="CalendarCtrl as calendar" class="full-height">
+    <div class="full-height">
       <div id="calendar-container" class="full-height" ui-calendar="calendar.uiConfig.calendar" ng-model="calendar.eventSources"></div>
     </div>
   </div>
-<div>
-</div>
 
+</div>

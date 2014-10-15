@@ -60,19 +60,17 @@ angular.module('tripPlannerApp')
       ]
     };
 
+    this.showDetails = false;
+
     /* alert on eventClick */
-    var popOver = '<button popover="{{ calendar.dynamicPopover }}"'
-    popOver += ' popover-title="{{ calendar.dynamicPopoverTitle }}" class="btn btn-default">'
-    popOver += 'Options</button>';
-
-    this.dynamicPopover = 'hello';
-    this.dynamicPopoverTitle = 'click me';
-
     this.alertOnEventClick = function( event, allDay, jsEvent, view ){
-      // this.alertMessage = (event.title + ' was clicked ');
-      $('.fc-event-inner').on('click', function() {
-        $(this).before(popOver);
-      })
+      self.alertMessage = (event.title + ' was clicked ');
+      self.currentEvent = event;
+      self.showDetails = !self.showDetails;
+      console.log(event);
+      // $('.fc-event-inner').on('click', function() {
+      //   $('#event-details').append(this.alertMessage);
+      // })
     };
 
     /* alert on Drop */
@@ -113,7 +111,10 @@ angular.module('tripPlannerApp')
 
     /* remove event */
     this.remove = function(index) {
+      //only works in the context of a list
+      // need to make an http call using _id
       this.events.splice(index,1);
+      updatePlanData();
     };
 
     /* Change View */
