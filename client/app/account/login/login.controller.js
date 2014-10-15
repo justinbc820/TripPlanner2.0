@@ -26,7 +26,9 @@ angular.module('tripPlannerApp')
 
           //!planData.getTripIdReminder() && planData.getTempActivity()
 
-          if (!planData.getCurrentTrip()) {
+          //User coming from newtrip questionnaire.  NewTrip's 'done' method will have set currentTrip and set TripIdReminder on planData service
+
+          if (planData.getCurrentTrip() && planData.getTripIdReminder()) {
             console.log("this is tripidReminder", planData.getTripIdReminder());
             //fetch current user
             $http.get('/api/users/me').success(function(user) {
@@ -44,8 +46,20 @@ angular.module('tripPlannerApp')
                 });
               });
             });
+
+            //Existing user trying to add to trip while not logged in.  User will not have a getTripIdReminder but will have stashed a temp activity in planData.  create trip for them, update trip (with user id) and user (with trip id), broadcast to mapOverlayCtrl to show the select trip modal and redirect to map view
+          } else if (!planData.getTripIdReminder() && (planData.getTempActivity() !== undefined)) {
+              // $http.post('/api/trips/').success(function(trip) { //create new trip
+              //   $http.get('/api/users/me').success(function(user) { //retrieve current user
+              //     $http.put('/api/trips/'+trip._id, {travelerId: user._id}).success(function(trip) {
+              //       $http.put('/api/users/'+user._id, {tripId: trip._id}).success(function() {
+
+            // $location.path('/map');
+            $rootScope.$broadcast('showSelectTripModal');
+
           } else {
-            $location.path('/dashboard');
+
+              $location.path('/dashboard');
           }
         })
         .catch( function(err) {

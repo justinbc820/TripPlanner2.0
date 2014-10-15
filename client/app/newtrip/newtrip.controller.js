@@ -106,10 +106,43 @@ angular.module('tripPlannerApp')
                   $http.put('/api/trips/'+planData.getTripIdReminder(), {travelerId: updatedUser._id}).success(function(trip) {
                     //now trip and user both updated, redirect to recommendations.
                     //redirect to recommendations
+<<<<<<< HEAD
+
+                    if (planData.getTempActivity() !== undefined) {
+
+                        console.log('hit if statement for temp activity!!!!!!')
+                        //If there is a tempActivity, that means a brand new user tried to add a new activity from the map view without creating a new account
+                        var tempActivity = planData.getTempActivity();
+                        var title = tempActivity.name;
+                        var googleDetails = tempActivity;
+                        var location = {
+                          address: tempActivity.formatted_address,
+                          coords: {
+                            latitude: tempActivity.geometry.location.k,
+                            longitude: tempActivity.geometry.location.B
+                          }
+                        };
+                        var cost = tempActivity.price_level;
+
+                        $http.put('/api/trips/wishlist/'+trip._id, {
+                            title: title,
+                            googleDetails: googleDetails,
+                            location: location,
+                            cost: cost || 9
+                          }).success(function(tripWithStashedActivity) {
+                              $location.path('/recommend/' + trip._id);
+                              $rootScope.$broadcast('clear temp activity');
+                          });
+                    } else {
+                      console.log("hit else statement instead");
+                      $location.path('/recommend/' + trip._id);
+                    }
+=======
                     if (planData.getTempActivity()) {
                       //store stashed activity in wishlist of the trip;
                     }
                     $location.path('/recommend/' + trip._id);
+>>>>>>> 1312ef9457f0ecaf235b17ea25920a314d66c69c
                   });
               });
           }

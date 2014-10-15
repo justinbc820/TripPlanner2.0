@@ -7,9 +7,18 @@ angular.module('tripPlannerApp')
       });
 
       var selectTripModal = $modal({title: 'SELECT A TRIP', template: 'app/mapOverlay/tripPicker.html', show: false, placement: 'center'});
+
       $rootScope.$on('showSelectTripModal', function() {
         selectTripModal.$promise.then(selectTripModal.show);
-      })
+      });
+
+      $rootScope.$on('closeTripPickerModal', function() {
+        selectTripModal.$promise.then(selectTripModal.hide);
+      });
+
+      $scope.closeTripPickerModal = function() {
+        $rootScope.$broadcast('closeTripPickerModal');
+      };
 
       $scope.setCurrentTrip = function(trip) {
         trip.wishlist.push(planData.getTempActivity());
@@ -173,13 +182,18 @@ angular.module('tripPlannerApp')
 
       // This function is called when someone clicks the addToTrip button in map overlay
       // the place already has all its details fetched, so we pass those to the function
+<<<<<<< HEAD
+      this.addToTrip = function() {
+        planData.addToTrip($scope.currDetails, $scope.selectedDay);
+=======
       this.addToTrip = function(details) {
         planData.addToTrip(details, $scope.selectedDay);
+>>>>>>> 1312ef9457f0ecaf235b17ea25920a314d66c69c
       };
 
       // currDetails is a variable that holds the current details displayed on map
       // overlay when someone clicks on a pin
-      $scope.currDetails = false;
+      $scope.currDetails;
 
       /*
        * This function is run when the search service broadcasts that details have

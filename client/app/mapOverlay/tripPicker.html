@@ -7,14 +7,17 @@
       </div>
 
       <!-- TRIPPICKER BODY STARTS HERE -->
-        <div ng-controller="MapOverlayCtrl">
-          <div ng-repeat="trip in userData.trips" ng-click="setCurrentTrip(trip)"><a href="">{{trip.questionnaire.location}}</a><br><br>  </div>
-
+        <div ng-controller="MapOverlayCtrl as overlay">
+          <div ng-repeat="trip in userData.trips" ng-click="setCurrentTrip(trip); closeTripPickerModal(); overlay.addToTrip(currDetails)"><a href="">{{trip.questionnaire.location}}</a><br><br>
+          </div>
+          <a href="/newtrip" ng-click="closeTripPickerModal()"><button>+ new trip</button></a>
+        </div>
       <!-- TRIPPICKER BODY ENDS HERE -->
 
       <div class="modal-body" ng-bind="content">
       </div>
       <div class="modal-footer">
+
       </div>
     </div>
   </div>
