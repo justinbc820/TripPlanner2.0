@@ -62,10 +62,10 @@ exports.addToWishlist = function(req, res) {
       title: req.body.title,
       googleDetails: req.body.googleDetails,
       location: {
-        address: req.body.address,
+        address: req.body.location.address,
         coords: {
-          latitude: req.body.latitude,
-          longitude: req.body.longitude
+          latitude: req.body.location.coords.latitude,
+          longitude: req.body.location.coords.longitude
         }
       },
       // description: null,
@@ -74,6 +74,24 @@ exports.addToWishlist = function(req, res) {
     };
 
     trip.wishlist.push(activity);
+    console.log("trip wishlist ", trip.wishlist)
+
+    trip.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, trip);
+    });
+  });
+};
+
+// Removes wishlist item
+exports.removeFromWishlist = function(req, res) {
+  Trip.findById(req.params.id, function (err, trip) {
+    if (err) { return handleError(res, err); }
+    if(!trip) { return res.send(404); }
+
+    var index = req.body.wish.index;
+
+    trip.wishlist.splice(index,1);
 
     trip.save(function (err) {
       if (err) { return handleError(res, err); }

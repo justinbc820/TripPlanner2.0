@@ -38,9 +38,9 @@ angular.module('tripPlannerApp')
 
     $scope.showDatePicker = function(index) {
       $scope.closed = !$scope.closed;
-      console.log("currentTrip", $scope.currentTrip.wishlist)
       $scope.currentWish = $scope.currentTrip.wishlist[index];
-      console.log("currentWish", $scope.currentWish);
+      $scope.currentWish.index = index; // This variable is so that we can remove
+      // the wish from the array once it is added to the calendar
     }
 
     $scope.autocomplete = {
@@ -63,8 +63,6 @@ angular.module('tripPlannerApp')
     $scope.selectActivityTime = function() {
       // pop up date and time selector
       if($scope.start !== undefined) {
-        console.log('wish: ', $scope.currentWish);
-        console.log('Time selected for wish: ', $scope.start);
         $scope.addToCal();
       }
     }
@@ -85,7 +83,13 @@ angular.module('tripPlannerApp')
         cost: $scope.currentWish.cost
       })
       .success(function(data){
-        console.log("wish saved to the server: ", $scope.currentTrip);
+        // This will now remove the wish from the wishlist in the database
+        // and update the scope wishlist
+        $http.post('/api/trips/wishlist/' + $scope.currentTrip._id, {
+          wish: $scope.currentWish
+        }).success(function(data) {
+          $scope.currentTrip.wishlist = data.wishlist;
+        })
         $scope.closed = true;
         $rootScope.$broadcast('addToCal');
       })

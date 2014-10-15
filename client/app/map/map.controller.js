@@ -19,6 +19,7 @@ angular.module('tripPlannerApp')
     // when search factory has new markers representing the activities of a day, this updates them
     $rootScope.$on('newDayMarkers', function() {
       $scope.currentDayMarkers = search.getDayMarkers();
+      console.log($scope.currentDayMarkers);
     });
 
     // This watches for someone to resize or pan the map and then updates the current
