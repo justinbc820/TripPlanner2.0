@@ -4,8 +4,13 @@ angular.module('tripPlannerApp')
   .controller('AsideCtrl', function ($scope, $aside, $location, planData) {
     var currentTrip;
     if(planData.getCurrentTrip()) {
+      var textArr = planData.getCurrentTrip().questionnaire.location.split(',');
+      var text = textArr[0];
+      if(text.length > 15) {
+        text = text.slice(0,15) + '...';
+      };
       currentTrip = {
-        text: planData.getCurrentTrip().questionnaire.location,
+        text: text,
         link: '/dashboard/' + planData.getCurrentTrip()._id,
         icon: '../../assets/images/icons/airplane.png'
       }

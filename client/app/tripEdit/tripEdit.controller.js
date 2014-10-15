@@ -8,10 +8,12 @@ angular.module('tripPlannerApp')
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         $scope.currentTrip = trip;
-        $scope.autocomplete.options.bounds = new google.maps.LatLng(
-          $scope.currentTrip.latLng.k,
-          $scope.currentTrip.latLng.B
-        );
+        console.log($scope.currentTrip);
+        // $scope.autocomplete.options.bounds = new google.maps.LatLngBounds(
+        //   $scope.currentTrip.latLng.k,
+        //   $scope.currentTrip.latLng.B
+        // );
+
         planData.setCurrentTrip(trip);
       })
     }
@@ -36,7 +38,9 @@ angular.module('tripPlannerApp')
 
     $scope.showDatePicker = function(index) {
       $scope.closed = !$scope.closed;
-      $scope.currentWish = $scope.currentTrip.wishlist[index]
+      $scope.currentWish = $scope.currentTrip.wishlist[index];
+      $scope.currentWish.index = index; // This variable is so that we can remove
+      // the wish from the array once it is added to the calendar
     }
 
     $scope.autocomplete = {
@@ -54,23 +58,38 @@ angular.module('tripPlannerApp')
       }, 50, 10);
     };
 
-
     $scope.currentWish;
     $scope.start;
     $scope.selectActivityTime = function() {
       // pop up date and time selector
       if($scope.start !== undefined) {
-        console.log('wish: ', $scope.currentWish);
-        console.log('Time selected for wish: ', $scope.start);
         $scope.addToCal();
       }
     }
 
     $scope.addToCal = function() {
       // push into trip schema
-      $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {title: $scope.currentWish.name, googleDetails: $scope.currentWish, start: $scope.start})
+      $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {
+        title: $scope.currentWish.title, 
+        googleDetails: $scope.currentWish, 
+        location: {
+          address: $scope.currentWish.location.address,
+          coords: {
+            latitude: $scope.currentWish.location.coords.latitude,
+            longitude: $scope.currentWish.location.coords.longitude
+          }
+        },
+        start: $scope.start,
+        cost: $scope.currentWish.cost
+      })
       .success(function(data){
-        console.log("wish saved to the server: ", $scope.currentTrip);
+        // This will now remove the wish from the wishlist in the database
+        // and update the scope wishlist
+        $http.post('/api/trips/wishlist/' + $scope.currentTrip._id, {
+          wish: $scope.currentWish
+        }).success(function(data) {
+          $scope.currentTrip.wishlist = data.wishlist;
+        })
         $scope.closed = true;
         $rootScope.$broadcast('addToCal');
       })

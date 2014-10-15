@@ -59,7 +59,7 @@
     height:110px;
     #day-panel {
       width: 23%;
-      height:53px;
+      height:58px;
       margin-left: auto;
       margin-right: auto;
       background-color: rgba(45, 51, 58, 0.9);
@@ -215,7 +215,7 @@
   }
 
   .dottedline-bottom {
-    width: 95%;
+    width: 100%;
     height: 3%;
     padding-bottom:10px;
     margin-left: auto;
@@ -232,7 +232,7 @@
     color: whitesmoke;
 
     .dottedline-top {
-      width: 95%;
+      width: 100%;
       height: 3%;
       padding-top:10px;
       margin-left: auto;
@@ -325,17 +325,20 @@
   color: white;
 }
 
-#add-to-trip {
-    color: #000000;
-    font-weight: 1.2em;
-    font-family: 'Open Sans', sans-serif;
-    border: 3px solid #231F20;
-    background-color: whitesmoke;
-    padding: 10px;
-    width:30%;
-    min-width:45px;
-    margin:-35px auto 10px auto;
-    text-align:center;
-    display:block;
-    outline:none;
-}
+// #buttons-container {
+  .add-to-trip {
+      color: #000000;
+      font-weight: 1.2em;
+      font-family: 'Open Sans', sans-serif;
+      border: 3px solid #231F20;
+      background-color: whitesmoke;
+      padding: 10px;
+      width:44%;
+      min-width:45px;
+      margin:-35px 10px 10px 10px;
+      text-align:center;
+      display:block;
+      // float:left;
+      outline:none;
+  }  
+// }

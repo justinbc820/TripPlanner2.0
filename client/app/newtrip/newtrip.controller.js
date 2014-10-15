@@ -63,8 +63,11 @@ angular.module('tripPlannerApp')
 
     ////Tixik/Flickr API call
     $scope.getRecommendations = function(lat, lng, loc) {
+      console.log("now getting recommendations");
       $http.post('/api/getrecommendations/'+lat+'/'+lng, {location: loc}).success(function(data) {
+
         $scope.recommendations = data;
+                console.log("recommendations returned", $scope.recommendations);
       });
     };
 
@@ -80,28 +83,65 @@ angular.module('tripPlannerApp')
 
 
     $scope.done = function(answers) {
+      debugger;
       $scope.questionnaire.date = $scope.setupTrip.daterange;
       var daysArray = planData.calculateDays($scope.questionnaire.date);
       var latLng = $scope.setupTrip.destination.details.geometry.location;
       $scope.questionnaire.location = $scope.setupTrip.destination.autocomplete;
+
       $http.post('/api/trips', {
           questionnaire: $scope.questionnaire,
           days: daysArray,
           latLng: latLng
       }).success(function(trip) {
           planData.setCurrentTrip(trip);
-          console.log("previous getTripIdReminder:", planData.getTripIdReminder());
-          planData.setTripIdReminder(trip._id); //communicating with signup controller to populate new user with this trip's id
-          console.log("changed TripIdReminder:", planData.getTripIdReminder());
-          planData.setRecommendations($scope.recommendations); //setting recommendations
-          if (!$scope.isLoggedIn()) { //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
+          //communicating with signup controller to populate new user with this trip's id
+          planData.setTripIdReminder(trip._id);
+
+          //setting recommendations
+          planData.setRecommendations($scope.recommendations);
+
+          //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
+          if (!$scope.isLoggedIn()) {
               self.signup();
-          } else { //If user is logged in when questionnaire is finished, push trip id to user, push user as traveler to trip and then redirect to recommendations
+
+          //If user is logged in when questionnaire is finished, push trip id to user, push user as traveler to trip and then redirect to recommendations
+          } else {
               $http.put('/api/users/' + $scope.currentUser._id, {
                   tripId: trip._id
               }).success(function(updatedUser) {
-                  $http.put('/api/trips/'+planData.getTripIdReminder(), {travelerId: updatedUser._id}).success(function(trip) { //now trip and user both updated, redirect to recommendations.
-                    $location.path('/recommend/' + trip._id); //redirect to recommendations
+                  $http.put('/api/trips/'+planData.getTripIdReminder(), {travelerId: updatedUser._id}).success(function(trip) {
+                    //now trip and user both updated, redirect to recommendations.
+                    //redirect to recommendations
+
+                    if (planData.getTempActivity()) {
+
+                        //If there is a tempActivity, that means any user tried to add a new activity from the map view without creating a new account or without logging in
+                        var tempActivity = planData.getTempActivity();
+                        var title = tempActivity.name;
+                        var googleDetails = tempActivity;
+                        var location = {
+                          address: tempActivity.formatted_address,
+                          coords: {
+                            latitude: tempActivity.geometry.location.k,
+                            longitude: tempActivity.geometry.location.B
+                          }
+                        };
+                        var cost = tempActivity.price_level;
+
+                        $http.put('/api/trips/wishlist/'+trip._id, {
+                            title: title,
+                            googleDetails: googleDetails,
+                            location: location,
+                            cost: cost || 9
+                          }).success(function(tripWithStashedActivity) {
+                              $location.path('/recommend/' + trip._id);
+                              $rootScope.$broadcast('clear temp activity');
+                          });
+                    } else {
+                      $location.path('/recommend/' + trip._id);
+                    }
+                    $location.path('/recommend/' + trip._id);
                   });
               });
           }
@@ -112,6 +152,7 @@ angular.module('tripPlannerApp')
     $scope.stillFetchingRecs = false;
 
     this.displayLoadingView = function() {
+      console.log("hit display loading view");
       $scope.stillFetchingRecs = true;
       if ($scope.recommendations) {
         $scope.done($scope.questionnaire);

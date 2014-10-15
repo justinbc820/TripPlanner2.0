@@ -6,9 +6,9 @@ angular.module('tripPlannerApp')
     // This object represents markers of up to 200 places returned
     // from a google radar search.  They all represent a different type
     var radarSearchMarkers = {
-      restaurant: [], 
-      lodging: [], 
-      laundry: [], 
+      restaurant: [],
+      lodging: [],
+      laundry: [],
       playthings: [],
       tourist: [],
       amusement: [],
@@ -17,7 +17,7 @@ angular.module('tripPlannerApp')
       textSearch:[]
     };
 
-    var currentDayMarkers; //This represents an array that contains marker coords, id
+    var currentDayMarkers = {}; //This represents an array that contains marker coords, id
     // and google details information for each place in the activities of the current day
 
     // This object represents the returned values of a details call to Google
@@ -61,13 +61,16 @@ angular.module('tripPlannerApp')
         // key is a type of markers, these types are in the radarSearchMarkers object
         return radarSearchMarkers[key];
       },
-      
+
       // This function is called from the mapOverlay controller or the map controller.
       // It makes a placeDetails call to Google API.
       getDetails: function(place_id) {
+        console.log("get details called");
         ngGPlacesAPI.placeDetails({placeId: place_id})
           .then(function (data) {
+            console.log(data);
             details[place_id] = data;
+            console.log(details);
             $rootScope.$broadcast('detailsReturned', place_id);
           });
       },
@@ -91,12 +94,12 @@ angular.module('tripPlannerApp')
 
       // This is called when someone clicks on a specific day in map overlay.
       setDayMarkers: function(places) {
-        currentDayMarkers = places;
+        currentDayMarkers.markers = places;
         $rootScope.$broadcast('newDayMarkers');
       },
 
       getDayMarkers:function() {
-        return currentDayMarkers;
+        return currentDayMarkers.markers;
       },
 
       radarSearchMarkers:radarSearchMarkers

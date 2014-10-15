@@ -23,14 +23,11 @@ angular.module('tripPlannerApp')
     };
 
     getRecommendations();
-    $scope.transitionTo = function(e) {
-      var elem = angular.element(e.srcElement);
-      elem.css('background','green');
-      // $scope.makeitGreen = 'makeGreen';
-      // if ($scope.makeitGreen = 'makeGreen') {
-      //   $scope.makeitGreen = 'makeBlack';
-      // }
-    }
+
+
+    $scope.goToDashboard = function() {
+      $location.path('/dashboard/'+tripId);
+    };
 
     $scope.addToWishList = function(index, query) {
       $scope.selected[index] = true;
@@ -38,28 +35,29 @@ angular.module('tripPlannerApp')
           'query': query
       })
       .then(function(gDetails) {
-        console.log(gDetails);
-        var name = gDetails[0].name;
-        var address = gDetails[0].formatted_address;
-        var latitude = gDetails[0].geometry.location.k;
-        var longitude = gDetails[0].geometry.location.B;
-        var location = new google.maps.LatLng(latitude, longitude);
+        var title = gDetails[0].name;
+        // var address = gDetails[0].formatted_address;
+        // var latitude = gDetails[0].geometry.location.k;
+        // var longitude = gDetails[0].geometry.location.B;
+        // var location = new google.maps.LatLng(latitude, longitude);
+        var location = {
+          address: gDetails[0].formatted_address,
+          coords: {
+            latitude: gDetails[0].geometry.location.k,
+            longitude:gDetails[0].geometry.location.B
+          }
+        };
         var cost = gDetails[0].price_level || 9; // 9 means undefined price
-        var details = gDetails[0];
+        var googleDetails = gDetails[0];
 
         $http.put('/api/trips/wishlist/'+tripId, {
-          name:name,
-          address:address,
-          location:location,
+          title:title,
+          location: location,
           cost:cost,
-          details:details
+          googleDetails:googleDetails
         }).success(function(trip) {
           planData.setCurrentTrip(trip);
-        })
+        });
       });
     }; //end to addToWishList
-
-    $scope.goToDashboard = function() {
-      $location.path('/dashboard/'+tripId);
-    };
-  });
+});

@@ -3,13 +3,31 @@
 angular.module('tripPlannerApp')
     .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search, $http, $modal) {
 
-      var selectTripModal = $modal({title: 'SELECT A TRIP', template: './tripPicker.html', show: false, placement: 'center'}); 
+      $http.get('/api/users/me').success(function(user) {
+        $scope.userData=user;
+      });
+
+      var selectTripModal = $modal({title: 'SELECT A TRIP', template: 'app/mapOverlay/tripPicker.html', show: false, placement: 'center'});
+
       $rootScope.$on('showSelectTripModal', function() {
         selectTripModal.$promise.then(selectTripModal.show);
-      })
+      });
+
+      $rootScope.$on('closeTripPickerModal', function() {
+        selectTripModal.$promise.then(selectTripModal.hide);
+      });
+
+      $scope.closeTripPickerModal = function() {
+        $rootScope.$broadcast('closeTripPickerModal');
+      };
+
+      $scope.setCurrentTrip = function(trip) {
+        trip.wishlist.push(planData.getTempActivity());
+        planData.setCurrentTrip(trip);
+      };
       /*
        *  This function waits for a message from the Search Factory that indicates that
-       *  the user has changed map bounds, either by resizing or relocating. Once it 
+       *  the user has changed map bounds, either by resizing or relocating. Once it
        *  receives the message, it changes all search bounds to limit to the current
        *  map view
       */
@@ -27,6 +45,7 @@ angular.module('tripPlannerApp')
           var SW = new google.maps.LatLng(rawBounds.southwest.latitude, rawBounds.southwest.longitude);
           var NE = new google.maps.LatLng(rawBounds.northeast.latitude, rawBounds.northeast.longitude);
           $scope.search.options.bounds = new google.maps.LatLngBounds(SW,NE);
+          planData.setMapOpts(null, null, $scope.search.options.bounds);
           $scope.search.coords.centerLat = rawBounds.southwest.latitude + ((rawBounds.northeast.latitude - rawBounds.southwest.latitude)/2);
           $scope.search.coords.centerLong = rawBounds.southwest.longitude + ((rawBounds.northeast.longitude - rawBounds.southwest.longitude)/2)
         }
@@ -37,9 +56,8 @@ angular.module('tripPlannerApp')
       $scope.currentTrip = planData.getCurrentTrip();
       $rootScope.$on('newCurrentTrip', function() {
         $scope.currentTrip = planData.getCurrentTrip();
-        console.log($scope.currentTrip);
         $scope.selectedDay = $scope.currentTrip.days[0]; // initializes the current selected day to the first day of the trip
-        $scope.selectedDayCss = 0; // applies the 'selected' css to the selected day
+        $scope.selectedDayCss = 3; // applies the 'selected' css to the selected day
       });
 
       $scope.currentDayActivities = []; // this array represents markers on the map showing the current day's activities
@@ -51,23 +69,31 @@ angular.module('tripPlannerApp')
        * and then puts markers on the map for each activity in the current day
       */
       $scope.daySelect = function(index) {
-        $scope.selectedDayCss = index;
-        $scope.selectedDay = $scope.currentTrip.days[index];
-
-        $scope.currentDayActivities.length = 0; // reset array
-        var currDayString = $scope.selectedDay.slice(0,10); //Gets the day selected YYYY-MM-DD
-        for(var i=0; i<$scope.currentTrip.activities.length; i++) {
-          var currActivityString = $scope.currentTrip.activities[i].start.slice(0,10);//Gets the date of activity YYYY-MM-DD
-          if(currDayString == currActivityString) { // if the activity happens on the currently selected day...
-            $scope.currentDayActivities.push($scope.currentTrip.activities[i]);
-            //formatting each location so that the markers directive in the html can place markers
-            $scope.currentDayActivities[i].id = i;
-            $scope.currentDayActivities[i].latitude = $scope.currentDayActivities[i].googleDetails.location.coords.latitude;
-            $scope.currentDayActivities[i].longitude = $scope.currentDayActivities[i].googleDetails.location.coords.longitude;
-          }
-        }
-        search.setDayMarkers($scope.currentDayActivities);
-      }
+            $scope.selectedDayCss = index;
+            $scope.selectedDay = $scope.currentTrip.days[index];
+            $scope.currentDayActivities.length = 0; // reset array
+            var currDayString = $scope.selectedDay.slice(0,10); //Gets the day selected YYYY-MM-DD
+            var activitiesSkipped = 0;
+            for(var i=0; i<$scope.currentTrip.activities.length; i++) {
+              var currActivityString = $scope.currentTrip.activities[i].start.slice(0,10);//Gets the date of activity YYYY-MM-DD
+              if(currDayString == currActivityString) { // if the activity happens on the currently selected day...
+                $scope.currentDayActivities.push($scope.currentTrip.activities[i]);
+                //formatting each location so that the markers directive in the html can place markers
+                var newIndex = i - activitiesSkipped; // This variable keeps track of the current position in the for loop, relative to the
+                                                      // position of each place in the actual currentDayActivities array.
+                if($scope.currentDayActivities[newIndex].googleDetails.location) {
+                  $scope.currentDayActivities[newIndex].id = newIndex;
+                  $scope.currentDayActivities[newIndex].latitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.latitude;
+                  $scope.currentDayActivities[newIndex].longitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.longitude;
+                } else {
+                  continue;
+                }
+              } else {
+                activitiesSkipped++;
+              }
+            }
+            search.setDayMarkers($scope.currentDayActivities);
+      };
 
       // This array stores information for each of the radar search icons
       this.radarIcons = [{
@@ -86,14 +112,14 @@ angular.module('tripPlannerApp')
           route: '../../assets/images/icons/wave.png',
           details: 'amusement',
           text: 'play'
-      }, ];
+      }];
 
       // This function is called when someone clicks on one of the radar search icons
       this.iconRadarSearch = function(index) {
           var self = this;
           var searchType = self.radarIcons[index].details;
           self.radarSearch(searchType);
-      }
+      };
 
       // This function is called when someone uses the text box.  It determines whether
       // to do a details call or a text search, then does it.
@@ -137,7 +163,7 @@ angular.module('tripPlannerApp')
       };
 
       // THis function does a radar search based on the values passed from the radar
-      // icons.  The values are specified in the radarIcons array in this document 
+      // icons.  The values are specified in the radarIcons array in this document
       // in the details property of each object
       this.radarSearch = function(type) {
         ngGPlacesAPI.radarSearch({
@@ -157,30 +183,32 @@ angular.module('tripPlannerApp')
 
       // This function is called when someone clicks the addToTrip button in map overlay
       // the place already has all its details fetched, so we pass those to the function
-      this.addToTrip = function(details) {
-        planData.addToTrip(details);
+
+      this.addToTrip = function() {
+            planData.addToTrip($scope.currDetails, $scope.selectedDay);
+
+          // currDetails is a variable that holds the current details displayed on map
+          // overlay when someone clicks on a pin
+            $scope.currDetails;
       };
 
-      // currDetails is a variable that holds the current details displayed on map
-      // overlay when someone clicks on a pin
-      $scope.currDetails = false;
-
-      /*
-       * This function is run when the search service broadcasts that details have
-       * been returned from Google. If there if a photo in the returned details,
-       * the function sets the width and height and passes the url on to the html
-       * to populate the orange-hued place picture.
-      */
-      $rootScope.$on('detailsReturned', function(event, placeId) {
-          $scope.currDetails = search.getReturnedDetails(placeId);
-          if($scope.currDetails.photos) {
-            var width = $scope.currDetails.photos[0].width;
-            var height = $scope.currDetails.photos[0].height;
-            $scope.currDetails.photoUrl = $scope.currDetails.photos[0].getUrl({
-                'maxWidth': width,
-                'maxHeight': height
+          /*
+           * This function is run when the search service broadcasts that details have
+           * been returned from Google. If there if a photo in the returned details,
+           * the function sets the width and height and passes the url on to the html
+           * to populate the orange-hued place picture.
+          */
+            $rootScope.$on('detailsReturned', function(event, placeId) {
+              console.log("called detailsReturned")
+                $scope.currDetails = search.getReturnedDetails(placeId);
+                if($scope.currDetails.photos) {
+                  var width = $scope.currDetails.photos[0].width;
+                  var height = $scope.currDetails.photos[0].height;
+                  $scope.currDetails.photoUrl = $scope.currDetails.photos[0].getUrl({
+                      'maxWidth': width,
+                      'maxHeight': height
+                  });
+                }
+                console.log($scope.currDetails, placeId)
             });
-          }
-      });
-
 });

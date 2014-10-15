@@ -18,7 +18,7 @@
         <h3>WISH LIST:</h3>
           <ul>
             <li ng-model="wish" ng-repeat="wish in currentTrip.wishlist">
-              <a ng-click="showDatePicker($index)">{{wish.name || "empty" }}</a>
+              <a ng-click="showDatePicker($index)">{{wish.title || "empty" }}</a>
             </li>
             <li>
               <form ng-submit="addToWishlist()">

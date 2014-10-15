@@ -2,20 +2,6 @@
 
 <div ng-controller="DashboardCtrl as dashboard" class="col-md-12 page-body animated fadeIn full-height">
 
-  <!-- <button ng-click="dashboard.createTrip()">New Trip</button>
-
-
-  <h3>Trips</h3>
-    <ul>
-      <li class="well" ng-repeat="trip in userData.trips">
-        <h4 ng-click="dashboard.tripEditView($index)" style="cursor:pointer;">{{trip.questionnaire.location}}</h4>
-      </li>
-    </ul>
-  <h3>Invitations</h3>
-    <ul>
-      <li ng-repeat="invite in userData.invitations"></li>
-    </ul> -->
-
   <div ng-show="!userData.trips[0]" style="text-align: center; width: 80%; margin: 0 auto;">
     <h1 style="margin-bottom: 0">You have not yet created any trips yet.  <br> Click <a href='/newtrip'>here</a> to create one.</h1>
     <br>
@@ -25,7 +11,7 @@
   <div ng-repeat="trip in userData.trips" class="col-lg-12" id="individual-trip">
     <div class="col-lg-3 full-height" style="padding-left:0;">
       <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/031/cache/netherlands_3127_600x450.jpg" style="z-index:10;">
-      <h1>{{trip.questionnaire.location}}</h1>
+      <h1 ng-click="dashboard.tripEditView($index)">{{trip.questionnaire.location}}</h1>
       <button ng-click="dashboard.tripEditView($index)">Edit Trip</button>
     </div>
     <div class="col-lg-9 full-height" id="days-container">

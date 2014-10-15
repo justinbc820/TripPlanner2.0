@@ -59,21 +59,39 @@ exports.addToWishlist = function(req, res) {
     if(!trip) { return res.send(404); }
 
     var activity = {
-      name: req.body.name,
+      title: req.body.title,
+      googleDetails: req.body.googleDetails,
       location: {
-        address: req.body.address,
+        address: req.body.location.address,
         coords: {
-          latitude: req.body.latitude,
-          longitude: req.body.longitude
+          latitude: req.body.location.coords.latitude,
+          longitude: req.body.location.coords.longitude
         }
       },
-      description: null,
-      time: null,
-      cost: req.body.cost,
-      details: req.body.details
+      // description: null,
+      start: null,
+      cost: req.body.cost
     };
 
     trip.wishlist.push(activity);
+    console.log("trip wishlist ", trip.wishlist)
+
+    trip.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, trip);
+    });
+  });
+};
+
+// Removes wishlist item
+exports.removeFromWishlist = function(req, res) {
+  Trip.findById(req.params.id, function (err, trip) {
+    if (err) { return handleError(res, err); }
+    if(!trip) { return res.send(404); }
+
+    var index = req.body.wish.index;
+
+    trip.wishlist.splice(index,1);
 
     trip.save(function (err) {
       if (err) { return handleError(res, err); }
@@ -98,34 +116,34 @@ exports.addActivity = function(req, res) {
   });
 };
 
-// Updates an existing trip in the DB.
-exports.addDetails = function(req, res) {
-  Trip.findById(req.params.id, function (err, trip) {
-    if (err) { return handleError(res, err); }
-    if(!trip) { return res.send(404); }
+// // Updates an existing trip in the DB.
+// exports.addDetails = function(req, res) {
+//   Trip.findById(req.params.id, function (err, trip) {
+//     if (err) { return handleError(res, err); }
+//     if(!trip) { return res.send(404); }
 
-    var activity = {
-      name: req.body.name,
-      location: {
-        address: req.body.address,
-        coords: {
-          latitude: req.body.latitude,
-          longitude: req.body.longitude
-        }
-      },
-      description: null,
-      time: null,
-      cost: req.body.cost
-    };
+//     var activity = {
+//       name: req.body.name,
+//       location: {
+//         address: req.body.address,
+//         coords: {
+//           latitude: req.body.latitude,
+//           longitude: req.body.longitude
+//         }
+//       },
+//       description: null,
+//       time: null,
+//       cost: req.body.cost
+//     };
 
-    trip.wishlist.push(activity);
+//     trip.wishlist.push(activity);
 
-    trip.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, trip);
-    });
-  });
-};
+//     trip.save(function (err) {
+//       if (err) { return handleError(res, err); }
+//       return res.json(200, trip);
+//     });
+//   });
+// };
 
 // Deletes a trip from the DB.
 exports.destroy = function(req, res) {
