@@ -44,13 +44,9 @@ angular.module('tripPlannerApp')
         var longitude = gDetails[0].geometry.location.B;
         // var location = new google.maps.LatLng(latitude, longitude);
         var cost = gDetails[0].price_level || 9; // 9 means undefined price
-<<<<<<< HEAD
         var googleDetails = gDetails[0];
 
         $http.put('/api/trips/wishlist/'+tripId, {
-=======
-        $http.put('/api/trips/wishlist/'+ tripId, {
->>>>>>> 1312ef9457f0ecaf235b17ea25920a314d66c69c
           title:title,
           address:address,
           latitude:latitude,
