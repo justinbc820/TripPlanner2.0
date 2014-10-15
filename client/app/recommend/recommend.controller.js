@@ -24,6 +24,12 @@ angular.module('tripPlannerApp')
 
     getRecommendations();
 
+
+    $scope.goToDashboard = function() {
+      $location.path('/dashboard/'+tripId);
+    };
+  });
+
     $scope.addToWishList = function(index, query) {
       $scope.selected[index] = true;
       ngGPlacesAPI.textSearch({
@@ -45,7 +51,7 @@ angular.module('tripPlannerApp')
         var cost = gDetails[0].price_level || 9; // 9 means undefined price
         var googleDetails = gDetails[0];
 
-        $http.put('/api/trips/wishlist/'+ tripId, {
+        $http.put('/api/trips/wishlist/'+tripId, {
           title:title,
           location: location,
           cost:cost,
@@ -55,8 +61,3 @@ angular.module('tripPlannerApp')
         });
       });
     }; //end to addToWishList
-
-    $scope.goToDashboard = function() {
-      $location.path('/dashboard/'+tripId);
-    };
-  });
