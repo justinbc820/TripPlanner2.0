@@ -7,7 +7,6 @@ angular.module('tripPlannerApp')
       updatePlanData();
     };
 
-
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -60,21 +59,34 @@ angular.module('tripPlannerApp')
           {type:'party',title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
       ]
     };
+
     /* alert on eventClick */
+    var popOver = '<button popover="{{ calendar.dynamicPopover }}"'
+    popOver += ' popover-title="{{ calendar.dynamicPopoverTitle }}" class="btn btn-default">'
+    popOver += 'Options</button>';
+
+    this.dynamicPopover = 'hello';
+    this.dynamicPopoverTitle = 'click me';
+
     this.alertOnEventClick = function( event, allDay, jsEvent, view ){
-      this.alertMessage = (event.title + ' was clicked ');
-      console.log(this.alertMessage);
+      // this.alertMessage = (event.title + ' was clicked ');
+      $('.fc-event-inner').on('click', function() {
+        $(this).before(popOver);
+      })
     };
+
     /* alert on Drop */
     this.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){
      this.alertMessage = ('Event Droped on ' + event.start);
      console.log(this.alertMessage);
     };
+
     /* alert on Resize */
     this.alertOnResize = function( event, jsEvent, ui, view){
      this.alertMessage = ('Event end date was moved to ' + event.end.format());
      console.log(this.alertMessage);
     };
+
     /* add and removes an event source of choice */
     this.addRemoveEventSource = function(sources,source) {
       var canAdd = 0;
@@ -145,6 +157,7 @@ angular.module('tripPlannerApp')
         eventResize: this.alertOnResize
       }
     };
+
 
     this.init();
 

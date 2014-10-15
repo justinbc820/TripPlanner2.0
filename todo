@@ -1,3 +1,4 @@
 delete calendar events
+  popover pushes other elements out of the way.
 how does interacting with calendar affect time stamps?
 persist exeditable changes to db
