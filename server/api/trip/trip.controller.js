@@ -116,6 +116,24 @@ exports.addActivity = function(req, res) {
   });
 };
 
+// Removes Activity item
+exports.deleteActivity = function(req, res) {
+  Trip.findById(req.params.id, function (err, trip) {
+    if (err) { return handleError(res, err); }
+    if(!trip) { return res.send(404); }
+    console.log('This is the request info: ', req.body);
+
+    var index = req.body.activity.index;
+
+    trip.activities.splice(index,1);
+
+    trip.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, trip);
+    });
+  });
+};
+
 // // Updates an existing trip in the DB.
 // exports.addDetails = function(req, res) {
 //   Trip.findById(req.params.id, function (err, trip) {

@@ -110,10 +110,11 @@ angular.module('tripPlannerApp')
     // };
 
     /* remove event */
-    this.remove = function(index) {
-      //only works in the context of a list
-      // need to make an http call using _id
-      this.events.splice(index,1);
+    this.remove = function(currentEvent) {
+      $http.post('/api/trips/' + $scope.currentTrip._id + 'deleteActivity', {
+        activity: self.currentEvent
+      });
+      // this.events.splice(index,1);
       updatePlanData();
     };
 
