@@ -38,7 +38,6 @@ angular.module('tripPlannerApp')
           'query': query
       })
       .then(function(gDetails) {
-        console.log(gDetails);
         var title = gDetails[0].name;
         var googleDetails = gDetails[0];
         var location = {
@@ -49,7 +48,6 @@ angular.module('tripPlannerApp')
           }
         };
         var cost = gDetails[0].price_level || 9; // 9 means undefined price
-
         $http.put('/api/trips/wishlist/'+ tripId, {
           title:title,
           googleDetails:googleDetails,

@@ -61,7 +61,6 @@ angular.module('tripPlannerApp')
       $scope.daySelect = function(index) {
         $scope.selectedDayCss = index;
         $scope.selectedDay = $scope.currentTrip.days[index];
-        debugger;
         $scope.currentDayActivities.length = 0; // reset array
         var currDayString = $scope.selectedDay.slice(0,10); //Gets the day selected YYYY-MM-DD
         var activitiesSkipped = 0;
@@ -70,10 +69,15 @@ angular.module('tripPlannerApp')
           if(currDayString == currActivityString) { // if the activity happens on the currently selected day...
             $scope.currentDayActivities.push($scope.currentTrip.activities[i]);
             //formatting each location so that the markers directive in the html can place markers
-            var newIndex = i - activitiesSkipped;
-            $scope.currentDayActivities[newIndex].id = newIndex;
-            $scope.currentDayActivities[newIndex].latitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.latitude;
-            $scope.currentDayActivities[newIndex].longitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.longitude;;
+            var newIndex = i - activitiesSkipped; // This variable keeps track of the current position in the for loop, relative to the
+                                                  // position of each place in the actual currentDayActivities array.
+            if($scope.currentDayActivities[newIndex].googleDetails.location) {
+              $scope.currentDayActivities[newIndex].id = newIndex;
+              $scope.currentDayActivities[newIndex].latitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.latitude;
+              $scope.currentDayActivities[newIndex].longitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.longitude;
+            } else {
+              continue;
+            }
           } else {
             activitiesSkipped++;
           }
@@ -171,7 +175,6 @@ angular.module('tripPlannerApp')
       // the place already has all its details fetched, so we pass those to the function
       this.addToTrip = function(details) {
         planData.addToTrip(details, $scope.selectedDay);
-        console.log(details)
       };
 
       // currDetails is a variable that holds the current details displayed on map

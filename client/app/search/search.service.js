@@ -17,7 +17,7 @@ angular.module('tripPlannerApp')
       textSearch:[]
     };
 
-    var currentDayMarkers; //This represents an array that contains marker coords, id
+    var currentDayMarkers = {}; //This represents an array that contains marker coords, id
     // and google details information for each place in the activities of the current day
 
     // This object represents the returned values of a details call to Google
@@ -91,12 +91,12 @@ angular.module('tripPlannerApp')
 
       // This is called when someone clicks on a specific day in map overlay.
       setDayMarkers: function(places) {
-        currentDayMarkers = places;
+        currentDayMarkers.markers = places;
         $rootScope.$broadcast('newDayMarkers');
       },
 
       getDayMarkers:function() {
-        return currentDayMarkers;
+        return currentDayMarkers.markers;
       },
 
       radarSearchMarkers:radarSearchMarkers
