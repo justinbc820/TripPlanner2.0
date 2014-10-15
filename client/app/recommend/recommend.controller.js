@@ -28,7 +28,6 @@ angular.module('tripPlannerApp')
     $scope.goToDashboard = function() {
       $location.path('/dashboard/'+tripId);
     };
-  });
 
     $scope.addToWishList = function(index, query) {
       $scope.selected[index] = true;
@@ -61,3 +60,4 @@ angular.module('tripPlannerApp')
         });
       });
     }; //end to addToWishList
+});

@@ -63,8 +63,11 @@ angular.module('tripPlannerApp')
 
     ////Tixik/Flickr API call
     $scope.getRecommendations = function(lat, lng, loc) {
+      console.log("now getting recommendations");
       $http.post('/api/getrecommendations/'+lat+'/'+lng, {location: loc}).success(function(data) {
+
         $scope.recommendations = data;
+                console.log("recommendations returned", $scope.recommendations);
       });
     };
 
@@ -80,6 +83,7 @@ angular.module('tripPlannerApp')
 
 
     $scope.done = function(answers) {
+      debugger;
       $scope.questionnaire.date = $scope.setupTrip.daterange;
       var daysArray = planData.calculateDays($scope.questionnaire.date);
       var latLng = $scope.setupTrip.destination.details.geometry.location;
@@ -110,7 +114,7 @@ angular.module('tripPlannerApp')
                     //now trip and user both updated, redirect to recommendations.
                     //redirect to recommendations
 
-                    if (planData.getTempActivity() !== undefined) {
+                    if (planData.getTempActivity()) {
 
                         //If there is a tempActivity, that means any user tried to add a new activity from the map view without creating a new account or without logging in
                         var tempActivity = planData.getTempActivity();
@@ -148,6 +152,7 @@ angular.module('tripPlannerApp')
     $scope.stillFetchingRecs = false;
 
     this.displayLoadingView = function() {
+      console.log("hit display loading view");
       $scope.stillFetchingRecs = true;
       if ($scope.recommendations) {
         $scope.done($scope.questionnaire);

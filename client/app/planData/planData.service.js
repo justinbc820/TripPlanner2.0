@@ -210,7 +210,7 @@ var factoryObj = {
             })
             .success(function(tripWithRecommendations) {
                 console.log("recommendations successfully saved under current trip.", tripWithRecommendations);
-            });j
+            });
     },
 
     // This function will fetch recommendations from the DB
