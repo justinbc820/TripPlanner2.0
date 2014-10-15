@@ -6,9 +6,9 @@ angular.module('tripPlannerApp')
     // This object represents markers of up to 200 places returned
     // from a google radar search.  They all represent a different type
     var radarSearchMarkers = {
-      restaurant: [], 
-      lodging: [], 
-      laundry: [], 
+      restaurant: [],
+      lodging: [],
+      laundry: [],
       playthings: [],
       tourist: [],
       amusement: [],
@@ -61,13 +61,16 @@ angular.module('tripPlannerApp')
         // key is a type of markers, these types are in the radarSearchMarkers object
         return radarSearchMarkers[key];
       },
-      
+
       // This function is called from the mapOverlay controller or the map controller.
       // It makes a placeDetails call to Google API.
       getDetails: function(place_id) {
+        console.log("get details called");
         ngGPlacesAPI.placeDetails({placeId: place_id})
           .then(function (data) {
+            console.log(data);
             details[place_id] = data;
+            console.log(details);
             $rootScope.$broadcast('detailsReturned', place_id);
           });
       },

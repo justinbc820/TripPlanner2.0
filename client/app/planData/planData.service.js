@@ -210,7 +210,7 @@ var factoryObj = {
             })
             .success(function(tripWithRecommendations) {
                 console.log("recommendations successfully saved under current trip.", tripWithRecommendations);
-            });
+            });j
     },
 
     // This function will fetch recommendations from the DB
@@ -235,17 +235,11 @@ var factoryObj = {
         var dayDiff = Math.round(Math.abs(startDate - endDate) / oneDay); // num days between
         // start and ending dates
         var daysArray = [];
-<<<<<<< HEAD
-        for (var i = 0; i < dayDiff; i++) {
-            // start at the first day and add one day at a time and push that new date to an array
-            var newDate = new Date(dateRange.startDate._d.setDate(startDay + i)).setHours(9);
-            daysArray.push(newDate);
-=======
+
         for(var i=0; i<dayDiff; i++) {
           // start at the first day and add one day at a time and push that new date to an array
           var newDate = new Date(dateRange.startDate._d.setDate(startDay + i));
           daysArray.push(newDate);
->>>>>>> 1312ef9457f0ecaf235b17ea25920a314d66c69c
         }
         return daysArray;
     }

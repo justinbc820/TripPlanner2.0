@@ -2,6 +2,7 @@
 
 angular.module('tripPlannerApp')
     .controller('MapOverlayCtrl', function($scope, $rootScope, $interval, $timeout, planData, ngGPlacesAPI, search, $http, $modal) {
+
       $http.get('/api/users/me').success(function(user) {
         $scope.userData=user;
       });
@@ -68,31 +69,31 @@ angular.module('tripPlannerApp')
        * and then puts markers on the map for each activity in the current day
       */
       $scope.daySelect = function(index) {
-        $scope.selectedDayCss = index;
-        $scope.selectedDay = $scope.currentTrip.days[index];
-        $scope.currentDayActivities.length = 0; // reset array
-        var currDayString = $scope.selectedDay.slice(0,10); //Gets the day selected YYYY-MM-DD
-        var activitiesSkipped = 0;
-        for(var i=0; i<$scope.currentTrip.activities.length; i++) {
-          var currActivityString = $scope.currentTrip.activities[i].start.slice(0,10);//Gets the date of activity YYYY-MM-DD
-          if(currDayString == currActivityString) { // if the activity happens on the currently selected day...
-            $scope.currentDayActivities.push($scope.currentTrip.activities[i]);
-            //formatting each location so that the markers directive in the html can place markers
-            var newIndex = i - activitiesSkipped; // This variable keeps track of the current position in the for loop, relative to the
-                                                  // position of each place in the actual currentDayActivities array.
-            if($scope.currentDayActivities[newIndex].googleDetails.location) {
-              $scope.currentDayActivities[newIndex].id = newIndex;
-              $scope.currentDayActivities[newIndex].latitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.latitude;
-              $scope.currentDayActivities[newIndex].longitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.longitude;
-            } else {
-              continue;
+            $scope.selectedDayCss = index;
+            $scope.selectedDay = $scope.currentTrip.days[index];
+            $scope.currentDayActivities.length = 0; // reset array
+            var currDayString = $scope.selectedDay.slice(0,10); //Gets the day selected YYYY-MM-DD
+            var activitiesSkipped = 0;
+            for(var i=0; i<$scope.currentTrip.activities.length; i++) {
+              var currActivityString = $scope.currentTrip.activities[i].start.slice(0,10);//Gets the date of activity YYYY-MM-DD
+              if(currDayString == currActivityString) { // if the activity happens on the currently selected day...
+                $scope.currentDayActivities.push($scope.currentTrip.activities[i]);
+                //formatting each location so that the markers directive in the html can place markers
+                var newIndex = i - activitiesSkipped; // This variable keeps track of the current position in the for loop, relative to the
+                                                      // position of each place in the actual currentDayActivities array.
+                if($scope.currentDayActivities[newIndex].googleDetails.location) {
+                  $scope.currentDayActivities[newIndex].id = newIndex;
+                  $scope.currentDayActivities[newIndex].latitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.latitude;
+                  $scope.currentDayActivities[newIndex].longitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.longitude;
+                } else {
+                  continue;
+                }
+              } else {
+                activitiesSkipped++;
+              }
             }
-          } else {
-            activitiesSkipped++;
-          }
-        }
-        search.setDayMarkers($scope.currentDayActivities);
-      }
+            search.setDayMarkers($scope.currentDayActivities);
+      };
 
       // This array stores information for each of the radar search icons
       this.radarIcons = [{
@@ -111,14 +112,14 @@ angular.module('tripPlannerApp')
           route: '../../assets/images/icons/wave.png',
           details: 'amusement',
           text: 'play'
-      }, ];
+      }];
 
       // This function is called when someone clicks on one of the radar search icons
       this.iconRadarSearch = function(index) {
           var self = this;
           var searchType = self.radarIcons[index].details;
           self.radarSearch(searchType);
-      }
+      };
 
       // This function is called when someone uses the text box.  It determines whether
       // to do a details call or a text search, then does it.
@@ -182,35 +183,32 @@ angular.module('tripPlannerApp')
 
       // This function is called when someone clicks the addToTrip button in map overlay
       // the place already has all its details fetched, so we pass those to the function
-<<<<<<< HEAD
+
       this.addToTrip = function() {
-        planData.addToTrip($scope.currDetails, $scope.selectedDay);
-=======
-      this.addToTrip = function(details) {
-        planData.addToTrip(details, $scope.selectedDay);
->>>>>>> 1312ef9457f0ecaf235b17ea25920a314d66c69c
+            planData.addToTrip($scope.currDetails, $scope.selectedDay);
+
+          // currDetails is a variable that holds the current details displayed on map
+          // overlay when someone clicks on a pin
+            $scope.currDetails;
       };
 
-      // currDetails is a variable that holds the current details displayed on map
-      // overlay when someone clicks on a pin
-      $scope.currDetails;
-
-      /*
-       * This function is run when the search service broadcasts that details have
-       * been returned from Google. If there if a photo in the returned details,
-       * the function sets the width and height and passes the url on to the html
-       * to populate the orange-hued place picture.
-      */
-      $rootScope.$on('detailsReturned', function(event, placeId) {
-          $scope.currDetails = search.getReturnedDetails(placeId);
-          if($scope.currDetails.photos) {
-            var width = $scope.currDetails.photos[0].width;
-            var height = $scope.currDetails.photos[0].height;
-            $scope.currDetails.photoUrl = $scope.currDetails.photos[0].getUrl({
-                'maxWidth': width,
-                'maxHeight': height
+          /*
+           * This function is run when the search service broadcasts that details have
+           * been returned from Google. If there if a photo in the returned details,
+           * the function sets the width and height and passes the url on to the html
+           * to populate the orange-hued place picture.
+          */
+            $rootScope.$on('detailsReturned', function(event, placeId) {
+              console.log("called detailsReturned")
+                $scope.currDetails = search.getReturnedDetails(placeId);
+                if($scope.currDetails.photos) {
+                  var width = $scope.currDetails.photos[0].width;
+                  var height = $scope.currDetails.photos[0].height;
+                  $scope.currDetails.photoUrl = $scope.currDetails.photos[0].getUrl({
+                      'maxWidth': width,
+                      'maxHeight': height
+                  });
+                }
+                console.log($scope.currDetails, placeId)
             });
-          }
-      });
-
 });

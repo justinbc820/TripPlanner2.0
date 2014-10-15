@@ -160,4 +160,6 @@ angular.module('tripPlannerApp')
       // for when we call getMarkers, such as 'lodging' or 'monuments'
       $scope.markers = search.getMarkers(key);
     });
+
+
   });
