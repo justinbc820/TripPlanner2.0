@@ -23,14 +23,6 @@ angular.module('tripPlannerApp')
     };
 
     getRecommendations();
-    $scope.transitionTo = function(e) {
-      var elem = angular.element(e.srcElement);
-      elem.css('background','green');
-      // $scope.makeitGreen = 'makeGreen';
-      // if ($scope.makeitGreen = 'makeGreen') {
-      //   $scope.makeitGreen = 'makeBlack';
-      // }
-    }
 
     $scope.addToWishList = function(index, query) {
       $scope.selected[index] = true;
@@ -39,28 +31,28 @@ angular.module('tripPlannerApp')
       })
       .then(function(gDetails) {
         var title = gDetails[0].name;
-        var address = gDetails[0].formatted_address;
-        var latitude = gDetails[0].geometry.location.k;
-        var longitude = gDetails[0].geometry.location.B;
+        // var address = gDetails[0].formatted_address;
+        // var latitude = gDetails[0].geometry.location.k;
+        // var longitude = gDetails[0].geometry.location.B;
         // var location = new google.maps.LatLng(latitude, longitude);
+        var location = {
+          address: gDetails[0].formatted_address,
+          coords: {
+            latitude: gDetails[0].geometry.location.k,
+            longitude:gDetails[0].geometry.location.B
+          }
+        };
         var cost = gDetails[0].price_level || 9; // 9 means undefined price
-<<<<<<< HEAD
         var googleDetails = gDetails[0];
 
-        $http.put('/api/trips/wishlist/'+tripId, {
-=======
         $http.put('/api/trips/wishlist/'+ tripId, {
->>>>>>> 1312ef9457f0ecaf235b17ea25920a314d66c69c
           title:title,
-          address:address,
-          latitude:latitude,
-          longitude:longitude,
-          // location:location,
+          location: location,
           cost:cost,
           googleDetails:googleDetails
         }).success(function(trip) {
           planData.setCurrentTrip(trip);
-        })
+        });
       });
     }; //end to addToWishList
 

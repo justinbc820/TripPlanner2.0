@@ -93,11 +93,14 @@ angular.module('tripPlannerApp')
           planData.setCurrentTrip(trip);
           //communicating with signup controller to populate new user with this trip's id
           planData.setTripIdReminder(trip._id);
+
           //setting recommendations
           planData.setRecommendations($scope.recommendations);
+
           //If user not logged in when questionnaire is finished, signup modal (which also contains the login button) will pop up
           if (!$scope.isLoggedIn()) {
               self.signup();
+
           //If user is logged in when questionnaire is finished, push trip id to user, push user as traveler to trip and then redirect to recommendations
           } else {
               $http.put('/api/users/' + $scope.currentUser._id, {
@@ -106,12 +109,10 @@ angular.module('tripPlannerApp')
                   $http.put('/api/trips/'+planData.getTripIdReminder(), {travelerId: updatedUser._id}).success(function(trip) {
                     //now trip and user both updated, redirect to recommendations.
                     //redirect to recommendations
-<<<<<<< HEAD
 
                     if (planData.getTempActivity() !== undefined) {
 
-                        console.log('hit if statement for temp activity!!!!!!')
-                        //If there is a tempActivity, that means a brand new user tried to add a new activity from the map view without creating a new account
+                        //If there is a tempActivity, that means any user tried to add a new activity from the map view without creating a new account or without logging in
                         var tempActivity = planData.getTempActivity();
                         var title = tempActivity.name;
                         var googleDetails = tempActivity;
@@ -134,15 +135,9 @@ angular.module('tripPlannerApp')
                               $rootScope.$broadcast('clear temp activity');
                           });
                     } else {
-                      console.log("hit else statement instead");
                       $location.path('/recommend/' + trip._id);
                     }
-=======
-                    if (planData.getTempActivity()) {
-                      //store stashed activity in wishlist of the trip;
-                    }
                     $location.path('/recommend/' + trip._id);
->>>>>>> 1312ef9457f0ecaf235b17ea25920a314d66c69c
                   });
               });
           }
