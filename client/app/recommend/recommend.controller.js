@@ -32,6 +32,12 @@ angular.module('tripPlannerApp')
       // }
     }
 
+
+    $scope.goToDashboard = function() {
+      $location.path('/dashboard/'+tripId);
+    };
+  });
+
     $scope.addToWishList = function(index, query) {
       $scope.selected[index] = true;
       ngGPlacesAPI.textSearch({
@@ -58,8 +64,3 @@ angular.module('tripPlannerApp')
         })
       });
     }; //end to addToWishList
-
-    $scope.goToDashboard = function() {
-      $location.path('/dashboard/'+tripId);
-    };
-  });
