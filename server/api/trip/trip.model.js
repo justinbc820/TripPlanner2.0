@@ -31,8 +31,7 @@ var ActivitySchema = new Schema({
       longitude: Number
     }
   },
-  start: Date,
-  cost: Number
+  start: Date
 });
 
 module.exports = mongoose.model('Trip', TripSchema);
