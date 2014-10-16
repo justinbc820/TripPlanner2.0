@@ -71,7 +71,7 @@ angular.module('tripPlannerApp')
       // push into trip schema
       $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {
         title: $scope.currentWish.title, 
-        googleDetails: $scope.currentWish, 
+        googleDetails: $scope.currentWish.googleDetails, 
         location: {
           address: $scope.currentWish.location.address,
           coords: {
@@ -79,8 +79,7 @@ angular.module('tripPlannerApp')
             longitude: $scope.currentWish.location.coords.longitude
           }
         },
-        start: $scope.start,
-        cost: $scope.currentWish.cost
+        start: $scope.start
       })
       .success(function(data){
         // This will now remove the wish from the wishlist in the database

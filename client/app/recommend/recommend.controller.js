@@ -36,10 +36,6 @@ angular.module('tripPlannerApp')
       })
       .then(function(gDetails) {
         var title = gDetails[0].name;
-        // var address = gDetails[0].formatted_address;
-        // var latitude = gDetails[0].geometry.location.k;
-        // var longitude = gDetails[0].geometry.location.B;
-        // var location = new google.maps.LatLng(latitude, longitude);
         var location = {
           address: gDetails[0].formatted_address,
           coords: {
@@ -47,13 +43,11 @@ angular.module('tripPlannerApp')
             longitude:gDetails[0].geometry.location.B
           }
         };
-        var cost = gDetails[0].price_level || 9; // 9 means undefined price
         var googleDetails = gDetails[0];
 
         $http.put('/api/trips/wishlist/'+tripId, {
           title:title,
           location: location,
-          cost:cost,
           googleDetails:googleDetails
         }).success(function(trip) {
           planData.setCurrentTrip(trip);
