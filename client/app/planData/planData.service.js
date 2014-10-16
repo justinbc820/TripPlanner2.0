@@ -7,7 +7,7 @@ var isLoggedIn = Auth.isLoggedIn;
 var currentTrip; // this represents ALL information about the currently selected global trip
 var user; // this represents information about the user, such as their id, etc.
 
-
+var currDetails;
 
 // Gets information about the user from the database
 var fetchUserFromDB = function() {
@@ -103,6 +103,14 @@ var factoryObj = {
         return tempActivityDetailsObj;
     },
 
+    setCurrDetails: function(details) {
+      currDetails = details;
+    },
+
+    getCurrDetails: function() {
+      return currDetails;
+    },
+
     // This is a function that was housed outside the return object because other
     // functions within the object needed access to it
     setCurrentTrip: setCurrentTrip,
@@ -141,6 +149,7 @@ var factoryObj = {
 
         if (obj) {
         tempActivityDetailsObj = obj;
+        console.log(tempActivityDetailsObj)
         }
 
         if (isLoggedIn()) {
@@ -165,33 +174,32 @@ var factoryObj = {
                 if (!selectedDay) {
                     console.log('no selected day');
                     $http.put('/api/trips/wishlist/' + tripId, {
-                        title: obj.name,
+                        title: tempActivityDetailsObj.title,
                         location: {
-                            address: obj.formatted_address,
+                            address: tempActivityDetailsObj.formatted_address,
                             coords: {
-                                latitude: obj.geometry.location.k,
-                                longitude: obj.geometry.location.B
+                                latitude: tempActivityDetailsObj.geometry.location.k,
+                                longitude: tempActivityDetailsObj.geometry.location.B
                             }
                         },
-                        googleDetails: obj,
-                        cost: obj.price_level || 9
+                        googleDetails: tempActivityDetailsObj
                     }).success(function(trip) {
                       console.log(trip);
                       setCurrentTrip(trip);
                     });
                 } else {
                     $http.put('/api/trips/' + tripId + '/addActivity', {
-                        title: obj.name,
+                        title: tempActivityDetailsObj.title,
                         location: {
-                            address: obj.formatted_address,
+                            address: tempActivityDetailsObj.formatted_address,
                             coords: {
-                                latitude: obj.geometry.location.k,
-                                longitude: obj.geometry.location.B
+                                latitude: tempActivityDetailsObj.geometry.location.k,
+                                longitude: tempActivityDetailsObj.geometry.location.B
                             }
                         },
-                        googleDetails: obj,
+                        googleDetails: tempActivityDetailsObj,
                         start: selectedDay,
-                        cost: obj.price_level || 9
+                        cost: tempActivityDetailsObj.price_level || 9
                     }).success(function(trip) {
                         setCurrentTrip(trip);
                     });

@@ -14,6 +14,9 @@ angular.module('tripPlannerApp')
       });
 
       $rootScope.$on('closeTripPickerModal', function() {
+        if (!selectTripModal) {
+
+        }
         selectTripModal.$promise.then(selectTripModal.hide);
       });
 
@@ -185,11 +188,14 @@ angular.module('tripPlannerApp')
       // the place already has all its details fetched, so we pass those to the function
 
       this.addToTrip = function() {
-            planData.addToTrip($scope.currDetails, $scope.selectedDay);
+            if (planData.getCurrDetails()) {
+              planData.addToTrip($scope.currDetails, $scope.selectedDay);
+            }
+
 
           // currDetails is a variable that holds the current details displayed on map
           // overlay when someone clicks on a pin
-            $scope.currDetails;
+
       };
 
           /*
@@ -201,6 +207,7 @@ angular.module('tripPlannerApp')
             $rootScope.$on('detailsReturned', function(event, placeId) {
               console.log("called detailsReturned")
                 $scope.currDetails = search.getReturnedDetails(placeId);
+                planData.setCurrDetails($scope.currDetails);
                 if($scope.currDetails.photos) {
                   var width = $scope.currDetails.photos[0].width;
                   var height = $scope.currDetails.photos[0].height;
