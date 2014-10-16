@@ -83,7 +83,6 @@ angular.module('tripPlannerApp')
 
 
     $scope.done = function(answers) {
-      debugger;
       $scope.questionnaire.date = $scope.setupTrip.daterange;
       var daysArray = planData.calculateDays($scope.questionnaire.date);
       var latLng = $scope.setupTrip.destination.details.geometry.location;

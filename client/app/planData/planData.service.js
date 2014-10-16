@@ -163,7 +163,6 @@ var factoryObj = {
 
                 var tripId = currentTrip._id;
                 if (!selectedDay) {
-                    console.log('no selected day');
                     $http.put('/api/trips/wishlist/' + tripId, {
                         title: obj.name,
                         location: {
@@ -175,10 +174,11 @@ var factoryObj = {
                         },
                         googleDetails: obj,
                         cost: obj.price_level || 9
-                    }).success(function(trip) {
-                      console.log(trip);
-                      setCurrentTrip(trip);
-                    });
+                    })
+                    // .success(function(trip) {
+                    //   console.log(trip);
+                    //   setCurrentTrip(trip);
+                    // });
                 } else {
                     $http.put('/api/trips/' + tripId + '/addActivity', {
                         title: obj.name,
@@ -192,9 +192,10 @@ var factoryObj = {
                         googleDetails: obj,
                         start: selectedDay,
                         cost: obj.price_level || 9
-                    }).success(function(trip) {
-                        setCurrentTrip(trip);
-                    });
+                    })
+                    // .success(function(trip) {
+                    //     setCurrentTrip(trip);
+                    // });
                 }
             }
         } else {

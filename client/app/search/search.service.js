@@ -65,12 +65,10 @@ angular.module('tripPlannerApp')
       // This function is called from the mapOverlay controller or the map controller.
       // It makes a placeDetails call to Google API.
       getDetails: function(place_id) {
-        console.log("get details called");
+        console.log(place_id);
         ngGPlacesAPI.placeDetails({placeId: place_id})
           .then(function (data) {
-            console.log(data);
             details[place_id] = data;
-            console.log(details);
             $rootScope.$broadcast('detailsReturned', place_id);
           });
       },
