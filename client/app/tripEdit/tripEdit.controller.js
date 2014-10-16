@@ -8,7 +8,6 @@ angular.module('tripPlannerApp')
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         $scope.currentTrip = trip;
-        console.log($scope.currentTrip);
         // $scope.autocomplete.options.bounds = new google.maps.LatLngBounds(
         //   $scope.currentTrip.latLng.k,
         //   $scope.currentTrip.latLng.B
