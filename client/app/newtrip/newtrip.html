@@ -1,6 +1,4 @@
 <div ng-controller="NewtripCtrl as newtrip" class="home-body-page-1 animated fadeIn">
-  <!-- <div ng-include="'components/navbar/navbar.html'"></div> -->
-
   <!-- QUESTIONNAIRE STARTS HERE -->
   <div id="newtrip">
 
@@ -16,9 +14,9 @@
       <div ng-show="connection.option == null">
         <input ng-show="connection.type === 'autocomplete' && newtrip.currNode.num===1" ng-autocomplete ng-model="setupTrip.destination.autocomplete" options="setupTrip.destination.options" details="setupTrip.destination.details">
         <input ng-show="connection.type === 'autocomplete' && newtrip.currNode.num===17" ng-autocomplete ng-model="setupTrip.lodging.autocomplete" options="setupTrip.lodging.options" details="setupTrip.lodging.details">
-        <input ng-show="connection.type === 'otherwise'" ng-model="newtrip.currNode.answer" placeholder="otherwise">
+        <input ng-show="connection.type === 'otherwise'" ng-model="newtrip.currNode.answer">
         <input type="daterange" ng-show="connection.type === 'date'" ng-model="setupTrip.daterange" format="MMM DD,YYYY">
-        <input ng-show="connection.type === 'money'" ng-model="newtrip.currNode.answer" placeholder="money">
+        <input ng-show="connection.type === 'money'" ng-model="newtrip.currNode.answer">
         <button ng-click="newtrip.getNext(connection.next, newtrip.currNode.answer)">CONTINUE</button>
       </div>
 
