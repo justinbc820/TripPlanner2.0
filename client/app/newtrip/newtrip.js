@@ -6,6 +6,7 @@ angular.module('tripPlannerApp')
       .state('newtrip', {
         url: '/newtrip',
         templateUrl: 'app/newtrip/newtrip.html',
-        controller: 'NewtripCtrl'
+        controller: 'NewtripCtrl',
+        isPublic: true
       });
   });

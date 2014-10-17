@@ -11,11 +11,15 @@
         <span>{{currentTrip.questionnaire.location || "empty" }}</span>
       </li>
   		<li>
-  			<h3>BUDGET:</h3>
-  			<span type="text" editable-text="currentTrip.budget" placeholder="change budget">{{currentTrip.budget || "empty" }}</span>
+  			<!-- <h3>BUDGET:</h3>
+  			<span type="text" editable-text="currentTrip.budget" placeholder="change budget">{{currentTrip.budget || "empty" }}</span> -->
+        <h3>FRIENDS:</h3>
+        <span type="text" editable-text="currentTrip.invitees" placeholder="change budget">{{friend || "Invite a friend!"}}</span>
+        <div ng-repeat="friend in currentTrip.friends">
+        </div>
   		</li>
       <li>
-        <h3>WISH LIST:</h3>
+        <h3>THINGS I WANT TO DO:</h3>
           <ul>
             <li ng-model="wish" ng-repeat="wish in currentTrip.wishlist">
               <a ng-click="showDatePicker($index)">{{wish.title || "empty" }}</a>

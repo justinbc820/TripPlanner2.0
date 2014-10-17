@@ -6,6 +6,7 @@ angular.module('tripPlannerApp')
       .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'app/dashboard/dashboard.html',
-        controller: 'DashboardCtrl'
+        controller: 'DashboardCtrl',
+        isPublic: false
       });
   });
