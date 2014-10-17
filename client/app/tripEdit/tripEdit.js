@@ -6,6 +6,7 @@ angular.module('tripPlannerApp')
       .state('tripEdit', {
         url: '/dashboard/:id',
         templateUrl: 'app/tripEdit/tripEdit.html',
-        controller: 'TripeditCtrl'
+        controller: 'TripeditCtrl',
+        isPublic: false
       });
   });
