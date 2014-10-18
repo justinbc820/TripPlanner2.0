@@ -155,8 +155,60 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 }
 
+//Calendar styling
+
+.fc-view {
+  background-color: rgba(45, 51, 58, 0.7);
+  font-family: 'Open Sans', sans-serif;
+  border: 5px solid rgba(45, 51, 58, 0.7);
+}
+
+.fc-state-default.fc-corner-left {
+  border-radius: 0 !important;
+}
+
+.fc-button {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-radius: 0;
+  background-color: 0;
+  text-shadow: none;
+  box-shadow: 0;
+  border: 2px solid rgba(45, 51, 58, 0.9);
+  background: transparent;
+  color: rgba(45, 51, 58, 0.9);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  height: 40px;
+  padding-top: 4.5px;
+  text-transform: uppercase;
+}
+
+.fc-button-basicWeek {
+  display: none;
+}
+
+.fc-button-basicDay {
+  display: none;
+}
+
+.fc-header-center {
+  font-family: 'Montserrat', sans-serif;
+  color: rgba(45, 51, 58, 0.9);
+}
+
+.fc-state-down, .fc-state-active {
+  box-shadow: none !important;
+  background: rgba(158,204,70, 0.5);
+}
+
+.fc-disabled {
+  opacity: 1 !important;
+}
+
 // Component styles are injected through grunt
 // injector
+@import 'acceptinvite/acceptinvite.scss';
 @import 'account/login/login.scss';
 @import 'admin/admin.scss';
 @import 'dashboard/dashboard.scss';

@@ -1,5 +1,5 @@
 .home-body-page-1 {
-    background-image: url('../../assets/images/city-sunset.jpeg');
+    background-image: url('../../assets/images/lake.jpg');
     background-size: cover;
     height:100%;
     overflow:hidden;
@@ -7,7 +7,7 @@
 }
 
 .home-body-page-2 {
-    background-image: url('../../assets/images/city-sunset.jpeg');
+    background-image: url('../../assets/images/lake.jpg');
     background-size: cover;
     height:100%;
     width:100%;
@@ -16,7 +16,7 @@
 }
 
 .body-page-blue-blur {
-  background-image: url('../../assets/images/city-sunset.jpeg');
+  background-image: url('../../assets/images/lake_blur.jpg');
   background-size: cover;
   height:100%;
   overflow:hidden;
@@ -34,7 +34,7 @@
     h1 {
       padding-top:100px;
       font-size:4em;
-      color: rgba(45,51,58,0.9);
+      color: whitesmoke;
     }
     input-field {
       height: 5%;
@@ -42,18 +42,23 @@
   }
 }
 
+// rgba(45,51,58,0.9)
+
 #initial-questions {
   float:left;
   height:70%;
   font-family: 'Montserrat', sans-serif;
-  color: rgba(45,51,58,0.9);
+  color: whitesmoke;
   padding-top:15%;
   h1 {
-    color: rgba(45,51,58,0.9);
+    color: whitesmoke;
+    font-size: 3em;
   }
   button {
-    color: rgba(45,51,58,0.9);
-    border: 3px solid rgba(45,51,58,0.9);
+    font-size: 1.6em;
+    letter-spacing: 1px;
+    color: whitesmoke;
+    border: 3px solid whitesmoke;
     background-color: transparent;
     padding: 10px;
     display:block;

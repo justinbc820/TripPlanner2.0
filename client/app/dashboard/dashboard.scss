@@ -1,5 +1,10 @@
+.dashboard-body {
+  padding: 0 5% 2% 5%;
+
+}
+
 #individual-trip {
-	background-color:rgba(45,51,58,0.9);
+	background-color:rgba(45,51,58,0.7);
 	height:30%;
 	min-height:300px;
 	width:100%;
@@ -12,11 +17,11 @@
 	}
 	.place-overlay {
 		width:calc(100% - 14px);
-		height:100%;
+		height:30%;
 		position:absolute;
 		bottom:0;
 		left:0;
-		background-color:rgba(0,0,0,0.2);
+		background-color:rgba(0,0,0,0.4);
 		transition: background-color 0.3s ease-in-out;
 		transition: color 0.3s ease-in-out;
 		&:hover {
@@ -24,7 +29,12 @@
 		}
 		h1 {
 			position: absolute;
-			top: 0;
+			bottom: 0;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.6em;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
 			display: block;
 			z-index: 11;
 			color: whitesmoke;
@@ -65,17 +75,26 @@
 			padding-left:0;
 		}
 		.trip-days {
+      max-height: 96%;
+      border-radius: 5px;
 			padding-left:10px;
 			display:block;
-			background-color:whitesmoke;
+			background-color: #DBDBDB;
 			max-width:300px;
 			min-width:150px;
 			float:left;
 			margin:10px;
+      font-family: 'Open Sans';
 			h3 {
+        font-size: 1.6em;
+        font-weight: bold;
 				position:initial;
 				color:black;
 			}
+      .date {
+        text-transform: uppercase;
+        font-size: 1.4em;
+      }
 		}
 	}
 }

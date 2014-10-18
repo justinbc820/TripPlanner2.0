@@ -13,11 +13,13 @@ exports.index = function(req, res) {
 
 // Get a single trip
 exports.show = function(req, res) {
-  Trip.findById(req.params.id, function (err, trip) {
-    if(err) { return handleError(res, err); }
-    if(!trip) { return res.send(404); }
-    return res.json(trip);
-  });
+  Trip.findById(req.params.id)
+      .populate('travelers')
+      .exec(function (err, trip) {
+          if(err) { return handleError(res, err); }
+          if(!trip) { return res.send(404); }
+          return res.json(trip);
+      });
 };
 
 // Creates a new trip in the DB.
@@ -101,9 +103,9 @@ exports.addActivity = function(req, res) {
 
     /*
      * This function sorts every activity in the activities array by their
-     * date.  This makes deleting events from the calendar easier, and it 
+     * date.  This makes deleting events from the calendar easier, and it
      * allows events to render in the proper order on the map
-    */  
+    */
     trip.activities.sort(function(a,b) {
       if(Date.parse(a.start) > Date.parse(b.start)) {
         return 1;

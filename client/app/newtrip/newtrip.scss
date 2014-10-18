@@ -4,11 +4,11 @@
   font-family: 'Montserrat', sans-serif;
   text-align: center;
   h1 {
-    color: #DADFE1;
+    color: whitesmoke;
   }
   button {
-    color: rgba(45,51,58,0.9);
-    border: 3px solid rgba(45,51,58,0.9);
+    color: whitesmoke;
+    border: 3px solid whitesmoke;
     background-color: transparent;
     padding: 10px;
   }
@@ -17,27 +17,27 @@
     margin-bottom: 25px;
     background: transparent;
     border: none;
-    border-bottom: 4px solid rgba(45,51,58,0.9);
+    border-bottom: 4px solid whitesmoke;
     padding: 20px;
     font-size: 1.8em;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 0.08em;
-    color: rgba(45,51,58,0.9);
+    color: #EFA961;
     margin-top: 20px;
     display: block;
     ::-webkit-input-placeholder { /* WebKit browsers */
-        color:rgba(45,51,58,0.9);
+        color:rgba(45,51,58,0.8);
     }
     :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-       color:rgba(45,51,58,0.9);
+       color:rgba(45,51,58,0.8);
        opacity:  1;
     }
     ::-moz-placeholder { /* Mozilla Firefox 19+ */
-       color:rgba(45,51,58,0.9);
+       color:rgba(45,51,58,0.8);
        opacity:  1;
     }
     :-ms-input-placeholder { /* Internet Explorer 10+ */
-       color:rgba(45,51,58,0.9);
+       color:rgba(45,51,58,0.8);
     }
     &:focus {
       outline: none;

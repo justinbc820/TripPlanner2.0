@@ -9,6 +9,8 @@ var user; // this represents information about the user, such as their id, etc.
 
 var currDetails;
 
+var acceptTripId;
+
 // Gets information about the user from the database
 var fetchUserFromDB = function() {
     return $http.get('/api/users/me')
@@ -243,6 +245,14 @@ var factoryObj = {
           daysArray.push(newDate);
         }
         return daysArray;
+    },
+
+    setAcceptTripId: function(tripid) {
+      acceptTripId = tripid;
+    },
+
+    getAcceptTripId: function() {
+      return acceptTripId;
     }
 };
 

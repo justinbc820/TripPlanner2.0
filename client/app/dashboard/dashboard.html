@@ -1,7 +1,7 @@
 <div class="body-page-blue-blur" style="overflow:scroll;">
-  <div ng-controller="DashboardCtrl as dashboard" class="col-md-12 page-body animated fadeIn full-height">
+  <div ng-controller="DashboardCtrl as dashboard" class="col-md-12 dashboard-body page-body animated fadeIn full-height">
 
-    <div ng-show="!userData.trips[0]" style="text-align: center; width: 80%; margin: 0 auto;">
+    <div ng-cloak ng-show="!userData.trips[0]" style="text-align: center; width: 80%; margin: 0 auto;">
       <h1 style="margin-bottom: 0; margin-top:5%;">You have not yet created any trips yet.  <br> Click <a href='/newtrip'>here</a> to create one.</h1>
       <br>
       <img src="../../assets/images/tripmonk_logo_grayscale.png" style="padding: 0">
@@ -10,16 +10,18 @@
     <div ng-repeat="trip in userData.trips" class="col-lg-12" id="individual-trip">
       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 full-height" style="padding-left:0;">
         <img ng-src="{{placePhotos[$index]}}" style="z-index:10;">
+        <div>
+          <button ng-click="dashboard.tripEditView($index)">Edit Trip</button>
+        </div>
         <div class="place-overlay">
           <h1 ng-click="dashboard.tripEditView($index)">{{trip.questionnaire.location}}</h1>
-          <button ng-click="dashboard.tripEditView($index)">Edit Trip</button>
         </div>
       </div>
       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 full-height" id="days-container">
         <ul class="clearfix full-height">
           <li class="trip-days full-height" ng-repeat="day in trip.days">
-            <h3>Day {{$index + 1}}</h3>
-            <h4>{{day | date:'mediumDate'}}</h4>
+            <h3>DAY {{$index + 1}}</h3>
+            <h4 class="date">{{day | date:'mediumDate'}}</h4>
             <b><p>Location: {{day.location}}</p></b>
             <h4>Hotel</h4>
             <p>{{day.hotel}}</p>
