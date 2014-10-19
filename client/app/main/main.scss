@@ -67,6 +67,13 @@
     padding-right:auto;
     padding-left:auto;
 
+    transition : background 0.3s ease-in-out;
+    &:hover {
+      background: rgba(158,204,70,0.8);
+    }
+    &:focus {
+      outline: none;
+    }
   }
   #questions-continer {
     margin-top:12%;
@@ -86,5 +93,6 @@
     color: red;
     font-weight: bold;
   }
+
 }
 

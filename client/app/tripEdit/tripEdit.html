@@ -1,60 +1,66 @@
 <div ng-controller="TripeditCtrl as edit" ng-init="edit.init()" class="col-md-12 full-height animated fadeIn body-page-blue-blur">
 <div class="page-body ">
-  <div class="col-lg-3 full-height">
-  	<ul>
-  		<li>
-  			<h3>NAME:</h3>
-  			<span type="text" editable-text="currentTrip.name" placeholder="change name">{{currentTrip.name || "Give your trip a name!" }}</span>
-  		</li>
-      <li>
-        <h3>LOCATION:</h3>
-        <span>{{currentTrip.questionnaire.location || "empty" }}</span>
-      </li>
-  		<li class="friends">
-  			<!-- <h3>BUDGET:</h3>
-  			<span type="text" editable-text="currentTrip.budget" placeholder="change budget">{{currentTrip.budget || "empty" }}</span> -->
-        <h3>FRIENDS:</h3>
-        <div ng-repeat="friend in currentTrip.travelers">
-          {{friend.name}}
-        </div>
-
-<!--         {{currentTrip}}
- -->
-        <div class="friend-invite" ng-controller="FriendsCtrl as friends">
-          <form name="inputForm">
-            <a href="" ng-click="addField()" ng-hide="showInvButton">Add a friend</a>
-            <a href="" ng-click="addField()" ng-show="showInvButton">Add another friend</a>
-            <div ng-repeat="person in invitees" style="margin-top: 10px">
-              <input ng-model="person.name" placeholder="first name" style="width: 29%"></input>
-              <input ng-model="person.email" placeholder="email" style="width: 60%"></input>
-              <i style="color: #E07575" class="icon ion-minus-circled" ng-click="removeField()"></i>
-              <br>
+  <div class="col-lg-3 col-md-3 col-sm-4 full-height info-panel">
+  	<ul id="basic-info-panel">
+      <div class="dottedline-top"></div>
+        <div class="inner-container">
+          <li>
+      			<h3>Name</h3>
+      			<span type="text" editable-text="currentTrip.name" placeholder="change name">{{currentTrip.name || "Give your trip a name!" }}</span>
+      		</li>
+          <li>
+            <h3>Location</h3>
+            <span>{{currentTrip.questionnaire.location || "empty" }}</span>
+          </li>
+      		<li class="friends">
+      			<!-- <h3>BUDGET:</h3>
+      			<span type="text" editable-text="currentTrip.budget" placeholder="change budget">{{currentTrip.budget || "empty" }}</span> -->
+            <h3>Friends</h3>
+            <div ng-repeat="friend in currentTrip.travelers">
+              {{friend.name}}
             </div>
-            <br>
-            <button ng-show="invitees.length>0" ng-click="friends.inviteFriends(invitees, currentTrip._id, currentTrip.questionnaire.location)">Invite friends</button>
-          </form>
-        </div>
-  		</li>
-      <li>
-        <h3>THINGS WE WANT TO DO:</h3>
-          <ul>
-            <li ng-model="wish" ng-repeat="wish in currentTrip.wishlist">
-              <a ng-click="showDatePicker($index)">{{wish.title || "empty" }}</a>
-            </li>
-            <li>
-              <form ng-submit="addToWishlist()">
-                <input type="text" ng-model="autocomplete.autocomplete" ng-autocomplete details="autocomplete.details" options="autocomplete.options" placeholder="Add to your wishlist">
-                <button type="submit">Submit</button>
+            <div class="friend-invite" ng-controller="FriendsCtrl as friends">
+              <form name="inputForm">
+                <a href="" ng-click="addField()" ng-hide="invitees.length>0">Add a friend</a>
+                <a href="" ng-click="addField()" ng-show="invitees.length>0">Add another friend</a>
+                <div ng-repeat="person in invitees" style="margin-top: 10px">
+                  <input ng-model="person.name" placeholder="first name" style="width: 29%"></input>
+                  <input ng-model="person.email" placeholder="email" style="width: 60%"></input>
+                  <i style="color: #E07575; cursor: pointer;" class="icon ion-minus-circled" ng-click="removeField()"></i>
+                  <br>
+                </div>
+                <br>
+                <button ng-show="invitees.length>0" ng-click="friends.inviteFriends(invitees, currentTrip._id, currentTrip.questionnaire.location)">Invite friends</button>
               </form>
-            </li>
-          </ul>
-          <div date-picker="start" ng-hide="closed" max-view="month" min-view="hours" ng-click="selectActivityTime()"></div>
+            </div>
+      		</li>
+        </div>
+      <div class="dottedline-bottom"></div>
+    </ul>
 
-      </li>
-  	</ul>
+    <ul id="wishlist-panel">
+      <div class="dottedline-top"></div>
+            <li class="inner-container">
+              <h3>Things we want to do</h3>
+                <ul class="wishlist-activities-container">
+                  <li class="wishlist-activities" ng-model="wish" ng-repeat="wish in currentTrip.wishlist">
+                    <a ng-click="showDatePicker($index)">{{wish.title || "empty" }}</a>
+                  </li>
+                  <li>
+                    <form ng-submit="addToWishlist()">
+                      <input type="text" ng-model="autocomplete.autocomplete" ng-autocomplete details="autocomplete.details" options="autocomplete.options" placeholder="Add to your wishlist">
+                      <button type="submit">Submit</button>
+                    </form>
+                  </li>
+                </ul>
+                <div date-picker="start" ng-hide="closed" max-view="month" min-view="hours" ng-click="selectActivityTime()"></div>
+
+            </li>
+          <div class="dottedline-bottom"></div>
+      	</ul>
   </div>
 
-  <div class="col-lg-9 full-height">
+  <div class="col-lg-9 col-md-9 col-sm-8 full-height">
     <div ng-controller="CalendarCtrl as calendar" class="full-height">
       <div id="calendar-container" class="full-height" ui-calendar="calendar.uiConfig.calendar" ng-model="calendar.eventSources"></div>
     </div>

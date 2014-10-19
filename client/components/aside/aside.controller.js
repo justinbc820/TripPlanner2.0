@@ -36,11 +36,11 @@ angular.module('tripPlannerApp')
   			'link': '/map',
         'icon': '../../assets/images/icons/compass.png'
   		},
-      friends: {
-        'text': 'FRIENDS',
-        'link': '/friends',
-        'icon': '../../assets/images/icons/person.png'
-      },
+      // friends: {
+      //   'text': 'FRIENDS',
+      //   'link': '/friends',
+      //   'icon': '../../assets/images/icons/person.png'
+      // },
       settings: {
         'text': 'SETTINGS',
         'link': '/settings',

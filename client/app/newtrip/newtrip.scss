@@ -1,3 +1,8 @@
+.option-button {
+  margin-bottom: 10px;
+
+}
+
 #newtrip {
   height: 70%;
   margin-top: 10%;
@@ -9,8 +14,26 @@
   button {
     color: whitesmoke;
     border: 3px solid whitesmoke;
-    background-color: transparent;
+    background: transparent;
     padding: 10px;
+
+    &:focus {
+      outline: none;
+    }
+
+    .animate-enter {
+      transition:all linear 0.5s;
+      line-height:20px;
+      opacity:1;
+      padding:10px;
+      border:1px solid black;
+      background:white;
+    }
+
+    // transition : background 0.1s ease-in;
+    &:hover {
+      background: rgba(158,204,70,0.8);
+    }
   }
   input {
     width: 100%;

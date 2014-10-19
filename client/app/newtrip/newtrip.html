@@ -7,14 +7,15 @@
     </div>
 
     <div class="input-field" ng-repeat="connection in newtrip.currNode.connections">
-      <button ng-hide="!connection.option" ng-click="newtrip.getNext(connection.next, connection.option)">
+
+      <button ng-hide="!connection.option" class="option-button" ng-click="newtrip.getNext(connection.next, connection.option)">
         {{connection.option}}
       </button>
 
       <div ng-show="connection.option == null">
-        <input ng-show="connection.type === 'autocomplete' && newtrip.currNode.num===1" ng-autocomplete ng-model="setupTrip.destination.autocomplete" options="setupTrip.destination.options" details="setupTrip.destination.details">
-        <input ng-show="connection.type === 'autocomplete' && newtrip.currNode.num===17" ng-autocomplete ng-model="setupTrip.lodging.autocomplete" options="setupTrip.lodging.options" details="setupTrip.lodging.details">
-        <input ng-show="connection.type === 'otherwise'" ng-model="newtrip.currNode.answer">
+        <input ng-show="connection.type === 'autocomplete' && newtrip.currNode.num===1" ng-autocomplete ng-model="setupTrip.destination.autocomplete" options="setupTrip.destination.options" details="setupTrip.destination.details" ng-keypress ="$event.keyCode == 13 && setupTrip.destination.details.geometry && newtrip.getNext(connection.next, connection.option)">
+        <input ng-show="connection.type === 'autocomplete' && newtrip.currNode.num===17" ng-autocomplete ng-model="setupTrip.lodging.autocomplete" options="setupTrip.lodging.options" details="setupTrip.lodging.details" ng-keypress ="$event.keyCode == 13 && setupTrip.lodging.details.address_components && newtrip.getNext(connection.next, connection.option)">
+        <input ng-show="connection.type === 'otherwise'" ng-model="newtrip.currNode.answer" ng-keypress ="$event.keyCode == 13 && newtrip.getNext(connection.next, connection.option)">
         <input type="daterange" ng-show="connection.type === 'date'" ng-model="setupTrip.daterange" format="MMM DD,YYYY">
         <input ng-show="connection.type === 'money'" ng-model="newtrip.currNode.answer">
         <button ng-click="newtrip.getNext(connection.next, newtrip.currNode.answer)">CONTINUE</button>
@@ -22,9 +23,9 @@
 
     </div>
 
-    <span ng-show="stillFetchingRecs"><h1>Doing awesome nerdy stuff with our server...<br><i class="icon ion-loading-c"></i></h1></span>
+    <span ng-show="stillFetchingRecs"><h1>Please be patient as we find places that you might like to see...<br><i class="icon ion-loading-c"></i></h1></span>
 
-    <button ng-click="newtrip.displayLoadingView()" ng-show="newtrip.currNode.num==18 && stillFetchingRecs == false">OK, LET'S GO!</button>
+    <button ng-click="newtrip.displayLoadingView()" ng-show="newtrip.currNode.num==18 && stillFetchingRecs == false"style="margin-bottom: 10px">OK, LET'S GO!</button>
     <br>
 
     <div>
