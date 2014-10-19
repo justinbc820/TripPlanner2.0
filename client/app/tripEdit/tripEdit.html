@@ -21,16 +21,18 @@
             </div>
             <div class="friend-invite" ng-controller="FriendsCtrl as friends">
               <form name="inputForm">
-                <a href="" ng-click="addField()" ng-hide="invitees.length>0">Add a friend</a>
-                <a href="" ng-click="addField()" ng-show="invitees.length>0">Add another friend</a>
+                <a href="" ng-click="addField()" ng-hide="invitees.length>0">+ Add a friend</a>
+                <a href="" ng-click="addField()" ng-show="invitees.length>0">+ Add another friend</a>
                 <div ng-repeat="person in invitees" style="margin-top: 10px">
                   <input ng-model="person.name" placeholder="first name" style="width: 29%"></input>
-                  <input ng-model="person.email" placeholder="email" style="width: 60%"></input>
-                  <i style="color: #E07575; cursor: pointer;" class="icon ion-minus-circled" ng-click="removeField()"></i>
+                  <input ng-model="person.email" placeholder="email" style="width: 55%;"></input>
+                  <i style="color: #E07575; cursor: pointer;" class="icon ion-minus-circled" ng-click="removeField($index)"></i>
                   <br>
                 </div>
                 <br>
-                <button ng-show="invitees.length>0" ng-click="friends.inviteFriends(invitees, currentTrip._id, currentTrip.questionnaire.location)">Invite friends</button>
+                <div style="text-align: center">
+                  <button ng-show="invitees.length>0" ng-click="friends.inviteFriends(invitees, currentTrip._id, currentTrip.questionnaire.location)">Invite friends</button>
+                <div>
               </form>
             </div>
       		</li>
@@ -49,7 +51,7 @@
                   <li>
                     <form ng-submit="addToWishlist()">
                       <input type="text" ng-model="autocomplete.autocomplete" ng-autocomplete details="autocomplete.details" options="autocomplete.options" placeholder="Add to your wishlist">
-                      <button type="submit">Submit</button>
+                      <button type="submit" style="width: 30px; height:30px"><b>+</b></button>
                     </form>
                   </li>
                 </ul>

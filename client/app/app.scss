@@ -58,6 +58,23 @@ li {
   font-size: 1em;
   line-height: 1.1em;
   text-align: center;
+
+  #newtripbutton {
+    color: whitesmoke;
+    border: 2px solid whitesmoke;
+    background: transparent;
+    padding: 5px;
+
+    &:focus {
+      outline: none;
+    }
+
+    transition : background 0.2s ease-in;
+    &:hover {
+      background: rgba(158,204,70,0.8);
+    }
+  }
+
 }
 
 #auth-modal {
@@ -258,6 +275,12 @@ li {
 .fc-button-prev {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
+  margin-right: 2px !important;
+}
+
+.fc-button-next {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 .fc-button-basicWeek {

@@ -13,8 +13,8 @@ angular.module('tripPlannerApp')
       });
     };
 
-    $scope.removeField = function() {
-      $scope.invitees.pop();
+    $scope.removeField = function(index) {
+      $scope.invitees.splice(index,1);
     };
     // var Invitee = function(destination, email) {
     //   return {

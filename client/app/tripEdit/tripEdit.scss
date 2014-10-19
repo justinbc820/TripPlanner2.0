@@ -1,10 +1,35 @@
 .info-panel {
+
+  button {
+    color: whitesmoke;
+    border: 2px solid whitesmoke;
+    background: transparent;
+    padding: 5px;
+
+    &:focus {
+      outline: none;
+    }
+
+    transition : background 0.2s ease-in;
+    &:hover {
+      background: rgba(158,204,70,0.8);
+    }
+  }
+
   padding-top: 2%;
   color: whitesmoke;
   font-family: 'Open Sans', sans-serif;
 
   input {
-
+    background: transparent;
+    margin-right: 5px;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 1px dashed whitesmoke;
+    &:focus {
+      outline: none;
+    }
   }
 
   a {
