@@ -19,17 +19,14 @@
       </div>
       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 full-height" id="days-container">
         <ul class="clearfix full-height">
-          <li class="trip-days full-height" ng-repeat="day in trip.days">
-            <h3>DAY {{$index + 1}}</h3>
-            <h4 class="date">{{day | date:'mediumDate'}}</h4>
-            <b><p>Location: {{day.location}}</p></b>
-            <h4>Hotel</h4>
-            <p>{{day.hotel}}</p>
-            <h4>Activities</h4>
-            <ul>
-              <li></li>
+          <li class="trip-days full-height" ng-repeat="(key, prop) in trip.dashboardActivities">
+            <h4 class="date">{{key | date:'mediumDate'}}</h4>
+            <!-- <h4>DAY {{$index + 1}}</h4> -->
+            <h4><b>Activities</b></h4>
+            <ul style="list-style-type: circle;">
+              <li style="list-style-type: circle;" ng-repeat="activity in trip.dashboardActivities[key]">{{activity.googleDetails.name}}</li>
+              <li ng-show="trip.dashboardActivities[key].length < 1">No Activities Planned</li>
             </ul>
-
           </li>
         </ul>
       </div>
