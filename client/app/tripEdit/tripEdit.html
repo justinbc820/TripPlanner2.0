@@ -19,6 +19,9 @@
             <div ng-repeat="friend in currentTrip.travelers">
               {{friend.name}}
             </div>
+            <div ng-repeat="invitee in currentTrip.invitees">
+              <i style="color: grey">{{invitee}} (pending)</i>
+            </div>
             <div class="friend-invite" ng-controller="FriendsCtrl as friends">
               <form name="inputForm">
                 <a href="" ng-click="addField()" ng-hide="invitees.length>0">+ Add a friend</a>

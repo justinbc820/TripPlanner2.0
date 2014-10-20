@@ -33,6 +33,7 @@ angular.module('tripPlannerApp')
       // var invitee = new Invitee(destination, $scope.currEmail.value);
       $http.post('/api/invites/', {tripId: tripId, inviter: $scope.currUser.name, invitees: invitees, destination: destination}).success(function(data) {
         console.log(data);
+        $scope.invitees.length = 0;
       });
     };
 
