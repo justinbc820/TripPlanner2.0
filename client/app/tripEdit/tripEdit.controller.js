@@ -19,6 +19,11 @@ angular.module('tripPlannerApp')
 
     $rootScope.$on('newCurrentTrip', function() {
     	$scope.currentTrip = planData.getCurrentTrip();
+      var bounds = new google.maps.Circle({
+        center: new google.maps.LatLng($scope.currentTrip.latLng.k, $scope.currentTrip.latLng.B),
+        radius: 50000
+      }).getBounds();
+      $scope.autocomplete.options.bounds = bounds;
     });
 
     $scope.updateTrip = function(updatedTrip) {
