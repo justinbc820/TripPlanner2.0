@@ -75,12 +75,12 @@ angular.module('tripPlannerApp')
 
     $scope.currentWish;
     $scope.start;
-    $scope.selectActivityTime = function() {
-      // pop up date and time selector
-      if($scope.start !== undefined) {
+
+    $scope.$watch('start', function(oldVal, newVal) {
+      if(newVal) {
         $scope.addToCal();
       }
-    }
+    })
 
     $scope.addToCal = function() {
       console.log("scope.currentWish", $scope.currentWish);
