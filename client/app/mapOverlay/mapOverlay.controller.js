@@ -191,6 +191,7 @@ angular.module('tripPlannerApp')
 
       this.addToTrip = function() {
             if (planData.getCurrDetails()) {
+              $scope.currDetails.title = $scope.currDetails.name;
               planData.addToTrip($scope.currDetails, $scope.selectedDay);
             }
 
@@ -207,7 +208,6 @@ angular.module('tripPlannerApp')
            * to populate the orange-hued place picture.
           */
             $rootScope.$on('detailsReturned', function(event, placeId) {
-              console.log("called detailsReturned")
                 $scope.currDetails = search.getReturnedDetails(placeId);
                 planData.setCurrDetails($scope.currDetails);
                 if($scope.currDetails.photos) {
