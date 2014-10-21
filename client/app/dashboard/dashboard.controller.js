@@ -5,6 +5,8 @@ angular.module('tripPlannerApp')
 
     $scope.userData;
 
+    $scope.setCurrentTrip = planData.setCurrentTrip;
+
     $scope.placePhotos = [];
 
     var getPlacePhotos = function(tripsArray) {
@@ -19,19 +21,22 @@ angular.module('tripPlannerApp')
     }
 
 
+    var getTrips = function() {
+        $http.get('/api/users/me').success(function(user) {
+            $scope.userData = user;
+            $scope.populateDays();
+            getPlacePhotos($scope.userData.trips);
+            if(planData.getCurrentTrip()) {
+                var tripId = planData.getCurrentTrip()._id;
+                $http.get('/api/trips/' + tripId).success(function(trip) {
+                    planData.setCurrentTrip(trip);
+                    // $location.path('/dashboard/' + trip._id);
+                })
+            }
+        });
+    };
 
-    $http.get('/api/users/me').success(function(user) {
-        $scope.userData = user;
-        $scope.populateDays();
-        getPlacePhotos($scope.userData.trips);
-        if(planData.getCurrentTrip()) {
-            var tripId = planData.getCurrentTrip()._id;
-            $http.get('/api/trips/' + tripId).success(function(trip) {
-                planData.setCurrentTrip(trip);
-                // $location.path('/dashboard/' + trip._id);
-            })
-        }
-    });
+    getTrips();
 
     $scope.setCurrentTrip = function(trip) {
         trip.wishlist.push(planData.getTempActivity());
@@ -66,8 +71,26 @@ angular.module('tripPlannerApp')
             $scope.userData.trips[i].dashboardActivities = dayActivities;
         }
         console.log("after populating days object", $scope.userData);
-
     };
+
+    $scope.deleteTrip = function(trip) {
+      swal({
+        title: "Are you sure?",
+        text: "Your will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        closeOnConfirm: false },
+        function(){
+          $http.delete('/api/trips/'+trip._id).success(function(data) {
+            planData.setCurrentTrip("");
+            getTrips();
+            swal("Deleted!", "Your trip file has been deleted.", "success");
+          });
+        });
+    };
+
   });
 
 

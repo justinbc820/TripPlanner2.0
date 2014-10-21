@@ -10,8 +10,12 @@
         <div ng-controller="MapOverlayCtrl as overlay">
           <div ng-repeat="trip in userData.trips" ng-click="setCurrentTrip(trip); closeTripPickerModal(); overlay.addToTrip(currDetails)" id="trippicker-option-text"><a href="">{{trip.questionnaire.location}}</a><br><br>
           </div>
+
+          <div ng-hide="userData.trips.length > 1" style="padding: 2%">You haven't created any trips yet.  Create one to start planning your dream vacation!</div>
+          <br>
           <a href="/newtrip" ng-click="closeTripPickerModal()"><button id="newtripbutton">+ Create New Trip</button></a>
         </div>
+
       <!-- TRIPPICKER BODY ENDS HERE -->
 
       <div class="modal-body" ng-bind="content">

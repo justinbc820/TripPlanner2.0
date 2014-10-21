@@ -98,3 +98,49 @@
 		}
 	}
 }
+
+.plan-sidebar {
+  position:absolute;
+  width: 5%;
+  min-width: 50px;
+  right: 0;
+  height: 100%;
+  background:rgba(0,0,0,0.6);
+  text-align: center;
+  padding: 0;
+
+  .plan-sidebar-inner {
+    position: relative;
+    top: 10%;
+
+    .plan-sidebar-inner-ul {
+      list-style: none;
+      li {
+        list-style: none;
+        padding: 15px;
+        height: 5%;
+      }
+      .sidebar-icon-explore {
+        background: url('../assets/images/icons/compass-grey.svg');
+        background-size: 2em 2em;
+        background-repeat: no-repeat;
+        background-position: center;
+        &:hover {
+          background: url('../assets/images/icons/compass-grey-opaque.svg');
+          background-size: 2em 2em;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+      .icon {
+        font-size: 2em;
+        color: rgba(128,128,128, 0.4);
+        transition: color 0.2s ease-in-out;
+        &:hover {
+          color: rgba(258,187,83, 0.8);
+        }
+        cursor: pointer;
+      }
+    }
+  }
+}

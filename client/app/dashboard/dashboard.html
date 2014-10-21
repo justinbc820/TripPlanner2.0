@@ -30,6 +30,15 @@
           </li>
         </ul>
       </div>
+      <div class="plan-sidebar">
+        <div class="plan-sidebar-inner">
+          <ul class="plan-sidebar-inner-ul">
+            <li><a ng-href="/dashboard/{{trip._id}}"><i class="icon ion-calendar"></i></a></li>
+            <a href="/map" ng-click="setCurrentTrip(trip)"><li class="sidebar-icon-explore"></li></a>
+            <li><i class="icon ion-trash-a" ng-click="deleteTrip(trip)"></i></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
