@@ -41,7 +41,7 @@ angular.module('tripPlannerApp')
         $scope.currentTrip = planData.getCurrentTrip();
         self.events = $scope.currentTrip.activities;
         self.eventSources[0] = self.events.map(function(event) {
-          return {title: event.title, start: new Date(event.start)};
+          return {title: event.title, start: new Date(event.start), allDay: false};
         });
         // $scope.$apply();
       });
@@ -78,6 +78,7 @@ angular.module('tripPlannerApp')
     /* alert on eventClick */
     this.alertOnEventClick = function( event, allDay, jsEvent, view ){
         this.alertMessage = (event.title + ' was clicked ');
+        console.log(event.title);
     };
     /* alert on Drop */
      this.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){
@@ -106,7 +107,8 @@ angular.module('tripPlannerApp')
         title: 'Open Sesame',
         start: new Date(y, m, 28),
         end: new Date(y, m, 29),
-        className: ['openSesame']
+        className: ['openSesame'],
+        allDay: false
       });
     };
     /* remove event */

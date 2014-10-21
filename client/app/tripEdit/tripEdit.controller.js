@@ -96,7 +96,8 @@ angular.module('tripPlannerApp')
             longitude: $scope.currentWish.location.coords.longitude
           }
         },
-        start: $scope.start
+        start: $scope.start,
+        allDay:false
       })
       .success(function(data){
         // This will now remove the wish from the wishlist in the database
