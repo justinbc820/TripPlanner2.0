@@ -2,6 +2,38 @@
 
 angular.module('tripPlannerApp')
   .controller('CalendarCtrl', function($scope, planData, $http, $stateParams) {
+    // Check to see if it's currently Daylight Savings Time
+    var today = new Date();
+    var dst = false;
+    
+    // This function on the prototype calculates the time offset as if we were in Jan and as if we were in July
+    // Then, it returns whichever one is greater. If neither is greater than that place doesn't have DST.
+    Date.prototype.stdTimezoneOffset = function() {
+        var jan = new Date(this.getFullYear(), 0, 1);
+        var jul = new Date(this.getFullYear(), 6, 1);
+        return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+    }
+
+    // This function compares the greater time offset (either Jan or Jul offset) to the current offset
+    // if the current timezone offset from today is less than the greater timezone offset of Jan or Jul,
+    // then we are on DST
+    Date.prototype.dst = function() {
+        return this.getTimezoneOffset() < this.stdTimezoneOffset();
+    }
+
+    if (today.dst()) { 
+      var dst = true; 
+    }
+
+    // This function is called on date objects and will subtract one hour if DST is true.
+    // If it's not true, it'll just return the date object
+    Date.prototype.adjustDST = function() {
+      if(dst) {
+        return new Date(this.setHours(this.getHours() - 1));
+      } else {
+        return this;
+      }
+    }
 
     $scope.init = function() {
       $scope.updatePlanData();
@@ -18,14 +50,20 @@ angular.module('tripPlannerApp')
         $scope.currentTrip = planData.getCurrentTrip();
         $scope.events = $scope.currentTrip.activities;
         $scope.eventSources[0] = $scope.events.map(function(event) {
-          var start = new Date(event.start);
-          var end = new Date(start.setHours(start.getHours() + 1));
+          var start = event.start;
+          var end;
+          if(event.end) {
+            end = event.end
+          } else {
+            end = new Date(start.setHours(start.getHours() + 1)).adjustDST();
+          }
           var obj = {
             title: event.title,
-            start: start.toUTCString(),
-            end: end.toUTCString(),
+            start: start,
+            end: end,
             allDay: false,
-            id: event.googleDetails.place_id
+            id: event.googleDetails.place_id,
+            timezone:'UTC'
           };
           return obj;
         });
@@ -43,10 +81,15 @@ angular.module('tripPlannerApp')
     $scope.updateActivities = function(event) {
       for(var i=0, n=$scope.events.length; i<n; i++) {
         if($scope.events[i].googleDetails.place_id == event.id) {
+          
+          var start = new Date($scope.events[i].start);
           $scope.events[i].start = event.start.toUTCString();
+
           if(event.end) {
             $scope.events[i].end = event.end.toUTCString();
-            console.log("end", $scope.events[i].end)
+          } else {
+            var end = new Date(start.setHours(start.getHours() + 1));
+            $scope.events[i].end = new Date(end).toUTCString();
           }
         }
       }
@@ -54,7 +97,6 @@ angular.module('tripPlannerApp')
       $http.post('/api/trips/' + tripId, {
         activities: $scope.events
       }).success(function(updatedTrip) {
-        console.log("updatedTrip", updatedTrip);
         planData.setCurrentTrip(updatedTrip);
       })
     }
@@ -106,6 +148,7 @@ angular.module('tripPlannerApp')
         eventResize: $scope.alertOnResize,
         eventClick: $scope.eventClick,
         viewRender: $scope.renderView,
+        ignoreTimezone:false,
         currentTimezone: false
       },
       currentTimezone: false

@@ -8,11 +8,6 @@ angular.module('tripPlannerApp')
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         $scope.currentTrip = trip;
-        // $scope.autocomplete.options.bounds = new google.maps.LatLngBounds(
-        //   $scope.currentTrip.latLng.k,
-        //   $scope.currentTrip.latLng.B
-        // );
-
         planData.setCurrentTrip(trip);
       })
     }
@@ -34,9 +29,9 @@ angular.module('tripPlannerApp')
       }
     };
 
-    $scope.$watch('currentTrip', function(newVal, oldVal) {
-    	$scope.updateTrip(newVal);
-    }, true);
+    // $scope.$watch('currentTrip', function(newVal, oldVal) {
+    // 	$scope.updateTrip(newVal);
+    // }, true);
 
     $scope.closed = true;
 
@@ -78,13 +73,15 @@ angular.module('tripPlannerApp')
 
     $scope.$watch('start', function(oldVal, newVal) {
       if(newVal) {
-        $scope.addToCal();
+        var start = $scope.start.toUTCString();
+        console.log(start)
+        $scope.addToCal(start);
       }
     })
 
-    $scope.addToCal = function() {
-      // push into trip schema
-      $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {
+    $scope.addToCal = function(start) {
+      var ISOStart = new Date(start);
+      var newActivity = {
         title: $scope.currentWish.title,
         name: $scope.currentWish.title,
         googleDetails: $scope.currentWish.googleDetails,
@@ -95,10 +92,14 @@ angular.module('tripPlannerApp')
             longitude: $scope.currentWish.location.coords.longitude
           }
         },
-        start: $scope.start.toUTCString(),
-        end: new Date($scope.start.setHours($scope.start.getHours() + 1)).toUTCString(),
+        start: start,
+        end: new Date(ISOStart.setHours(ISOStart.getHours() + 1)).toUTCString(),
+        timezone:'UTC',
         allDay:false
-      })
+      };
+      console.log(newActivity);
+      // push into trip schema
+      $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', newActivity)
       .success(function(data){
         // This will now remove the wish from the wishlist in the database
         // and update the scope wishlist
