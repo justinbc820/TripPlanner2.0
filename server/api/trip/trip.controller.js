@@ -123,6 +123,22 @@ exports.addActivity = function(req, res) {
   });
 };
 
+// Updates an existing trip in the DB.
+exports.updateActivity = function(req, res) {
+  if(req.body._id) { delete req.body._id; }
+  Trip.findById(req.params.id, function (err, trip) {
+    if (err) { return handleError(res, err); }
+    if(!trip) { return res.send(404); }
+    
+    trip.activities = req.body.activities;
+
+    trip.save(function (err, trip2) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, trip2);
+    });
+  });
+};
+
 // // Updates an existing trip in the DB.
 // exports.addDetails = function(req, res) {
 //   Trip.findById(req.params.id, function (err, trip) {

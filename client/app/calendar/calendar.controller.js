@@ -1,147 +1,128 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('CalendarCtrl', function ($scope, planData, $http, $stateParams) {
+  .controller('CalendarCtrl', function($scope, planData, $http, $stateParams) {
 
-    this.init = function() {
-      updatePlanData();
+    $scope.init = function() {
+      $scope.updatePlanData();
     }
-
-    this.uiConfig = {
-      calendar:{
-        editable: true,
-        // height: 600,
-        header:{
-          left: 'month basicWeek basicDay agendaWeek agendaDay',
-          center: 'title',
-          right: 'today prev,next'
-        },
-        dayClick: this.alertEventOnClick,
-        eventDrop: this.alertOnDrop,
-        eventResize: this.alertOnResize
-      }
-    };
-
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-
-    this.changeTo = 'Hungarian';
 
     // set the current trip and the populate events array
     var tripId = $stateParams.id;
     $scope.currentTrip = planData.getCurrentTrip();
-    this.events = [];
-    var self = this;
+    $scope.events = [];
 
-    var updatePlanData = function() {
+    $scope.updatePlanData = function() {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         planData.setCurrentTrip(trip);
         $scope.currentTrip = planData.getCurrentTrip();
-        self.events = $scope.currentTrip.activities;
-        self.eventSources[0] = self.events.map(function(event) {
-          return {title: event.title, start: new Date(event.start), allDay: false};
+        $scope.events = $scope.currentTrip.activities;
+        $scope.eventSources[0] = $scope.events.map(function(event) {
+          var start = new Date(event.start);
+          var end = new Date(start.setHours(start.getHours() + 1));
+          var obj = {
+            title: event.title,
+            start: start.toISOString(),
+            end: end.toISOString(),
+            allDay: false,
+            id: event.googleDetails.place_id
+          };
+          return obj;
         });
-        // $scope.$apply();
       });
     };
 
-    if(!planData.getCurrentTrip()) {
-      updatePlanData();
+    if (!planData.getCurrentTrip()) {
+      $scope.updatePlanData();
     }
 
     $scope.$on('addToCal', function() {
-      updatePlanData();
+      $scope.updatePlanData();
     });
 
-
-    /* event source that calls a function on every view switch */
-    this.eventsF = function (start, end, callback) {
-      // debugger;
-      var s = new Date(start).getTime() / 1000;
-      var e = new Date(end).getTime() / 1000;
-      var m = new Date(start).getMonth();
-      var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
-      callback(events);
-    };
-
-    this.calEventsExt = {
-       color: '#f00',
-       textColor: 'yellow',
-       events: [
-          {type:'party',title: 'Lunch',start: new Date(y, m, d, 12, 0),end: new Date(y, m, d, 14, 0),allDay: false},
-          {type:'party',title: 'Lunch 2',start: new Date(y, m, d, 12, 0),end: new Date(y, m, d, 14, 0),allDay: false},
-          {type:'party',title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
-        ]
-    };
-    /* alert on eventClick */
-    this.alertOnEventClick = function( event, allDay, jsEvent, view ){
-        this.alertMessage = (event.title + ' was clicked ');
-        console.log(event.title);
-    };
-    /* alert on Drop */
-     this.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){
-       this.alertMessage = ('Event Droped on ' + event.start.format());
-    };
-    /* alert on Resize */
-    this.alertOnResize = function( event, jsEvent, ui, view){
-       this.alertMessage = ('Event end date was moved to ' + event.end.format());
-    };
-    /* add and removes an event source of choice */
-    this.addRemoveEventSource = function(sources,source) {
-      var canAdd = 0;
-      angular.forEach(sources,function(value, key){
-        if(sources[key] === source){
-          sources.splice(key,1);
-          canAdd = 1;
+    $scope.updateActivities = function(event) {
+      for(var i=0, n=$scope.events.length; i<n; i++) {
+        if($scope.events[i].googleDetails.place_id == event.id) {
+          $scope.events[i].start = event.start.toISOString();
+          if(event.end) {
+            $scope.events[i].end = event.end.toISOString();
+            console.log("end", $scope.events[i].end)
+          }
         }
-      });
-      if(canAdd === 0){
-        sources.push(source);
       }
-    };
-    /* add custom event*/
-    this.addEvent = function() {
-      this.events.push({
-        title: 'Open Sesame',
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        className: ['openSesame'],
-        allDay: false
+
+      $http.post('/api/trips/' + tripId, {
+        activities: $scope.events
+      }).success(function(updatedTrip) {
+        console.log("updatedTrip", updatedTrip);
+        planData.setCurrentTrip(updatedTrip);
+      })
+    }
+
+    //with this you can handle the events that generated by clicking the day(empty spot) in the calendar
+    $scope.dayClick = function(date, allDay) {
+      $scope.$apply(function() {
+        console.log('Day Clicked ' + date);
       });
-    };
-    /* remove event */
-    this.remove = function(index) {
-      this.events.splice(index,1);
-    };
-    /* Change View */
-    this.changeView = function(view,calendar) {
-      calendar.fullCalendar('changeView',view);
-    };
-    /* Change View */
-    this.renderCalender = function(calendar) {
-      if(calendar){
-        calendar.fullCalendar('render');
-      }
     };
 
-    this.changeLang = function() {
-      if(this.changeTo === 'Hungarian'){
-        this.uiConfig.calendar.dayNames = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
-        this.uiConfig.calendar.dayNamesShort = ["Vas", "Hét", "Kedd", "Sze", "Csüt", "Pén", "Szo"];
-        this.changeTo= 'English';
-      } else {
-        this.uiConfig.calendar.dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        this.uiConfig.calendar.dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        this.changeTo = 'Hungarian';
+
+    //with this you can handle the events that generated by droping any event to different position in the calendar
+    $scope.alertOnDrop = function(event) {
+      $scope.$apply(function() {
+        $scope.updateActivities(event);
+      });
+    };
+
+
+    //with this you can handle the events that generated by resizing any event to different position in the calendar
+    $scope.alertOnResize = function(event) {
+      $scope.$apply(function() {
+        $scope.updateActivities(event);
+      });
+    };
+
+    //with this you can handle the click on the events
+    $scope.eventClick = function(event) {
+      $scope.$apply(function() {
+        console.log(event.title + ' is clicked');
+      });
+    };
+
+    /* config object */
+    $scope.uiConfig = {
+      calendar: {
+        // height: 450,
+        editable: true,
+        header: {
+          left: 'month agendaWeek agendaDay',
+          center: 'title',
+          right: 'today prev,next'
+        },
+        dayClick: $scope.dayClick,
+        eventDrop: $scope.alertOnDrop,
+        eventResize: $scope.alertOnResize,
+        eventClick: $scope.eventClick,
+        viewRender: $scope.renderView
       }
     };
 
     /* event sources array*/
-    this.eventSources = [this.events];
-    this.eventSources2 = [this.calEventsExt, this.eventsF, this.events];
+    $scope.eventSources = [$scope.events];
 
-    this.init();
-
+    $scope.init();
   });
+
+
+// /* Change View */
+// this.changeView = function(view,calendar) {
+//   calendar.fullCalendar('changeView',view);
+// };
+
+// /* Change View */
+// this.renderCalender = function(calendar) {
+//   if(calendar){
+//     calendar.fullCalendar('render');
+//   }
+// };
+
