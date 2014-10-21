@@ -58,17 +58,14 @@
                     </form>
                   </li>
                 </ul>
-                <div date-picker="start" ng-hide="closed" max-view="month" min-view="hours" ng-click="selectActivityTime()"></div>
-
+                <div date-picker="start" ng-hide="closed" view="date" min-view="date" ng-click="selectActivityTime()"></div>
             </li>
           <div class="dottedline-bottom"></div>
       	</ul>
   </div>
 
-  <div class="col-lg-9 col-md-9 col-sm-8 full-height">
-    <div ng-controller="CalendarCtrl as calendar" class="full-height">
-      <div id="calendar-container" class="full-height" ui-calendar="calendar.uiConfig.calendar" ng-model="calendar.eventSources"></div>
-    </div>
+  <div class="col-lg-9 col-md-9 col-sm-8 full-height" ng-controller="CalendarCtrl">
+    <div class="full-height" ng-model="eventSources" calendar="myCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
   </div>
 
 </div>
