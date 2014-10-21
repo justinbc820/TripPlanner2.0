@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
 var TripSchema = new Schema({
   name: { type: String, default: ""},
-  activities: [ActivitySchema],
+  activities: [],
   travelers: [{ type: Schema.Types.ObjectId, ref:"User" }],
   invitees: [],
   budget: { type: Number, default: 0},

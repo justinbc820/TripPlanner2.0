@@ -17,9 +17,13 @@ angular.module('tripPlannerApp')
         planData.setCurrentTrip(trip);
         $scope.currentTrip = planData.getCurrentTrip();
         $scope.events = $scope.currentTrip.activities;
+        console.log("scope event before map, ", $scope.events);
         $scope.eventSources[0] = $scope.events.map(function(event) {
+          // console.log("event start string:", event.start);
+          // console.log("event start new date:", new Date(event.start));
+
           var start = new Date(event.start);
-          var end = new Date(start.setHours(start.getHours() + 1));
+          var end = new Date(new Date(event.start).setHours(new Date(event.start).getHours() + 1));
           var obj = {
             title: event.title,
             start: start.toUTCString(),
@@ -29,6 +33,7 @@ angular.module('tripPlannerApp')
           };
           return obj;
         });
+        console.log("event sources after map, ", $scope.eventSources[0]);
       });
     };
 
@@ -62,8 +67,12 @@ angular.module('tripPlannerApp')
     $scope.deleteActivity = function(event) {
       console.log('the delete button has been clicked', event);
       for(var i = 0; i < $scope.events.length; i++) {
+        // console.log("this is string date:", $scope.events[i].start);
+        // console.log("this is object date:", new Date($scope.events[i].start));
          // console.log(new Date($scope.events[i].start).toUTCString(), new Date(event.start).toUTCString());
-        if($scope.events[i].googleDetails.place_id == event._id) {
+         console.log(typeof $scope.events[i].start, typeof event.start);
+         console.log($scope.events[i].start, event.start.toUTCString());
+        if($scope.events[i].googleDetails.place_id == event._id && $scope.events[i].start == event.start.toUTCString()) {
 
           console.log('hit it')
           $scope.events.splice(i, 1);
@@ -109,9 +118,12 @@ angular.module('tripPlannerApp')
     $scope.currentEvent = null;
 
     //with this you can handle the click on the events
-    $scope.eventClick = function(event) {
+    $scope.eventClick = function(event, allDay, jsEvent, view) {
       // $scope.$apply(function() {
         console.log('Event clicked', event);
+        console.log('alldAy', allDay);
+        console.log('jsevent', jsEvent);
+        console.log('view', view);
         $scope.currentEvent = event;
         $scope.deletePanel = !$scope.deletePanel;
         console.log('delete panel toggled', $scope.deletePanel);
@@ -140,6 +152,7 @@ angular.module('tripPlannerApp')
 
     /* event sources array*/
     $scope.eventSources = [$scope.events];
+    console.log("scope eventsorces:", $scope.eventSources);
 
     $scope.init();
   });

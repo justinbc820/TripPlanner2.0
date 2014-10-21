@@ -84,6 +84,7 @@ angular.module('tripPlannerApp')
 
     $scope.addToCal = function() {
       // push into trip schema
+      console.log(new Date($scope.start).toUTCString());
       $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {
         title: $scope.currentWish.title,
         name: $scope.currentWish.title,
@@ -95,7 +96,7 @@ angular.module('tripPlannerApp')
             longitude: $scope.currentWish.location.coords.longitude
           }
         },
-        start: $scope.start.toUTCString(),
+        start: new Date($scope.start).toUTCString(),
         end: new Date($scope.start.setHours($scope.start.getHours() + 1)).toUTCString(),
         allDay:false
       })
