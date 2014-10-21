@@ -123,6 +123,31 @@ exports.addActivity = function(req, res) {
   });
 };
 
+exports.acceptInvite = function(req, res) {
+  Trip.findById(req.params.id)
+      .populate('travelers')
+      .exec(function(err, trip) {
+        if (err) { return handleError(res, err); }
+        var token = req.body.token;
+        console.log('this is the token', token);
+        trip.travelers.push(req.body.travelerId);
+
+        for (var i=0, n=trip.invitees.length; i<n; i++) {
+          console.log(trip.invitees[i].token);
+          if (trip.invitees[i].token == token) {
+            console.log("got it here")
+            trip.invitees.splice(i, 1);
+            break;
+          }
+        }
+        trip.save(function (err) {
+          if (err) { return handleError(res, err); }
+          return res.json(200, trip);
+        });
+      });
+};
+
+
 // // Updates an existing trip in the DB.
 // exports.addDetails = function(req, res) {
 //   Trip.findById(req.params.id, function (err, trip) {

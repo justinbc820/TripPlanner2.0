@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('FriendsCtrl', function ($scope, Auth, $http) {
+  .controller('FriendsCtrl', function ($scope, Auth, planData, $http) {
     $scope.currUser = Auth.getCurrentUser();
     $scope.invitees = [];
     $scope.currEmail = {};
@@ -31,8 +31,9 @@ angular.module('tripPlannerApp')
 
     this.inviteFriends = function(invitees, tripId, destination) {
       // var invitee = new Invitee(destination, $scope.currEmail.value);
-      $http.post('/api/invites/', {tripId: tripId, inviter: $scope.currUser.name, invitees: invitees, destination: destination}).success(function(data) {
-        console.log(data);
+      $http.post('/api/invites/', {tripId: tripId, inviter: $scope.currUser.name, invitees: invitees, destination: destination}).success(function(updatedTrip) {
+        console.log(updatedTrip);
+        planData.setCurrentTrip(updatedTrip);
         $scope.invitees.length = 0;
       });
     };

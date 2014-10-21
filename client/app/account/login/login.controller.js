@@ -29,7 +29,6 @@ angular.module('tripPlannerApp')
           //User coming from newtrip questionnaire.  NewTrip's 'done' method will have set currentTrip and set TripIdReminder on planData service
 
           if (planData.getCurrentTrip() && planData.getTripIdReminder()) {
-            console.log("this is tripidReminder", planData.getTripIdReminder());
             //fetch current user
             $http.get('/api/users/me').success(function(user) {
 
@@ -48,6 +47,23 @@ angular.module('tripPlannerApp')
             });
 
             //Existing user trying to add to trip while not logged in.  User will not have a getTripIdReminder but will have stashed a temp activity in planData.  create trip for them, update trip (with user id) and user (with trip id), broadcast to mapOverlayCtrl to show the select trip modal and redirect to map view
+          } else if (planData.getAcceptTripUser()) {
+              $http.get('/api/users/me').success(function(user) {
+                var userId = user._id;
+                var tripId = planData.getAcceptTripUser().tripId;
+                var token = planData.getAcceptTripUser().token;
+                $http.put('/api/users/' + userId, {
+                  tripId : tripId
+                }).success(function(user) {
+                  console.log('got here');
+                  $http.put('/api/trips/'+tripId+'/acceptinvite', {
+                    travelerId: userId,
+                    token: token
+                  }).success(function(trip) {
+                    $location.path('/dashboard');
+                  });
+                });
+              });
           } else if (!planData.getTripIdReminder() && (planData.getTempActivity() !== undefined)) {
               // $http.post('/api/trips/').success(function(trip) { //create new trip
               //   $http.get('/api/users/me').success(function(user) { //retrieve current user

@@ -17,9 +17,12 @@ exports.index = function(req, res) {
     var destination = req.body.destination;
     var tripId = req.body.tripId;
     var returnArr = [];
-    var url = "http://localhost:9000/acceptinvite/"+tripId;
 
     var sendInvite = function(friend, done) {
+      var randomToken = Math.floor((Math.random() * Math.random() * Math.random()) * 100000000);
+      var url = "http://localhost:9000/acceptinvite/"+tripId+"/"+randomToken;
+      console.log(url);
+
       var inviteTemplate = '<html><div style="text-align: center; padding: 3%; width: 100%; background-color: #161E20"><div style="width: 60%; margin: 20px auto"><img style="max-width: 100%" src="https://s3-us-west-2.amazonaws.com/jonahsbucket/tripmonk_horizontal_logo.png"></div><div><h2 style="padding: 10%; color: whitesmoke">Hi'+' '+friend.name+',<br><br><b style="color: #EFA961">'+inviter+'</b> has invited you to plan a dream holiday to <b style="color: #EFA961">'+destination+'</b> together.</h2><br><a href="'+url+'"><button style="border: 0; background: #9ECC46; width: 40%; padding: 2%; margin-top: 0; font-size: 1.2em; font-weight: bold; color: whitesmoke;">GET STARTED</button></a></div></div></html>';
 
       var data = {
@@ -31,18 +34,21 @@ exports.index = function(req, res) {
       };
 
       mailgun.messages().send(data, function (error, body) {
-        Trip.findById(req.body.tripId, function(err, trip) {
-          trip.invitees.push(friend.email);
-          trip.save(function(err, updatedTrip) {
-            returnArr.push(updatedTrip);
-            done();
-          });
-        });
+
+        Trip.findById(req.body.tripId)
+            .populate('travelers')
+            .exec(function(err, trip) {
+                trip.invitees.push({name: friend.name, email: friend.email, token: randomToken});
+                trip.save(function(err, updatedTrip) {
+                  returnArr.push(updatedTrip);
+                  done();
+                });
+            });
       });
     };
 
     async.each(invitees, sendInvite, function(err) {
-      return res.json(returnArr);
+      return res.json(returnArr[returnArr.length-1]);
     });
 };
 

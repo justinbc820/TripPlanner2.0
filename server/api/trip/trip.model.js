@@ -7,7 +7,7 @@ var TripSchema = new Schema({
   name: { type: String, default: ""},
   activities: [ActivitySchema],
   travelers: [{ type: Schema.Types.ObjectId, ref:"User" }],
-  invitees: [String],
+  invitees: [],
   budget: { type: Number, default: 0},
   questionnaire: {},
   wishlist: [ActivitySchema],
