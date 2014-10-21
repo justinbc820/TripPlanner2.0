@@ -35,15 +35,18 @@ angular.module('tripPlannerApp')
 
             $location.path('/newtrip');
 
-          } else if (planData.getAcceptTripId()) {
+          } else if (planData.getAcceptTripUser()) {
               $http.get('/api/users/me').success(function(user) {
                 var userId = user._id;
-                var tripId = planData.getAcceptTripId();
+                var tripId = planData.getAcceptTripUser().tripId;
+                var token = planData.getAcceptTripUser().token;
                 $http.put('/api/users/' + userId, {
                   tripId : tripId
                 }).success(function(user) {
-                  $http.put('/api/trips/'+tripId, {
-                    travelerId: userId
+                  console.log('got here');
+                  $http.put('/api/trips/'+tripId+'/acceptinvite', {
+                    travelerId: userId,
+                    token: token
                   }).success(function(trip) {
                     $location.path('/dashboard');
                   });

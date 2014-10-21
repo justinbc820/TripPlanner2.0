@@ -86,9 +86,9 @@ angular.module('tripPlannerApp')
       console.log("scope.currentWish", $scope.currentWish);
       // push into trip schema
       $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {
-        title: $scope.currentWish.title, 
+        title: $scope.currentWish.title,
         name: $scope.currentWish.title,
-        googleDetails: $scope.currentWish.googleDetails, 
+        googleDetails: $scope.currentWish.googleDetails,
         location: {
           address: $scope.currentWish.location.address,
           coords: {

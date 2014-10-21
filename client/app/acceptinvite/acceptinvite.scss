@@ -34,22 +34,13 @@
     margin-right:auto;
     padding-right:auto;
     padding-left:auto;
-  }
-
-  .btn-login {
-    display: inline;
-    color: whitesmoke;
-    border-radius: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1em;
-    border: 3px solid whitesmoke;
-    background-color: transparent;
-    padding: 10px;
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
-    padding-right:auto;
-    padding-left:auto;
+    transition: background 0.2s ease-in;
+    &:hover {
+      background: rgba(158,204,70, 0.8);
+    }
+    &:active {
+      background: rgba(106,132,48, 0.8);
+    }
   }
 
   hr {

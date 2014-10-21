@@ -2,8 +2,8 @@
 
 angular.module('tripPlannerApp')
   .controller('AcceptinviteCtrl', function ($scope, $cookies, $stateParams, planData) {
-    var groupId = $stateParams.id;
+    var tripId = $stateParams.id;
+    var token = $stateParams.token;
 
-    planData.setAcceptTripId(groupId);
-
+    planData.setAcceptTripUser({tripId: tripId, token: token});
   });

@@ -11,6 +11,7 @@ router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.put('/:id/addActivity', controller.addActivity);
 router.post('/:id', controller.updateActivity);
+router.put('/:id/acceptinvite', controller.acceptInvite);
 // router.put('/:id/addDetails', controller.addDetails);
 router.post('/wishlist/:id', controller.removeFromWishlist);
 router.put('/wishlist/:id', controller.addToWishlist);

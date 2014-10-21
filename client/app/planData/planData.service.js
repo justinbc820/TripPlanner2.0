@@ -247,11 +247,11 @@ var factoryObj = {
         return daysArray;
     },
 
-    setAcceptTripId: function(tripid) {
+    setAcceptTripUser: function(tripid) {
       acceptTripId = tripid;
     },
 
-    getAcceptTripId: function() {
+    getAcceptTripUser: function() {
       return acceptTripId;
     }
 };

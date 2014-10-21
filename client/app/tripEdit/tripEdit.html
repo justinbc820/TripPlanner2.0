@@ -1,4 +1,4 @@
-<div ng-controller="TripeditCtrl as edit" ng-init="edit.init()" class="col-md-12 full-height animated fadeIn body-page-blue-blur">
+<div ng-controller="TripeditCtrl as edit" ng-init="edit.init()" class="col-md-12 full-height animated fadeIn body-page-blue-blur" style="overflow-y: scroll">
 <div class="page-body ">
   <div class="col-lg-3 col-md-3 col-sm-4 full-height info-panel">
   	<ul id="basic-info-panel">
@@ -19,8 +19,8 @@
             <div ng-repeat="friend in currentTrip.travelers">
               {{friend.name}}
             </div>
-            <div ng-repeat="invitee in currentTrip.invitees">
-              <i style="color: grey">{{invitee}} (pending)</i>
+            <div ng-repeat="invitee in currentTrip.invitees track by $index">
+              <i style="color: grey">{{invitee.name}}, {{invitee.email}} (pending)</i>
             </div>
             <div class="friend-invite" ng-controller="FriendsCtrl as friends">
               <form name="inputForm">
