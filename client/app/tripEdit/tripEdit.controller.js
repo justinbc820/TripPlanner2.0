@@ -45,7 +45,6 @@ angular.module('tripPlannerApp')
       $scope.currentWish = $scope.currentTrip.wishlist[index];
       $scope.currentWish.index = index; // This variable is so that we can remove
       // the wish from the array once it is added to the calendar
-      console.log($scope.currentWish);
     }
 
     $scope.autocomplete = {
@@ -84,7 +83,6 @@ angular.module('tripPlannerApp')
 
     $scope.addToCal = function() {
       // push into trip schema
-      console.log(new Date($scope.start).toUTCString());
       $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {
         title: $scope.currentWish.title,
         name: $scope.currentWish.title,
