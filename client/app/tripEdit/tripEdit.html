@@ -43,6 +43,8 @@
       <div class="dottedline-bottom"></div>
     </ul>
 
+
+
     <ul id="wishlist-panel">
       <div class="dottedline-top"></div>
             <li class="inner-container">
@@ -61,10 +63,18 @@
                 <div date-picker="start" ng-hide="closed" view="date" min-view="date" ng-click="selectActivityTime()"></div>
             </li>
           <div class="dottedline-bottom"></div>
-      	</ul>
+    </ul>
   </div>
 
   <div class="col-lg-9 col-md-9 col-sm-8 full-height" ng-controller="CalendarCtrl">
+
+    <ul id='delete-panel' ng-show='deletePanel'>
+      <div class="dottedline-top"></div>
+        <p>Remove from your trip {{ currentEvent.title }}</p>
+        <button ng-click='deleteActivity(currentEvent)' style="width: 30px; height:30px"><b>-</b></button>
+      <div class="dottedline-bottom"></div>
+    </ul>
+
     <div class="full-height" ng-model="eventSources" calendar="myCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
   </div>
 
