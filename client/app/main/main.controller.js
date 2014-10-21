@@ -66,10 +66,7 @@ angular.module('tripPlannerApp')
                                  questionnaire: this.questionnaire })
         .success(function(trip) {
           planData.setCurrentTrip(trip);
-          $http.put('/api/users/' + $scope.newUser._id, { tripId: trip._id })
-            .success(function(data) {
-              console.log("user updated with trip id");
-            });
+          $http.put('/api/users/' + $scope.newUser._id, { tripId: trip._id });
         });
     };
   });

@@ -40,7 +40,6 @@ angular.module('tripPlannerApp')
       $scope.currentWish = $scope.currentTrip.wishlist[index];
       $scope.currentWish.index = index; // This variable is so that we can remove
       // the wish from the array once it is added to the calendar
-      console.log($scope.currentWish);
     }
 
     $scope.autocomplete = {
@@ -95,6 +94,8 @@ angular.module('tripPlannerApp')
         start: start,
         end: new Date(ISOStart.setHours(ISOStart.getHours() + 1)).toUTCString(),
         timezone:'UTC',
+        // start: new Date($scope.start).toUTCString(),
+        // end: new Date($scope.start.setHours($scope.start.getHours() + 1)).toUTCString(),
         allDay:false
       };
       console.log(newActivity);

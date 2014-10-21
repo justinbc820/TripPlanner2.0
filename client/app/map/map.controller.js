@@ -6,7 +6,21 @@ angular.module('tripPlannerApp')
     // $scope.currDetails = {};
 
     // This object contains the center LatLng and the zoom level of the map
-    $scope.currentMapOpts = planData.getMapOpts();
+    if (planData.getMapOpts()) {
+      $scope.currentMapOpts = planData.getMapOpts();
+    }
+
+    if (!$scope.currentMapOpts.location || !$scope.currentMapOpts.zoom) {
+      $scope.currentMapOpts = {
+          location: {
+              k: 37.579413,
+              B: -2.900391
+          },
+          zoom: 3,
+          bounds: {}
+      }
+    }
+    console.log($scope.currentMapOpts);
 
     // Whenever planData currentTrip is updated, this sets the map options and updates the map
     $rootScope.$on('newCurrentTrip', function(event) {
@@ -36,6 +50,8 @@ angular.module('tripPlannerApp')
     }, true);
 
     // This object contains map options including styling options
+
+
   	$scope.map = {
       bounds:{},
   	  center: {
