@@ -12,7 +12,7 @@ angular.module('tripPlannerApp')
       currentTrip = {
         text: text,
         link: '/dashboard/' + planData.getCurrentTrip()._id,
-        icon: '../../assets/images/icons/airplane.png'
+        icon: '../../assets/images/icons/suitcase.svg'
       }
     }
   	this.views = {
@@ -36,11 +36,11 @@ angular.module('tripPlannerApp')
   			'link': '/map',
         'icon': '../../assets/images/icons/compass.png'
   		},
-      friends: {
-        'text': 'FRIENDS',
-        'link': '/friends',
-        'icon': '../../assets/images/icons/person.png'
-      },
+      // friends: {
+      //   'text': 'FRIENDS',
+      //   'link': '/friends',
+      //   'icon': '../../assets/images/icons/person.png'
+      // },
       settings: {
         'text': 'SETTINGS',
         'link': '/settings',

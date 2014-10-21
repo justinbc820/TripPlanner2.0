@@ -1,30 +1,58 @@
+.option-button {
+  margin-bottom: 10px;
+
+}
+
 #newtrip {
   height: 70%;
   margin-top: 10%;
   font-family: 'Montserrat', sans-serif;
   text-align: center;
   h1 {
-    color: #DADFE1;
+    color: whitesmoke;
   }
   button {
     color: whitesmoke;
-    border: 3px solid #DADFE1;
-    background-color: transparent;
+    border: 3px solid whitesmoke;
+    background: transparent;
     padding: 10px;
+
+    &:focus {
+      outline: none;
+    }
+
+    // transition : background 0.1s ease-in;
+    &:hover {
+      background: rgba(158,204,70,0.8);
+    }
   }
   input {
     width: 100%;
     margin-bottom: 25px;
     background: transparent;
     border: none;
-    border-bottom: 4px solid #DADFE1;
+    border-bottom: 4px solid whitesmoke;
     padding: 20px;
     font-size: 1.8em;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 0.08em;
-    color: #FDBC52;
+    color: whitesmoke;
     margin-top: 20px;
     display: block;
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color:rgba(45,51,58,0.8);
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+       color:rgba(45,51,58,0.8);
+       opacity:  1;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+       color:rgba(45,51,58,0.8);
+       opacity:  1;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+       color:rgba(45,51,58,0.8);
+    }
     &:focus {
       outline: none;
     }

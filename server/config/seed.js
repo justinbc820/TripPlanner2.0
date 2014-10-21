@@ -35,56 +35,67 @@ Node.find({}).remove(function() {
     connections: []
     // END IGNORE NODE
   }, {
+    //IGNORE
     num: 5,
     name: 'travellingWithWho',
     question: 'Are you travelling alone, or with friends?',
     connections: []
   }, {
+    //IGNORE
     num: 6,
     name: 'pax',
     question: 'How many people are going?',
     connections: []
   }, {
+    //IGNORE
     num: 7,
     name: 'isSharing',
     question: 'Is everyone going to be sharing the cost of the trip?',
     connections: []
   }, {
+    //IGNORE
     num: 8,
     name: 'singleBudget',
     question: 'What is your budget?',
     connections: []
   }, {
+    //IGNORE
     num: 9,
     name: 'groupShareBudget',
     question: 'What is each person\'s budget?',
     connections: []
   }, {
+    //IGNORE
     num: 10,
     name: 'groupSingleBudget',
     question: 'What is the trip budget?',
     connections: []
   }, {
+    //IGNORE
     num: 11,
     name: 'groupHaveTravelArrangements',
     question: 'Does your party already have travel arrangements?',
     connections: []
   }, {
+    //IGNORE
     num: 12,
     name: 'groupFlightDetails',
     question: 'What are your flight details?',
     connections: []
   }, {
+    //IGNORE
     num: 13,
     name: 'separateOrTogether',
     question: 'Will the members of your party be travelling together or separately?',
     connections: []
   }, {
+    //IGNORE
     num: 14,
     name: 'singleHaveTravelArrangements',
     question: 'Do you already have travel arrangements?',
     connections: []
   }, {
+    //IGNORE
     num: 15,
     name: 'singleFlightDetails',
     question: 'What are your flight details?',
@@ -113,29 +124,29 @@ Node.find({}).remove(function() {
         };
         nodes = nodes.sort(compare);
         nodes[0].connect(null, "autocomplete", nodes[1]);
-        nodes[1].connect(null, "date", nodes[4]);
+        nodes[1].connect(null, "date", nodes[15]);
         // This node was removed to put start and end dates
         // on the same page
         // nodes[2].connect(null, "otherwise", nodes[3]);
 
-        // IGNORE THIS NODE
+        // IGNORE THESE NODES - WILL IMPLEMENT LATER
         // nodes[3].connect(null, "otherwise", nodes[4]);
-        nodes[4].connect("Travelling alone", "normal", nodes[7]);
-        nodes[4].connect("With friends", "normal", nodes[5]);
-        nodes[5].connect(null, "otherwise", nodes[6]);
-        nodes[6].connect("The cost will be shared", "normal", nodes[8]);
-        nodes[6].connect("One person will be paying", "normal", nodes[9]);
-        nodes[7].connect(null, "money", nodes[13]);
-        nodes[8].connect(null, "otherwise", nodes[10]);
-        nodes[9].connect(null, "otherwise", nodes[10]);
-        nodes[10].connect("Yes", "normal", nodes[11]);
-        nodes[10].connect("No", "normal", nodes[12]);
-        nodes[11].connect(null, "otherwise", nodes[12]);
-        nodes[12].connect("We will be travelling together", "normal", nodes[15]);
-        nodes[12].connect("We will be travelling separately", "normal", nodes[15]);
-        nodes[13].connect("Yes", "normal", nodes[14]);
-        nodes[13].connect("No", "normal", nodes[15]);
-        nodes[14].connect(null, "otherwise", nodes[15]);
+        // nodes[4].connect("Travelling alone", "normal", nodes[7]);
+        // nodes[4].connect("With friends", "normal", nodes[5]);
+        // nodes[5].connect(null, "otherwise", nodes[6]);
+        // nodes[6].connect("The cost will be shared", "normal", nodes[8]);
+        // nodes[6].connect("One person will be paying", "normal", nodes[9]);
+        // nodes[7].connect(null, "money", nodes[13]);
+        // nodes[8].connect(null, "otherwise", nodes[10]);
+        // nodes[9].connect(null, "otherwise", nodes[10]);
+        // nodes[10].connect("Yes", "normal", nodes[11]);
+        // nodes[10].connect("No", "normal", nodes[12]);
+        // nodes[11].connect(null, "otherwise", nodes[12]);
+        // nodes[12].connect("We will be travelling together", "normal", nodes[15]);
+        // nodes[12].connect("We will be travelling separately", "normal", nodes[15]);
+        // nodes[13].connect("Yes", "normal", nodes[14]);
+        // nodes[13].connect("No", "normal", nodes[15]);
+        // nodes[14].connect(null, "otherwise", nodes[15]);
         nodes[15].connect("Yes", "normal", nodes[16]);
         nodes[15].connect("No", "normal", nodes[17]);
         nodes[16].connect(null, "autocomplete", nodes[17]);

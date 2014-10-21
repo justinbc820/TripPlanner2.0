@@ -7,7 +7,7 @@ var TripSchema = new Schema({
   name: { type: String, default: ""},
   activities: [ActivitySchema],
   travelers: [{ type: Schema.Types.ObjectId, ref:"User" }],
-  invitees: [{ type: Schema.Types.ObjectId, ref:"User" }],
+  invitees: [],
   budget: { type: Number, default: 0},
   questionnaire: {},
   wishlist: [ActivitySchema],
@@ -31,8 +31,7 @@ var ActivitySchema = new Schema({
       longitude: Number
     }
   },
-  start: Date,
-  cost: Number
+  start: Date
 });
 
 module.exports = mongoose.model('Trip', TripSchema);

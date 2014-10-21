@@ -68,6 +68,41 @@ exports.getRecommendations = function(req, res) {
   });
 };
 
+exports.placePhoto = function(req, res) {
+  var photosObject = {};
+
+  var getPhotos = function(place, done) {
+    var textString = place.questionnaire.location;
+    Flickr.tokenOnly(flickrOptions, 
+      function(err, flickr) {
+        flickr.photos.search({
+          text: textString,
+          sort: 'interestingness-desc',
+          per_page: 10,
+          content_type:1,
+          
+        }, 
+      function(err, result) {
+        if (result.photos.photo.length > 0) {
+          var id = result.photos.photo[0].id,
+              farm = result.photos.photo[0].farm,
+              server = result.photos.photo[0].server,
+              secret = result.photos.photo[0].secret,
+              placeUrl = "https://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+".jpg"; //adding the image url from flickr
+          // var sliceIndex = textString.search(" cityscape");
+          // var placeName = textString.slice(0,sliceIndex);
+          photosObject[textString] = placeUrl;
+        }
+        done(); // required callback
+      });
+    })
+  }
+
+  async.each(req.body.tripsArray, getPhotos, function(err) {
+    return res.json({photosObject:photosObject});
+  })
+}
+
 
 // Get list of getrecommendations
 exports.index = function(req, res) {

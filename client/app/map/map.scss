@@ -2,6 +2,26 @@
   height: 100%;
 }
 
+#trip-picker-modal {
+
+  .modal-title {
+  font-size: 1.2em;
+  color: #fdbb53;
+  font-weight: bold;
+  }
+
+  a {
+    color: whitesmoke;
+
+    transition: color 0.1s ease-out;
+    &:hover {
+      color: #ad803e;
+    }
+    &:active {
+     color: #c6904a;
+    }
+  }
+}
 
 #map-container {
 	height:100%;
@@ -47,6 +67,7 @@
 	left:0;
 	width:100%;
 	height:100%;
+  margin-bottom: 18px;
   margin-top:100px;
 	.overlay.divs {
 		height:100%;
@@ -56,34 +77,47 @@
     bottom:100px;
     left:0;
     width:100%;
-    height:110px;
+    height:130px;
+
+    #inner-day-picker-container {
+        height: 54px;
+        padding: 3px;
+        border-top: 2px dashed rgba(188, 190, 193, 0.6);
+        border-bottom: 2px dashed rgba(188, 190, 193, 0.6);
+      }
+
     #day-panel {
+      padding: 0.5%;
       width: 23%;
-      height:58px;
+      height:66px;
       margin-left: auto;
       margin-right: auto;
       background-color: rgba(45, 51, 58, 0.9);
       overflow-x:scroll;
       overflow-y:hidden;
-      border: 5px solid rgba(45, 51, 58, 0.9);
+      // border: 5px solid rgba(45, 51, 58, 0.9);
+
       .map-day, .map-day-selected {
-        height: 38px;
-        width: 38px;
+        height: 36px;
+        width: 36px;
         border-radius: 100%;
-        color: white;
-        border: 2px solid white;
+        color: whitesmoke;
+        border: 2px solid #9a9a9a;
         float: left;
         margin: 3px 16px 3px 0;
-        background:transparent;
-        transition:color 0.1s ease-in, border-color 0.1s ease-in;
+        background: #9a9a9a;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        font-size: 0.9em;
+        transition: all 0.1s ease-in;
         span {
           position:relative;
           top:-1px;
           font-size:1.6em;
         }
         &:hover {
-          border-color: #FDBC52;
-          color: #FDBC52;
+          background: #ad803e;
+          border-color: #ad803e;
         }
         &:focus {
           outline:0;
@@ -91,21 +125,21 @@
       }
       .map-day-selected {
         background:initial;
-        background-color: #4995b7;
-        border-color: whitesmoke;
+        background-color: #fdbb53;
+        border-color: #fdbb53;
         color: whitesmoke;
         outline:0;
       }
     }
-    
+
   }
   h1 {
-    color:white;
+    color:whitesmoke;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     margin-top:0;
     margin-bottom:10px;
-  } 
+  }
 
 	#toggle-buttons {
 		float:right;
@@ -151,8 +185,7 @@
 		margin-left:auto;
 		margin-right:auto;
 		margin-top: 10px;
-  	padding-bottom: 2%;
-    max-height:265px;
+    min-height:265px;
     background-color: rgba(45, 51, 58, 0.9);
 		#map-search {
 			color: #828282;
@@ -179,28 +212,36 @@
 		}
 
 	    #search-radarbuttons {
-	      // text-align: center;
-	      padding-bottom: 6%;
+	      width: 100%;
 	      height:95px;
-	      margin-top:10px;
-	      padding:0;
+	      margin-top:20px;
+        text-align: center;
+
+        .radar-text {
+          width: 100%;
+          color: whitesmoke;
+          font-size: 1.2em;
+          text-align: center;
+          transition: color 0.2s ease-in;
+          &:hover {
+            color: #939393;
+          }
+        }
+
+        .radar-img {
+          margin-right: 10px;
+          margin-bottom: 8px;
+        }
 	      .radar-icons {
+          width: 25%;
+          margin: 0 auto;
 	      	float:left;
 	      	img {
-	      		height:90px;
-	      		margin-top:-15px;
+	      		max-width: 80%;
 	      		cursor:pointer;
-	      		cursor:hand;
 	      	}
 	      	div {
 	      		width:85%;
-	      		margin-left:auto;
-	      		margin-right:auto;
-	      		p {
-	      			text-align:center;
-	      			margin:-10px 0 0 0;
-	      			color:white;
-	      		}
 	      	}
 	      }
 	    }
@@ -214,33 +255,11 @@
     border-top: 1px solid rgba(188, 190, 193, 0.6);;
   }
 
-  .dottedline-bottom {
-    width: 100%;
-    height: 3%;
-    padding-bottom:10px;
-    margin-left: auto;
-    margin-right: auto;
-    border-top: 2px dashed rgba(188, 190, 193, 0.6);
-    clear:both;
-  }
-
   #details-panel {
-    height: 50%;
     margin-top: 8%;
     background-color: rgba(45, 51, 58, 0.9);
     font-family: 'Open Sans', sans-serif;
     color: whitesmoke;
-
-    .dottedline-top {
-      width: 100%;
-      height: 3%;
-      padding-top:10px;
-      margin-left: auto;
-      margin-right: auto;
-      border-bottom: 2px dashed rgba(188, 190, 193, 0.6);
-      clear:both;
-    }
-
 
     .placephoto-banner-outer {
       height: 130px;
@@ -292,6 +311,7 @@
     ul {
       list-style: none;
       padding: 7.5%;
+      padding-bottom: 2%;
       li {
         margin-bottom: 2%;
       }
@@ -328,17 +348,48 @@
 // #buttons-container {
   .add-to-trip {
       color: #000000;
-      font-weight: 1.2em;
-      font-family: 'Open Sans', sans-serif;
+      font-size: 1.1em;
+      font-weight: bold;
+      font-family: 'Montserrat', sans-serif;
       border: 3px solid #231F20;
       background-color: whitesmoke;
-      padding: 10px;
+      padding: 8px;
       width:44%;
       min-width:45px;
-      margin:-35px 10px 10px 10px;
+      margin: 0 auto 20px auto;
       text-align:center;
       display:block;
       // float:left;
       outline:none;
-  }  
+      transition: background 0.2s ease-in-out;
+      &:hover {
+        background: #df7575;
+      }
+      &:active {
+        background-color: #995555;
+      }
+  }
 // }
+
+
+  .dottedline-bottom {
+    width: 100%;
+    height: 3%;
+    padding-bottom:10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 2px dashed rgba(188, 190, 193, 0.6);
+    clear:both;
+  }
+
+
+  .dottedline-top {
+    width: 100%;
+    height: 3%;
+    padding-top:10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 2px dashed rgba(188, 190, 193, 0.6);
+    clear:both;
+  }
+

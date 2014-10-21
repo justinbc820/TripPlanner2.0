@@ -13,11 +13,13 @@ exports.index = function(req, res) {
 
 // Get a single trip
 exports.show = function(req, res) {
-  Trip.findById(req.params.id, function (err, trip) {
-    if(err) { return handleError(res, err); }
-    if(!trip) { return res.send(404); }
-    return res.json(trip);
-  });
+  Trip.findById(req.params.id)
+      .populate('travelers')
+      .exec(function (err, trip) {
+          if(err) { return handleError(res, err); }
+          if(!trip) { return res.send(404); }
+          return res.json(trip);
+      });
 };
 
 // Creates a new trip in the DB.
@@ -58,23 +60,15 @@ exports.addToWishlist = function(req, res) {
     if (err) { return handleError(res, err); }
     if(!trip) { return res.send(404); }
 
+    console.log("add To wish list", req.body)
     var activity = {
       title: req.body.title,
       googleDetails: req.body.googleDetails,
-      location: {
-        address: req.body.location.address,
-        coords: {
-          latitude: req.body.location.coords.latitude,
-          longitude: req.body.location.coords.longitude
-        }
-      },
-      // description: null,
-      start: null,
+      location: req.body.location,
       cost: req.body.cost
     };
 
     trip.wishlist.push(activity);
-    console.log("trip wishlist ", trip.wishlist)
 
     trip.save(function (err) {
       if (err) { return handleError(res, err); }
@@ -104,10 +98,23 @@ exports.removeFromWishlist = function(req, res) {
 exports.addActivity = function(req, res) {
   Trip.findById(req.params.id, function(err, trip) {
     if (err) { return handleError(res, err); }
-
     var activity = req.body;
-
     trip.activities.push(activity);
+
+    /*
+     * This function sorts every activity in the activities array by their
+     * date.  This makes deleting events from the calendar easier, and it
+     * allows events to render in the proper order on the map
+    */
+    trip.activities.sort(function(a,b) {
+      if(Date.parse(a.start) > Date.parse(b.start)) {
+        return 1;
+      };
+      if(Date.parse(a.start) < Date.parse(b.start)) {
+        return -1;
+      };
+      return 0;
+    })
 
     trip.save(function (err) {
       if (err) { return handleError(res, err); }
@@ -133,6 +140,32 @@ exports.deleteActivity = function(req, res) {
     });
   });
 };
+
+
+exports.acceptInvite = function(req, res) {
+  Trip.findById(req.params.id)
+      .populate('travelers')
+      .exec(function(err, trip) {
+        if (err) { return handleError(res, err); }
+        var token = req.body.token;
+        console.log('this is the token', token);
+        trip.travelers.push(req.body.travelerId);
+
+        for (var i=0, n=trip.invitees.length; i<n; i++) {
+          console.log(trip.invitees[i].token);
+          if (trip.invitees[i].token == token) {
+            console.log("got it here")
+            trip.invitees.splice(i, 1);
+            break;
+          }
+        }
+        trip.save(function (err) {
+          if (err) { return handleError(res, err); }
+          return res.json(200, trip);
+        });
+      });
+};
+
 
 // // Updates an existing trip in the DB.
 // exports.addDetails = function(req, res) {

@@ -1,5 +1,5 @@
 .home-body-page-1 {
-    background-image: url('../../assets/images/houses-cliff.jpg');
+    background-image: url('../../assets/images/lake.jpg');
     background-size: cover;
     height:100%;
     overflow:hidden;
@@ -7,7 +7,7 @@
 }
 
 .home-body-page-2 {
-    background-image: url('../../assets/images/houses-cliff.jpg');
+    background-image: url('../../assets/images/lake.jpg');
     background-size: cover;
     height:100%;
     width:100%;
@@ -15,11 +15,18 @@
     position: fixed;
 }
 
+.body-page-blue-blur {
+  background-image: url('../../assets/images/lake_blur.jpg');
+  background-size: cover;
+  height:100%;
+  overflow:hidden;
+}
+
 #newtrip {
   height: 100%;
   width: 100%;
   div {
-    color: whitesmoke;
+    color: rgba(45,51,58,0.9);
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -27,6 +34,7 @@
     h1 {
       padding-top:100px;
       font-size:4em;
+      color: whitesmoke;
     }
     input-field {
       height: 5%;
@@ -34,13 +42,21 @@
   }
 }
 
+// rgba(45,51,58,0.9)
+
 #initial-questions {
   float:left;
   height:70%;
   font-family: 'Montserrat', sans-serif;
   color: whitesmoke;
   padding-top:15%;
+  h1 {
+    color: whitesmoke;
+    font-size: 3em;
+  }
   button {
+    font-size: 1.6em;
+    letter-spacing: 1px;
     color: whitesmoke;
     border: 3px solid whitesmoke;
     background-color: transparent;
@@ -51,6 +67,13 @@
     padding-right:auto;
     padding-left:auto;
 
+    transition : background 0.3s ease-in-out;
+    &:hover {
+      background: rgba(158,204,70,0.8);
+    }
+    &:focus {
+      outline: none;
+    }
   }
   #questions-continer {
     margin-top:12%;
@@ -70,5 +93,6 @@
     color: red;
     font-weight: bold;
   }
+
 }
 

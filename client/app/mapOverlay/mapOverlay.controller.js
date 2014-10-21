@@ -14,6 +14,9 @@ angular.module('tripPlannerApp')
       });
 
       $rootScope.$on('closeTripPickerModal', function() {
+        if (!selectTripModal) {
+
+        }
         selectTripModal.$promise.then(selectTripModal.hide);
       });
 
@@ -54,10 +57,11 @@ angular.module('tripPlannerApp')
       // This gives the map overlay access to the global current Trip available in planData
       // With this information, the day selector is populated with the correct days
       $scope.currentTrip = planData.getCurrentTrip();
+      $scope.selectedDayCss = 0;
       $rootScope.$on('newCurrentTrip', function() {
         $scope.currentTrip = planData.getCurrentTrip();
         $scope.selectedDay = $scope.currentTrip.days[0]; // initializes the current selected day to the first day of the trip
-        $scope.selectedDayCss = 3; // applies the 'selected' css to the selected day
+        $scope.selectedDayCss = 0; // applies the 'selected' css to the selected day
       });
 
       $scope.currentDayActivities = []; // this array represents markers on the map showing the current day's activities
@@ -81,10 +85,11 @@ angular.module('tripPlannerApp')
                 //formatting each location so that the markers directive in the html can place markers
                 var newIndex = i - activitiesSkipped; // This variable keeps track of the current position in the for loop, relative to the
                                                       // position of each place in the actual currentDayActivities array.
-                if($scope.currentDayActivities[newIndex].googleDetails.location) {
+                if($scope.currentDayActivities[newIndex].location) {
                   $scope.currentDayActivities[newIndex].id = newIndex;
-                  $scope.currentDayActivities[newIndex].latitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.latitude;
-                  $scope.currentDayActivities[newIndex].longitude = $scope.currentDayActivities[newIndex].googleDetails.location.coords.longitude;
+                  $scope.currentDayActivities[newIndex].latitude = $scope.currentDayActivities[newIndex].location.coords.latitude;
+                  $scope.currentDayActivities[newIndex].longitude = $scope.currentDayActivities[newIndex].location.coords.longitude;
+                  $scope.currentDayActivities[newIndex].icon = 'http://maps.google.com/intl/en_us/mapfiles/ms/micons/green.png';
                 } else {
                   continue;
                 }
@@ -97,19 +102,19 @@ angular.module('tripPlannerApp')
 
       // This array stores information for each of the radar search icons
       this.radarIcons = [{
-          route: '../../assets/images/icons/eiffel.png',
+          route: '../../assets/images/icons/eiffel.svg',
           details: 'monument',
           text: 'see'
       }, {
-          route: '../../assets/images/icons/bed.png',
+          route: '../../assets/images/icons/house.svg',
           details: 'lodging',
           text: 'sleep'
       }, {
-          route: '../../assets/images/icons/chef-hat.png',
+          route: '../../assets/images/icons/wine.svg',
           details: 'restaurant',
           text: 'dine'
       }, {
-          route: '../../assets/images/icons/wave.png',
+          route: '../../assets/images/icons/golf.svg',
           details: 'amusement',
           text: 'play'
       }];
@@ -185,11 +190,15 @@ angular.module('tripPlannerApp')
       // the place already has all its details fetched, so we pass those to the function
 
       this.addToTrip = function() {
-            planData.addToTrip($scope.currDetails, $scope.selectedDay);
+            if (planData.getCurrDetails()) {
+              $scope.currDetails.title = $scope.currDetails.name;
+              planData.addToTrip($scope.currDetails, $scope.selectedDay);
+            }
+
 
           // currDetails is a variable that holds the current details displayed on map
           // overlay when someone clicks on a pin
-            $scope.currDetails;
+
       };
 
           /*
@@ -199,8 +208,8 @@ angular.module('tripPlannerApp')
            * to populate the orange-hued place picture.
           */
             $rootScope.$on('detailsReturned', function(event, placeId) {
-              console.log("called detailsReturned")
                 $scope.currDetails = search.getReturnedDetails(placeId);
+                planData.setCurrDetails($scope.currDetails);
                 if($scope.currDetails.photos) {
                   var width = $scope.currDetails.photos[0].width;
                   var height = $scope.currDetails.photos[0].height;

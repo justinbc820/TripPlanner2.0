@@ -3,18 +3,19 @@
     <div ng-controller="MapCtrl" id="map-container">
         <google-map center="map.center" zoom="map.zoom" class="full-height" options="map.options" bounds="map.bounds">
             <markers models="markers" click="'onClicked'" events="markersEvents" coords="'self'" idKey="'id'" doCluster="true" fit="true" doRebuildAll="true"></markers>
-            <markers models="currentDayMarkers" click="'onClicked'" events="markersEvents" coords="'self'" idKey="'id'" doCluster="false" fit="true" doRebuildAll="true"></markers>
+            <markers models="currentDayMarkers" click="'onClicked'" events="markersEvents" coords="'location.coords'" idKey="'id'" doCluster="false" fit="true" doRebuildAll="true" icon="'icon'"></markers>
+            <polyline ng-if="currentDayPath.length > 0" path="currentDayPath" visible="true" geodesic="true"></polyline>
         </google-map>
     </div>
 
 </div>
 
 <div id="map-overlay" ng-controller="MapOverlayCtrl as overlay" class="col-lg-12 col-md-12 cant-click">
-    <div class="col-lg-3 col-md-2 col-sm-3 col-xs-2" class="clearfix full-height"></div>
-    <div class="col-lg-5 col-md-5 col-sm-3 col-xs-2 full-height">
+    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3" class="clearfix full-height"></div>
+    <div class="col-lg-6 col-md-4 col-sm-5 col-xs-4 full-height">
         <h1>{{currentTrip.name || currentTrip.questionnaire.location}}</h1>
     </div>
-    <div class="col-lg-4 col-md-5 col-sm-6 col-xs-8 full-height">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-5 full-height">
         <div class="opaque" id="search-container">
             <div id="search-input">
                 <form ng-submit="overlay.placesSearch(search.autocomplete)">
@@ -50,17 +51,18 @@
                 <div class="separator"></div>
 
                 <div id="search-radarbuttons">
-                    <div ng-repeat="icon in overlay.radarIcons" class="can-click radar-icons">
-                        <img ng-src="{{icon.route}}" ng-click="overlay.iconRadarSearch([$index])" class="can-click">
+
+                    <div ng-repeat="icon in overlay.radarIcons" class="can-click radar-icons" ng-click="overlay.iconRadarSearch([$index])">
+                        <img ng-src="{{icon.route}}" class="radar-img can-click">
                         <div class="can-click">
-                            <p>{{icon.text}}</p>
+                            <p class="radar-text" style="cursor: pointer">{{icon.text}}</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="dottedline-bottom"></div>
+                  </div>
             </div>
+            <div class="dottedline-bottom"></div>
         </div>
+
 
         <div ng-show="currDetails" id="details-panel" class="can-click clearfix">
             <div class="dottedline-top"></div>
@@ -94,16 +96,15 @@
             <div class="dottedline-bottom"></div>
         </div>
     </div>
+
     <div id="day-picker">
         <div style="margin-left:auto; margin-right:auto;">
             <h1>{{selectedDay | date:'mediumDate'}}</h1>
             <div id="day-panel" class="can-click" ng-show="currentTrip.days">
-                <div style="width:1000px;">
-                    <div class="dottedline-bottom" style="padding-bottom:0;"></div>
+                <div style="width:1000px;" id="inner-day-picker-container">
                     <button ng-repeat="day in currentTrip.days" ng-class="{'map-day-selected':$index == selectedDayCss }" ng-click="daySelect($index)" class="map-day">
                         <span>{{$index + 1}}</span>
                     </button>
-                    <div class="dottedline-bottom"></div>
                 </div>
             </div>
         </div>

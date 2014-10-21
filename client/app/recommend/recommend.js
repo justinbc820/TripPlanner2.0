@@ -6,6 +6,7 @@ angular.module('tripPlannerApp')
       .state('recommend', {
         url: '/recommend/:tripid',
         templateUrl: 'app/recommend/recommend.html',
-        controller: 'RecommendCtrl'
+        controller: 'RecommendCtrl',
+        isPublic: true
       });
   });

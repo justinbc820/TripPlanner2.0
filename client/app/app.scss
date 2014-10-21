@@ -8,6 +8,22 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
+a {
+   &:hover {
+    text-decoration: none;
+  }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  padding: 0;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
@@ -22,6 +38,9 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 .close {
   color: whitesmoke;
+  &:focus {
+    outline: none;
+  }
 }
 
 .auth-form-group {
@@ -39,6 +58,23 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   font-size: 1em;
   line-height: 1.1em;
   text-align: center;
+
+  #newtripbutton {
+    color: whitesmoke;
+    border: 2px solid whitesmoke;
+    background: transparent;
+    padding: 5px;
+
+    &:focus {
+      outline: none;
+    }
+
+    transition : background 0.2s ease-in;
+    &:hover {
+      background: rgba(158,204,70,0.8);
+    }
+  }
+
 }
 
 #auth-modal {
@@ -61,6 +97,19 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
         border-radius: 0;
       }
     }
+
+  .btn{
+    &:focus {
+      outline: none;
+    }
+    transition: background 0.2s ease-out;
+    &:hover {
+      background: rgba(158,204,70, 0.8);
+    }
+    &:active {
+      background: rgba(106,132,48, 0.8);
+    }
+  }
 
   .btn-register {
     display: inline;
@@ -121,6 +170,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     }
   }
 
+
 }
 
 .browsehappy {
@@ -155,8 +205,113 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 }
 
+//Calendar styling
+
+.fc-view {
+  background: rgba(255,255,255,0.6);
+  color: rgba(45, 51, 58, 1);
+  font-family: 'Open Sans', sans-serif;
+  // border: 5px solid rgba(45, 51, 58, 0.7);
+}
+
+.fc-widget-header {
+  border: 1px solid rgba(45,51,58,0.4);
+}
+
+.fc-widget-content {
+  border: 1px solid rgba(45,51,58,0.4);
+}
+
+.fc-day-header {
+  color: rgba(45,51,58,0.8);
+  text-transform: uppercase;
+}
+
+.fc-sun {
+  color: #DB0A5B;
+  font-weight: bold;
+}
+
+
+.fc-today {
+  background: rgba(255,255,255, 0.9);
+  .fc-day-number {
+    font-weight: bold;
+    font-decoration: underline;
+  }
+}
+
+.fc-state-default.fc-corner-left {
+  border-radius: 0 !important;
+}
+
+.fc-button {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-radius: 0;
+  background-color: 0;
+  text-shadow: none;
+  box-shadow: 0;
+  border: 2px solid rgba(45, 51, 58, 0.9);
+  background: transparent;
+  color: rgba(45, 51, 58, 0.9);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  height: 40px;
+  padding-top: 4.5px;
+  text-transform: uppercase;
+  margin-right: 10px !important;
+
+  transition: background 0.3s ease-in;
+  &:hover {
+    background: rgba(158,204,70, 0.8);
+  }
+
+  &:active {
+    background: rgba(106,132,48, 0.8);
+  }
+}
+
+.fc-button-prev {
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+  margin-right: 2px !important;
+}
+
+.fc-button-next {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.fc-button-basicWeek {
+  display: none;
+}
+
+.fc-button-basicDay {
+  display: none;
+}
+
+.fc-header-center {
+  font-family: 'Montserrat', sans-serif;
+  color: rgba(45, 51, 58, 0.9);
+}
+
+.fc-state-down, .fc-state-active {
+  box-shadow: none !important;
+  background: rgba(158,204,70, 0.8);
+}
+
+.fc-disabled {
+  opacity: 1 !important;
+}
+
+.fc-header-space {
+  display: none;
+}
+
 // Component styles are injected through grunt
 // injector
+@import 'acceptinvite/acceptinvite.scss';
 @import 'account/login/login.scss';
 @import 'admin/admin.scss';
 @import 'dashboard/dashboard.scss';

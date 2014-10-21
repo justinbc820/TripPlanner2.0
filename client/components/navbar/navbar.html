@@ -13,7 +13,7 @@
       <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/login')}"><a href="" ng-click="navbar.login()">Login</a></li>
       <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/settings')}"><a href="/settings"></a></li>
       <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/logout')}"><a href="" ng-click="navbar.logout()">Logout</a></li>
-      <li ng-show="navbar.isLoggedIn()"><span>Hello {{ navbar.getCurrentUser().name }}</span> <span class="glyphicon glyphicon-cog"></span></li>
+      <li ng-show="navbar.isLoggedIn()"><span>Hello {{ navbar.getCurrentUser().name }}</span> <a href="/settings"><span class="glyphicon glyphicon-cog"></a></span></li>
 
     </ul>
   </nav>

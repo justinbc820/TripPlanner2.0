@@ -6,6 +6,7 @@ angular.module('tripPlannerApp')
       .state('admin', {
         url: '/admin',
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminCtrl',
+        isPublic: false
       });
   });

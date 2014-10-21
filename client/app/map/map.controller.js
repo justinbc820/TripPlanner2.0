@@ -17,9 +17,14 @@ angular.module('tripPlannerApp')
     });
 
     // when search factory has new markers representing the activities of a day, this updates them
+    $scope.currentDayPath = [];
     $rootScope.$on('newDayMarkers', function() {
+      $scope.currentDayPath.length = 0;
       $scope.currentDayMarkers = search.getDayMarkers();
-      console.log($scope.currentDayMarkers);
+      for(var i=0, n=$scope.currentDayMarkers.length; i<n; i++) {
+        $scope.currentDayMarkers[i].id = i;
+        $scope.currentDayPath.push($scope.currentDayMarkers[i].location.coords);
+      };
     });
 
     // This watches for someone to resize or pan the map and then updates the current
@@ -142,6 +147,7 @@ angular.module('tripPlannerApp')
     $scope.markersEvents = {
       //'click' property here is the 'onClicked' under the click tag in the markers directive in map.html
       click: function (gMarker, eventName, model) {
+        console.log("model is ", model)
         if(model.$id) {
           model = model.coords;
         }

@@ -8,7 +8,6 @@ angular.module('tripPlannerApp')
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         $scope.currentTrip = trip;
-        console.log($scope.currentTrip);
         // $scope.autocomplete.options.bounds = new google.maps.LatLngBounds(
         //   $scope.currentTrip.latLng.k,
         //   $scope.currentTrip.latLng.B
@@ -41,6 +40,7 @@ angular.module('tripPlannerApp')
       $scope.currentWish = $scope.currentTrip.wishlist[index];
       $scope.currentWish.index = index; // This variable is so that we can remove
       // the wish from the array once it is added to the calendar
+      console.log($scope.currentWish);
     }
 
     $scope.autocomplete = {
@@ -51,8 +51,18 @@ angular.module('tripPlannerApp')
       var checkForDetails = $interval(function() {
           if ($scope.autocomplete.details !== undefined) {
               $interval.cancel(checkForDetails);
-              $scope.currentTrip.wishlist.push($scope.autocomplete.details);
-              console.log("details: ", $scope.autocomplete.details)
+              var activity = {
+                title:$scope.autocomplete.details.name,
+                googleDetails: $scope.autocomplete.details,
+                location: {
+                  address: $scope.autocomplete.details.formatted_address,
+                  coords: {
+                    latitude: $scope.autocomplete.details.geometry.location.k,
+                    longitude: $scope.autocomplete.details.geometry.location.B
+                  }
+                }
+              };
+              $scope.currentTrip.wishlist.push(activity);
               $scope.autocomplete.details = undefined;
           }
       }, 50, 10);
@@ -68,10 +78,12 @@ angular.module('tripPlannerApp')
     }
 
     $scope.addToCal = function() {
+      console.log("scope.currentWish", $scope.currentWish);
       // push into trip schema
       $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {
-        title: $scope.currentWish.title, 
-        googleDetails: $scope.currentWish, 
+        title: $scope.currentWish.title,
+        name: $scope.currentWish.title,
+        googleDetails: $scope.currentWish.googleDetails,
         location: {
           address: $scope.currentWish.location.address,
           coords: {
@@ -79,8 +91,7 @@ angular.module('tripPlannerApp')
             longitude: $scope.currentWish.location.coords.longitude
           }
         },
-        start: $scope.start,
-        cost: $scope.currentWish.cost
+        start: $scope.start
       })
       .success(function(data){
         // This will now remove the wish from the wishlist in the database

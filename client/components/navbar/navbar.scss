@@ -72,7 +72,6 @@ nav {
   line-height: $navbar-height;
   width: 100%;
   padding:0;
-
 }
 
 nav ul {
@@ -109,6 +108,10 @@ nav a, nav a:hover {
   text-decoration: none;
   color: #FDBC52;
   font-weight: normal;
+    transition : color 0.2s ease-in-out;
+    &:hover {
+      color: #bc8b41;
+    }
 }
 
 
