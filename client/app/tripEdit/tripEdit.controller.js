@@ -19,6 +19,11 @@ angular.module('tripPlannerApp')
 
     $rootScope.$on('newCurrentTrip', function() {
     	$scope.currentTrip = planData.getCurrentTrip();
+      var bounds = new google.maps.Circle({
+        center: new google.maps.LatLng($scope.currentTrip.latLng.k, $scope.currentTrip.latLng.B),
+        radius: 50000
+      }).getBounds();
+      $scope.autocomplete.options.bounds = bounds;
     });
 
     $scope.updateTrip = function(updatedTrip) {
@@ -40,7 +45,6 @@ angular.module('tripPlannerApp')
       $scope.currentWish = $scope.currentTrip.wishlist[index];
       $scope.currentWish.index = index; // This variable is so that we can remove
       // the wish from the array once it is added to the calendar
-      console.log($scope.currentWish);
     }
 
     $scope.autocomplete = {
@@ -70,15 +74,14 @@ angular.module('tripPlannerApp')
 
     $scope.currentWish;
     $scope.start;
-    $scope.selectActivityTime = function() {
-      // pop up date and time selector
-      if($scope.start !== undefined) {
+
+    $scope.$watch('start', function(oldVal, newVal) {
+      if(newVal) {
         $scope.addToCal();
       }
-    }
+    })
 
     $scope.addToCal = function() {
-      console.log("scope.currentWish", $scope.currentWish);
       // push into trip schema
       $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', {
         title: $scope.currentWish.title,
@@ -91,7 +94,9 @@ angular.module('tripPlannerApp')
             longitude: $scope.currentWish.location.coords.longitude
           }
         },
-        start: $scope.start
+        start: new Date($scope.start).toUTCString(),
+        end: new Date($scope.start.setHours($scope.start.getHours() + 1)).toUTCString(),
+        allDay:false
       })
       .success(function(data){
         // This will now remove the wish from the wishlist in the database

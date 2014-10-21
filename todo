@@ -1,3 +1,5 @@
 delete calendar events
-how does interacting with calendar affect time stamps?
+  set up http route to delete activities
+change calendar time
+  make http call to change activity start time
 persist exeditable changes to db
