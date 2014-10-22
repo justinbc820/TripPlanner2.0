@@ -10,14 +10,19 @@ angular.module('tripPlannerApp')
     $scope.placePhotos = [];
 
     var getPlacePhotos = function(tripsArray) {
-        $http.post('/api/getrecommendations/placePhoto', {
-            tripsArray:tripsArray
-        })
-        .success(function(photosObject) {
-            for(var i=0; i<tripsArray.length; i++) {
-                $scope.placePhotos.push(photosObject.photosObject[tripsArray[i].questionnaire.location])
-            }
-        });
+      var arrayNames = [];
+      for(var i=0; i<tripsArray.length; i++) {
+        arrayNames.push(tripsArray[i].questionnaire.location);
+      }
+      $http.post('/api/getrecommendations/placePhoto', {
+          tripsArray:arrayNames
+      })
+      .success(function(photosObject) {
+        console.log('success')
+          for(var i=0; i<tripsArray.length; i++) {
+              $scope.placePhotos.push(photosObject.photosObject[tripsArray[i].questionnaire.location])
+          }
+      });
     }
 
 
@@ -76,7 +81,7 @@ angular.module('tripPlannerApp')
     $scope.deleteTrip = function(trip) {
       swal({
         title: "Are you sure?",
-        text: "Your will not be able to recover this imaginary file!",
+        text: "You will not be able to recover this trip.",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",

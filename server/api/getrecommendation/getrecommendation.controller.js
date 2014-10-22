@@ -70,19 +70,24 @@ exports.getRecommendations = function(req, res) {
 
 exports.placePhoto = function(req, res) {
   var photosObject = {};
+  console.log("heeloo");
 
   var getPhotos = function(place, done) {
-    var textString = place.questionnaire.location;
-    Flickr.tokenOnly(flickrOptions, 
+    // var textString = place.questionnaire.location;
+    console.log(place);
+    Flickr.tokenOnly(flickrOptions,
       function(err, flickr) {
+        console.log("err top:", err);
         flickr.photos.search({
-          text: textString,
+          text: place,
           sort: 'interestingness-desc',
           per_page: 10,
-          content_type:1,
-          
-        }, 
+          content_type:1
+
+        },
       function(err, result) {
+        console.log("err:", err);
+        console.log("result:", result);
         if (result.photos.photo.length > 0) {
           var id = result.photos.photo[0].id,
               farm = result.photos.photo[0].farm,
@@ -91,7 +96,7 @@ exports.placePhoto = function(req, res) {
               placeUrl = "https://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+".jpg"; //adding the image url from flickr
           // var sliceIndex = textString.search(" cityscape");
           // var placeName = textString.slice(0,sliceIndex);
-          photosObject[textString] = placeUrl;
+          photosObject[place] = placeUrl;
         }
         done(); // required callback
       });
