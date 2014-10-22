@@ -21,18 +21,6 @@ angular.module('tripPlannerApp')
       $scope.autocomplete.options.bounds = bounds;
     });
 
-    // $scope.updateTrip = function(updatedTrip) {
-    //   if($scope.currentTrip) {
-    //   	$http.put('/api/trips/' + $scope.currentTrip._id, {
-    //   		// Send trip to backend, update with newly changed trip
-    //   	})
-    //   }
-    // };
-
-    // $scope.$watch('currentTrip', function(newVal, oldVal) {
-    // 	$scope.updateTrip(newVal);
-    // }, true);
-
     $scope.closed = true;
 
     $scope.showDatePicker = function(index) {
@@ -43,14 +31,14 @@ angular.module('tripPlannerApp')
     }
 
     $scope.autocomplete = {
-      options:{watchEnter: true}
+      options:{}
     };
 
     $scope.addToWishlist = function() {
-      console.log($scope.autocomplete.autocomplete);
       var checkForDetails = $interval(function() {
           if ($scope.autocomplete.details !== undefined) {
               $interval.cancel(checkForDetails);
+              console.log($scope.autocomplete.details);
               var activity = {
                 title:$scope.autocomplete.details.name,
                 googleDetails: $scope.autocomplete.details,
@@ -62,11 +50,16 @@ angular.module('tripPlannerApp')
                   }
                 }
               };
+
               $http.put('/api/trips/wishlist/' + tripId, activity).success(function(updatedTrip) {
+
                 planData.setCurrentTrip(updatedTrip);
+                console.log(updatedTrip);
+                $scope.autocomplete.details = undefined;
+                $scope.autocomplete.autocomplete = "";
+                // $scope.currentTrip.wishlist.push(activity);
               })
               $scope.currentTrip.wishlist.push(activity);
-              $scope.wishlistForm.$setPristine();
           }
       }, 50, 10);
 
@@ -95,11 +88,9 @@ angular.module('tripPlannerApp')
             longitude: $scope.currentWish.location.coords.longitude
           }
         },
-        start: start,
+        start: ISOStart,
         end: new Date(ISOStart.setHours(ISOStart.getHours() + 1)).toUTCString(),
         timezone:'UTC',
-        // start: new Date($scope.start).toUTCString(),
-        // end: new Date($scope.start.setHours($scope.start.getHours() + 1)).toUTCString(),
         allDay:false
       };
       // push into trip schema
@@ -118,6 +109,12 @@ angular.module('tripPlannerApp')
       })
     }
 
-  })
-  // .contoller('PickerCtrl', function() {})
-  ;
+    $rootScope.$on('newActivityDetails', function() {
+      $scope.activityDetails = planData.getActivityDetails();
+    })
+
+    $scope.broadcastDelete = function() {
+      $rootScope.$broadcast('deleteActivity', $scope.activityDetails.token);
+    };
+
+  });

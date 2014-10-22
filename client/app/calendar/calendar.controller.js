@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('CalendarCtrl', function($scope, planData, $http, $stateParams, $timeout) {
+  .controller('CalendarCtrl', function($scope, planData, $http, $stateParams, $rootScope) {
     // set the current trip and the populate events array
     var tripId = $stateParams.id;
     $scope.currentTrip = planData.getCurrentTrip();
     $scope.events = [];
 
     /* event sources array*/
-    $scope.eventSources = [$scope.events];
+    $scope.eventSources = [];
 
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
@@ -19,24 +19,28 @@ angular.module('tripPlannerApp')
     $scope.$on('newCurrentTrip', function() {
       $scope.currentTrip = planData.getCurrentTrip();
       $scope.events = $scope.currentTrip.activities;
-      $scope.calendar.fullCalendar('gotoDate', new Date($scope.currentTrip.days[0]));
       $scope.eventSources[0] = $scope.events.map(function(event) {
+        var startDate = new Date(event.start);
         var start = event.start;
         var end;
         if(event.end) {
           end = event.end
         } else {
-          end = new Date(start.setHours(start.getHours() + 1)).adjustDST();
+          var temp = new Date(startDate.setHours(startDate.getHours() + 1)).adjustDST();
+          end = new Date(temp).toUTCString();
         }
 
         return {
           title: event.title,
+          googleDetails:event.googleDetails,
           start: start,
           end: end,
           allDay: false,
-          id: event.googleDetails.place_id
+          id: event.googleDetails.place_id,
+          token: Math.floor(Math.random()*Math.random()*Math.random()*1000000)
         };
       });
+      $scope.calendar.fullCalendar('refetchEvents');
     });
 
     ////////////////////////////////////////////////////////////////////
@@ -81,8 +85,8 @@ angular.module('tripPlannerApp')
     ////////////////////////////////////////////////////////////////////
 
     $scope.updateActivityDetails = function(event) {
-      for(var i=0, n=$scope.events.length; i<n; i++) {
-        if($scope.events[i].googleDetails.place_id == event.id) {
+      for(var i=0, n=$scope.eventSources[0].length; i<n; i++) {
+        if($scope.eventSources[0][i].token == event.token) {
           
           var start = new Date($scope.events[i].start);
           $scope.events[i].start = event.start.toUTCString();
@@ -90,7 +94,7 @@ angular.module('tripPlannerApp')
           if(event.end) {
             $scope.events[i].end = event.end.toUTCString();
           } else {
-            var end = new Date(start.setHours(start.getHours() + 1));
+            var end = new Date(event.start.setHours(event.start.getHours() + 1));
             $scope.events[i].end = new Date(end).toUTCString();
           }
         }
@@ -103,11 +107,14 @@ angular.module('tripPlannerApp')
       })
     }
 
-    $scope.deleteActivity = function() {
-      for(var i = 0; i < $scope.events.length; i++) {
-        if($scope.events[i].googleDetails.place_id == $scope.currentEvent._id && $scope.events[i].start == $scope.currentEvent.start.toUTCString()) {
+    $rootScope.$on('deleteActivity', function(event, token) {
+      $scope.deleteActivity(token);
+    })
+
+    $scope.deleteActivity = function(token) {
+      for(var i = 0; i < $scope.eventSources[0].length; i++) {
+        if(token === $scope.eventSources[0][i].token) {
           $scope.events.splice(i, 1);
-          $scope.deletePanel = !$scope.deletePanel;
           $scope.currentEvent = null;
           break;
         }
@@ -147,8 +154,10 @@ angular.module('tripPlannerApp')
     //with this you can handle the click on the events
     $scope.eventClick = function(event, allDay, jsEvent, view) {
       $scope.$apply(function() {
+        console.log("From before tripEdit", event.token);
+        planData.setActivityDetails(event);
         $scope.currentEvent = event;
-        $scope.deletePanel = !$scope.deletePanel;
+        // $scope.deletePanel = !$scope.deletePanel;
       });
     };
 
