@@ -87,8 +87,6 @@ angular.module('tripPlannerApp')
         start: ISOStart,
         end: new Date(ISOStart.setHours(ISOStart.getHours() + 1)).toUTCString(),
         timezone:'UTC',
-        // start: new Date($scope.start).toUTCString(),
-        // end: new Date($scope.start.setHours($scope.start.getHours() + 1)).toUTCString(),
         allDay:false
       };
       // push into trip schema
@@ -106,5 +104,13 @@ angular.module('tripPlannerApp')
         $rootScope.$broadcast('addToCal');
       })
     }
+
+    $rootScope.$on('newActivityDetails', function() {
+      $scope.activityDetails = planData.getActivityDetails();
+    })
+
+    $scope.broadcastDelete = function() {
+      $rootScope.$broadcast('deleteActivity', $scope.activityDetails.token);
+    };
 
   });

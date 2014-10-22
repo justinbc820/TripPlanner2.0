@@ -190,3 +190,29 @@
   max-height: 150px;
   margin-bottom: 15px;
 }
+
+#activity-info-panel {
+  #delete-button {
+    color: #000000 ;
+    font-size: 1.1em;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    border: 3px solid #231F20 ;
+    background-color: whitesmoke;
+    padding: 8px;
+    width:44%;
+    min-width:45px;
+    margin: 0 auto 20px auto;
+    text-align:center;
+    display:block;
+    // float:left;
+    outline:none;
+    transition: background 0.2s ease-in-out;
+    &:hover {
+    background: #df7575 ;
+    }
+    &:active {
+    background-color: #995555 ;
+    }
+  }
+}

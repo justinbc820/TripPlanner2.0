@@ -95,9 +95,20 @@ $rootScope.$on('logout', function() {
     user = undefined;
 });
 
+var activityDetails;
+
 
 // Public API here
 var factoryObj = {
+
+    setActivityDetails: function(details) {
+        activityDetails = details;
+        $rootScope.$broadcast('newActivityDetails');
+    },
+
+    getActivityDetails: function() {
+        return activityDetails;
+    },
 
     // This fetches the cached activity for when a person wasn't logged in or didnt
     // have a trip selected

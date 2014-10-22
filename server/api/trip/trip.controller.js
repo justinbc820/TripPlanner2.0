@@ -147,9 +147,9 @@ exports.updateActivity = function(req, res) {
   Trip.findById(req.params.id, function (err, trip) {
     if (err) { return handleError(res, err); }
     if(!trip) { return res.send(404); }
-    delete trip.activities;
+    // delete trip.activities;
     trip.activities = req.body.activities;
-    trip.markModified('activities');
+    // trip.markModified('activities');
 
     trip.save(function (err, trip2) {
       if (err) { return handleError(res, err); }

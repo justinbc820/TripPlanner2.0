@@ -1,20 +1,14 @@
 <div ng-controller="TripeditCtrl as edit" ng-init="edit.init()" class="col-md-12 full-height animated fadeIn body-page-blue-blur" style="overflow-y: scroll">
-<div class="page-body ">
-  <div class="col-lg-3 col-md-3 col-sm-4 full-height info-panel">
-  	<ul id="basic-info-panel">
-      <div class="dottedline-top"></div>
+  <div class="page-body ">
+    <div class="col-lg-3 col-md-3 col-sm-4 full-height info-panel">
+      <ul id="basic-info-panel">
+        <div class="dottedline-top"></div>
         <div class="inner-container">
-          <!-- <li>
-      			<h3>Name</h3>
-      			<span type="text" editable-text="currentTrip.name" placeholder="change name">{{currentTrip.name || "Give your trip a name!" }}</span>
-      		</li> -->
           <li>
             <h3>Location</h3>
             <span>{{currentTrip.questionnaire.location || "empty" }}</span>
           </li>
-      		<li class="friends">
-      			<!-- <h3>BUDGET:</h3>
-      			<span type="text" editable-text="currentTrip.budget" placeholder="change budget">{{currentTrip.budget || "empty" }}</span> -->
+          <li class="friends">
             <h3>Who's Going?</h3>
             <div id="repeat-frds-container">
               <div ng-repeat="friend in currentTrip.travelers">
@@ -26,59 +20,64 @@
             </div>
             <div class="friend-invite" ng-controller="FriendsCtrl as friends">
               <form name="inputForm">
-                  <a href="" ng-click="addField()" ng-hide="invitees.length>0"><i class="icon ion-plus-circled"> Add a friend</i></a>
-                  <a href="" ng-click="addField()" ng-show="invitees.length>0"><i class="icon ion-plus-circled"> Add another friend</i></a>
-                  <div ng-repeat="person in invitees" style="margin-top: 10px">
-                    <input ng-model="person.name" placeholder="first name" style="width: 29%"></input>
-                    <input ng-model="person.email" placeholder="email" style="width: 55%;"></input>
-                    <i style="color: #E07575; cursor: pointer;" class="icon ion-minus-circled" ng-click="removeField($index)"></i>
-                    <br>
-                  </div>
+                <a href="" ng-click="addField()" ng-hide="invitees.length>0"><i class="icon ion-plus-circled"> Add a friend</i></a>
+                <a href="" ng-click="addField()" ng-show="invitees.length>0"><i class="icon ion-plus-circled"> Add another friend</i></a>
+                <div ng-repeat="person in invitees" style="margin-top: 10px">
+                  <input ng-model="person.name" placeholder="first name" style="width: 29%"></input>
+                  <input ng-model="person.email" placeholder="email" style="width: 55%;"></input>
+                  <i style="color: #E07575; cursor: pointer;" class="icon ion-minus-circled" ng-click="removeField($index)"></i>
+                  <br>
+                </div>
                 <br>
                 <div style="text-align: center">
                   <button ng-show="invitees.length>0" ng-click="friends.inviteFriends(invitees, currentTrip._id, currentTrip.questionnaire.location)">Invite friends</button>
-                <div>
+                </div>
               </form>
             </div>
-      		</li>
+          </li>
         </div>
-      <div class="dottedline-bottom"></div>
-    </ul>
+        <div class="dottedline-bottom"></div>
+      </ul>
 
-
-
-    <ul id="wishlist-panel">
-      <div class="dottedline-top"></div>
-            <li class="inner-container">
-              <h3>Things we want to do</h3>
-                <ul class="wishlist-activities-container">
-                  <li class="wishlist-activities" ng-model="wish" ng-repeat="wish in currentTrip.wishlist">
-                    <a ng-click="showDatePicker($index)">{{wish.title || "empty" }}</a>
-                  </li>
-                  <li>
-
-                  </li>
-                </ul>
-                <form ng-submit="addToWishlist()" name="wishlistForm">
-                  <input type="text" ng-model="autocomplete.autocomplete" ng-autocomplete details="autocomplete.details" options="autocomplete.options" placeholder="Add to your wishlist">
-                  <button type="submit"><i style="font-size: 1.2em; cursor: pointer" class="icon ion-plus-circled"></i></button>
-                </form>
-                <div date-picker="start" ng-hide="closed" view="date" min-view="hours" ng-click="selectActivityTime()"></div>
+      <ul id="wishlist-panel">
+        <div class="dottedline-top"></div>
+        <li class="inner-container">
+          <h3>Things we want to do</h3>
+          <ul class="wishlist-activities-container">
+            <li class="wishlist-activities" ng-model="wish" ng-repeat="wish in currentTrip.wishlist">
+              <a ng-click="showDatePicker($index)">{{wish.title || "empty" }}</a>
             </li>
-          <div class="dottedline-bottom"></div>
-    </ul>
+            <li>
+
+            </li>
+          </ul>
+          <form ng-submit="addToWishlist()" name="wishlistForm">
+            <input type="text" ng-model="autocomplete.autocomplete" ng-autocomplete details="autocomplete.details" options="autocomplete.options" placeholder="Add to your wishlist">
+            <button type="submit"><i style="font-size: 1.2em; cursor: pointer" class="icon ion-plus-circled"></i>
+            </button>
+          </form>
+          <div date-picker="start" ng-hide="closed" view="date" min-view="hours" ng-click="selectActivityTime()"></div>
+        </li>
+        <div class="dottedline-bottom"></div>
+      </ul>
+
+      <ul id="activity-info-panel" ng-show="activityDetails">
+        <div class="dottedline-top"></div>
+          <li class="inner-container">
+            <h3>Activity</h3>
+            <p>{{activityDetails.googleDetails.name}}</p>
+            <h3>Address</h3>
+            <p>{{activityDetails.googleDetails.formatted_address}}</p>
+            <h3>When</h3>
+            <p>{{activityDetails.start | date:'medium'}}</p>
+          </li>
+          <button id="delete-button" ng-click="broadcastDelete()">DELETE ACTIVITY</button>
+        <div class="dottedline-bottom"></div>
+      </ul>
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-sm-8 full-height" ng-controller="CalendarCtrl">
+      <div class="full-height" ng-model="eventSources" calendar="calendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+    </div>
+
   </div>
-
-  <div class="col-lg-9 col-md-9 col-sm-8 full-height" ng-controller="CalendarCtrl">
-
-    <ul id='delete-panel' ng-show='deletePanel'>
-      <div class="dottedline-top"></div>
-        <p>Remove from your trip {{ currentEvent.title }}</p>
-        <button ng-click='deleteActivity()' style="width: 30px; height:30px"><b>-</b></button>
-      <div class="dottedline-bottom"></div>
-    </ul>
-
-    <div class="full-height" ng-model="eventSources" calendar="calendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
-  </div>
-
-</div>

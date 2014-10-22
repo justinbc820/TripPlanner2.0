@@ -70,7 +70,6 @@ angular.module('tripPlannerApp')
             }
             $scope.userData.trips[i].dashboardActivities = dayActivities;
         }
-        console.log("$scope.userData", $scope.userData);
     };
 
     $scope.deleteTrip = function(trip) {
