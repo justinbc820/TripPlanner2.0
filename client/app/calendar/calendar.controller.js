@@ -19,7 +19,7 @@ angular.module('tripPlannerApp')
     $scope.$on('newCurrentTrip', function() {
       $scope.currentTrip = planData.getCurrentTrip();
       $scope.events = $scope.currentTrip.activities;
-      $scope.calendar.fullCalendar('gotoDate', new Date($scope.currentTrip.days[0]));
+      // $scope.calendar.fullCalendar('gotoDate', new Date($scope.currentTrip.days[0]));
       $scope.eventSources[0] = $scope.events.map(function(event) {
         var start = event.start;
         var end;
@@ -37,6 +37,7 @@ angular.module('tripPlannerApp')
           id: event.googleDetails.place_id
         };
       });
+      $scope.calendar.fullCalendar('refetchEvents');
     });
 
     ////////////////////////////////////////////////////////////////////

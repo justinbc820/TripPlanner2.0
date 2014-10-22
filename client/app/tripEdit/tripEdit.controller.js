@@ -21,18 +21,6 @@ angular.module('tripPlannerApp')
       $scope.autocomplete.options.bounds = bounds;
     });
 
-    // $scope.updateTrip = function(updatedTrip) {
-    //   if($scope.currentTrip) {
-    //   	$http.put('/api/trips/' + $scope.currentTrip._id, {
-    //   		// Send trip to backend, update with newly changed trip
-    //   	})
-    //   }
-    // };
-
-    // $scope.$watch('currentTrip', function(newVal, oldVal) {
-    // 	$scope.updateTrip(newVal);
-    // }, true);
-
     $scope.closed = true;
 
     $scope.showDatePicker = function(index) {
@@ -43,7 +31,7 @@ angular.module('tripPlannerApp')
     }
 
     $scope.autocomplete = {
-      options:{watchEnter: true}
+      options:{}
     };
 
     $scope.addToWishlist = function() {
@@ -62,6 +50,7 @@ angular.module('tripPlannerApp')
                   }
                 }
               };
+
               $http.put('/api/trips/wishlist/' + tripId, activity).success(function(updatedTrip) {
                 planData.setCurrentTrip(updatedTrip);
               })
@@ -95,7 +84,7 @@ angular.module('tripPlannerApp')
             longitude: $scope.currentWish.location.coords.longitude
           }
         },
-        start: start,
+        start: ISOStart,
         end: new Date(ISOStart.setHours(ISOStart.getHours() + 1)).toUTCString(),
         timezone:'UTC',
         // start: new Date($scope.start).toUTCString(),
@@ -118,6 +107,4 @@ angular.module('tripPlannerApp')
       })
     }
 
-  })
-  // .contoller('PickerCtrl', function() {})
-  ;
+  });
