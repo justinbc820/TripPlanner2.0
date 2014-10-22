@@ -21,13 +21,13 @@ angular.module('tripPlannerApp')
       $scope.autocomplete.options.bounds = bounds;
     });
 
-    $scope.updateTrip = function(updatedTrip) {
-      if($scope.currentTrip) {
-      	$http.put('/api/trips/' + $scope.currentTrip._id, {
-      		// Send trip to backend, update with newly changed trip
-      	})
-      }
-    };
+    // $scope.updateTrip = function(updatedTrip) {
+    //   if($scope.currentTrip) {
+    //   	$http.put('/api/trips/' + $scope.currentTrip._id, {
+    //   		// Send trip to backend, update with newly changed trip
+    //   	})
+    //   }
+    // };
 
     // $scope.$watch('currentTrip', function(newVal, oldVal) {
     // 	$scope.updateTrip(newVal);
@@ -61,6 +61,9 @@ angular.module('tripPlannerApp')
                   }
                 }
               };
+              $http.put('/api/trips/wishlist/' + tripId, activity).success(function(updatedTrip) {
+                planData.setCurrentTrip(updatedTrip);
+              })
               $scope.currentTrip.wishlist.push(activity);
               $scope.autocomplete.details = undefined;
           }
@@ -73,7 +76,6 @@ angular.module('tripPlannerApp')
     $scope.$watch('start', function(oldVal, newVal) {
       if(newVal) {
         var start = $scope.start.toUTCString();
-        console.log(start)
         $scope.addToCal(start);
       }
     })
@@ -98,7 +100,6 @@ angular.module('tripPlannerApp')
         // end: new Date($scope.start.setHours($scope.start.getHours() + 1)).toUTCString(),
         allDay:false
       };
-      console.log(newActivity);
       // push into trip schema
       $http.put('/api/trips/' + $scope.currentTrip._id + '/addActivity', newActivity)
       .success(function(data){
@@ -106,13 +107,13 @@ angular.module('tripPlannerApp')
         // and update the scope wishlist
         $http.post('/api/trips/wishlist/' + $scope.currentTrip._id, {
           wish: $scope.currentWish
-        }).success(function(data) {
+        }).success(function(updatedTrip) {
           $scope.currentTrip.wishlist = data.wishlist;
+          planData.setCurrentTrip(updatedTrip)
         })
         $scope.closed = true;
         $rootScope.$broadcast('addToCal');
       })
-      // push into event array from plan data factory
     }
   })
   // .contoller('PickerCtrl', function() {})

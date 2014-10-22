@@ -60,7 +60,6 @@ exports.addToWishlist = function(req, res) {
     if (err) { return handleError(res, err); }
     if(!trip) { return res.send(404); }
 
-    console.log("add To wish list", req.body)
     var activity = {
       title: req.body.title,
       googleDetails: req.body.googleDetails,
@@ -84,8 +83,9 @@ exports.removeFromWishlist = function(req, res) {
     if(!trip) { return res.send(404); }
 
     var index = req.body.wish.index;
-
+    console.log("trip.wishlist before", trip.wishlist)
     trip.wishlist.splice(index,1);
+    console.log("trip.wishlist after", trip.wishlist)
 
     trip.save(function (err) {
       if (err) { return handleError(res, err); }

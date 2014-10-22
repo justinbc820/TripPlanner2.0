@@ -134,6 +134,7 @@
     }
     .wishlist-activities-container {
       background: transparent;
+      overflow-y:scroll;
     }
     .wishlist-activites {
       margin-bottom: 8px;
@@ -152,6 +153,9 @@
   }
 
   #wishlist-panel {
+    .inner-container {
+      max-height:350px;
+    }
     a {
       color: whitesmoke;
       font-weight: normal;

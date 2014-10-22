@@ -4,10 +4,10 @@
   	<ul id="basic-info-panel">
       <div class="dottedline-top"></div>
         <div class="inner-container">
-          <li>
+          <!-- <li>
       			<h3>Name</h3>
       			<span type="text" editable-text="currentTrip.name" placeholder="change name">{{currentTrip.name || "Give your trip a name!" }}</span>
-      		</li>
+      		</li> -->
           <li>
             <h3>Location</h3>
             <span>{{currentTrip.questionnaire.location || "empty" }}</span>
@@ -15,7 +15,7 @@
       		<li class="friends">
       			<!-- <h3>BUDGET:</h3>
       			<span type="text" editable-text="currentTrip.budget" placeholder="change budget">{{currentTrip.budget || "empty" }}</span> -->
-            <h3>Friends</h3>
+            <h3>Who's Going?</h3>
             <div ng-repeat="friend in currentTrip.travelers">
               {{friend.name}}
             </div>
@@ -71,7 +71,7 @@
     <ul id='delete-panel' ng-show='deletePanel'>
       <div class="dottedline-top"></div>
         <p>Remove from your trip {{ currentEvent.title }}</p>
-        <button ng-click='deleteActivity(currentEvent)' style="width: 30px; height:30px"><b>-</b></button>
+        <button ng-click='deleteActivity()' style="width: 30px; height:30px"><b>-</b></button>
       <div class="dottedline-bottom"></div>
     </ul>
 

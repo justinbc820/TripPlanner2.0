@@ -44,35 +44,38 @@ angular.module('tripPlannerApp')
     $scope.currentTrip = planData.getCurrentTrip();
     $scope.events = [];
 
+    var updateCalendarActivities = function() {
+      $scope.currentTrip = planData.getCurrentTrip();
+      $scope.events = $scope.currentTrip.activities;
+      $scope.eventSources[0] = $scope.events.map(function(event) {
+        var start = event.start;
+        var end;
+        if(event.end) {
+          end = event.end
+        } else {
+          end = new Date(start.setHours(start.getHours() + 1)).adjustDST();
+        }
+        // console.log("event start string:", event.start);
+        // console.log("event start new date:", new Date(event.start));
+
+        // var start = new Date(event.start);
+        // var end = new Date(new Date(event.start).setHours(new Date(event.start).getHours() + 1));
+
+        var obj = {
+          title: event.title,
+          start: start,
+          end: end,
+          allDay: false,
+          id: event.googleDetails.place_id,
+          timezone:'UTC'
+        };
+        return obj;
+      });
+    }
+
     $scope.updatePlanData = function() {
       $http.get('/api/trips/' + tripId).success(function(trip) {
-        planData.setCurrentTrip(trip);
-        $scope.currentTrip = planData.getCurrentTrip();
-        $scope.events = $scope.currentTrip.activities;
-        $scope.eventSources[0] = $scope.events.map(function(event) {
-          var start = event.start;
-          var end;
-          if(event.end) {
-            end = event.end
-          } else {
-            end = new Date(start.setHours(start.getHours() + 1)).adjustDST();
-          }
-          // console.log("event start string:", event.start);
-          // console.log("event start new date:", new Date(event.start));
-
-          // var start = new Date(event.start);
-          // var end = new Date(new Date(event.start).setHours(new Date(event.start).getHours() + 1));
-
-          var obj = {
-            title: event.title,
-            start: start,
-            end: end,
-            allDay: false,
-            id: event.googleDetails.place_id,
-            timezone:'UTC'
-          };
-          return obj;
-        });
+        updateCalendarActivities();
       });
     };
 
@@ -83,6 +86,10 @@ angular.module('tripPlannerApp')
     $scope.$on('addToCal', function() {
       $scope.updatePlanData();
     });
+
+    $scope.$on('newCurrentTrip', function() {
+      updateCalendarActivities();
+    })
 
     $scope.updateActivities = function(event) {
       for(var i=0, n=$scope.events.length; i<n; i++) {
@@ -107,18 +114,15 @@ angular.module('tripPlannerApp')
       })
     }
 
-    $scope.deleteActivity = function(event) {
-      console.log('the delete button has been clicked', event);
+    $scope.deleteActivity = function() {
       for(var i = 0; i < $scope.events.length; i++) {
-        if($scope.events[i].googleDetails.place_id == event._id && $scope.events[i].start == event.start.toUTCString()) {
-
+        if($scope.events[i].googleDetails.place_id == $scope.currentEvent._id && $scope.events[i].start == $scope.currentEvent.start.toUTCString()) {
           $scope.events.splice(i, 1);
-          $scope.updatePlanData();
           $scope.deletePanel = !$scope.deletePanel;
+          $scope.currentEvent = null;
           break;
         }
       }
-      console.log('events',$scope.events);
       $http.post('/api/trips/' + tripId, {
         activities: $scope.events
       }).success(function(updatedTrip) {
@@ -153,10 +157,10 @@ angular.module('tripPlannerApp')
 
     //with this you can handle the click on the events
     $scope.eventClick = function(event, allDay, jsEvent, view) {
-      // $scope.$apply(function() {
+      $scope.$apply(function() {
         $scope.currentEvent = event;
         $scope.deletePanel = !$scope.deletePanel;
-      // });
+      });
     };
 
     /* config object */
