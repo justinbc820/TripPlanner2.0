@@ -10,14 +10,19 @@ angular.module('tripPlannerApp')
     $scope.placePhotos = [];
 
     var getPlacePhotos = function(tripsArray) {
-        $http.post('/api/getrecommendations/placePhoto', {
-            tripsArray:tripsArray
-        })
-        .success(function(photosObject) {
-            for(var i=0; i<tripsArray.length; i++) {
-                $scope.placePhotos.push(photosObject.photosObject[tripsArray[i].questionnaire.location])
-            }
-        });
+      var arrayNames = [];
+      for(var i=0; i<tripsArray.length; i++) {
+        arrayNames.push(tripsArray[i].questionnaire.location);
+      }
+      $http.post('/api/getrecommendations/placePhoto', {
+          tripsArray:arrayNames
+      })
+      .success(function(photosObject) {
+        console.log('success')
+          for(var i=0; i<tripsArray.length; i++) {
+              $scope.placePhotos.push(photosObject.photosObject[tripsArray[i].questionnaire.location])
+          }
+      });
     }
 
 

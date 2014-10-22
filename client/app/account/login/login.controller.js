@@ -27,7 +27,6 @@ angular.module('tripPlannerApp')
           //!planData.getTripIdReminder() && planData.getTempActivity()
 
           //User coming from newtrip questionnaire.  NewTrip's 'done' method will have set currentTrip and set TripIdReminder on planData service
-
           if (planData.getCurrentTrip() && planData.getTripIdReminder()) {
             //fetch current user
             $http.get('/api/users/me').success(function(user) {

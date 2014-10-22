@@ -45,6 +45,7 @@ angular.module('tripPlannerApp')
        * @param  {Function}
        */
       logout: function() {
+        console.log('logging out and broadcast');
         $rootScope.$broadcast('logout');
         $cookieStore.remove('token');
         currentUser = {};
