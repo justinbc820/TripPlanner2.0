@@ -13,6 +13,7 @@ angular.module('tripPlannerApp')
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         planData.setCurrentTrip(trip);
+        $scope.calendar.fullCalendar('refetchEvents');
       });
     };
 
