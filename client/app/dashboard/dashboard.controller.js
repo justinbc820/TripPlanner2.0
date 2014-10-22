@@ -18,7 +18,6 @@ angular.module('tripPlannerApp')
           tripsArray:arrayNames
       })
       .success(function(photosObject) {
-        console.log('success')
           for(var i=0; i<tripsArray.length; i++) {
               $scope.placePhotos.push(photosObject.photosObject[tripsArray[i].questionnaire.location])
           }

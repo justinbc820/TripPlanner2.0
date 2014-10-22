@@ -10,12 +10,27 @@ angular.module('tripPlannerApp')
     /* event sources array*/
     $scope.eventSources = [];
 
+    this.init = function() {
+      $http.get('/api/trips/' + tripId).success(function(trip) {
+        planData.setCurrentTrip(trip);
+        $scope.currentTrip = planData.getCurrentTrip();
+        $scope.events = $scope.currentTrip.activities;
+      });
+    }
+
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         planData.setCurrentTrip(trip);
         $scope.calendar.fullCalendar('refetchEvents');
       });
     };
+
+    $scope.$watch('calendar', function(newval, oldval) {
+      if (newval) {
+        $scope.calendar = newval;
+        $scope.calendar.fullCalendar('render');
+      }
+    })
 
     $scope.$on('newCurrentTrip', function() {
       $scope.currentTrip = planData.getCurrentTrip();
@@ -51,7 +66,7 @@ angular.module('tripPlannerApp')
     // Check to see if it's currently Daylight Savings Time
     var today = new Date();
     var dst = false;
-    
+
     // This function on the prototype calculates the time offset as if we were in Jan and as if we were in July
     // Then, it returns whichever one is greater. If neither is greater than that place doesn't have DST.
     Date.prototype.stdTimezoneOffset = function() {
@@ -67,8 +82,8 @@ angular.module('tripPlannerApp')
         return this.getTimezoneOffset() < this.stdTimezoneOffset();
     }
 
-    if (today.dst()) { 
-      var dst = true; 
+    if (today.dst()) {
+      var dst = true;
     }
 
     // This function is called on date objects and will subtract one hour if DST is true.
@@ -88,7 +103,7 @@ angular.module('tripPlannerApp')
     $scope.updateActivityDetails = function(event) {
       for(var i=0, n=$scope.eventSources[0].length; i<n; i++) {
         if($scope.eventSources[0][i].token == event.token) {
-          
+
           var start = new Date($scope.events[i].start);
           $scope.events[i].start = event.start.toUTCString();
 
@@ -180,4 +195,6 @@ angular.module('tripPlannerApp')
         timezone:'UTC'
       }
     };
+
+    this.init();
   });

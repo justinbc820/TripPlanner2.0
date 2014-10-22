@@ -66,6 +66,7 @@ var setCurrentTrip = function(trip) {
     currentMapOpts.location = trip.latLng;
     currentMapOpts.zoom = 8;
     $rootScope.$broadcast('newCurrentTrip');
+    console.log('broadcasting')
 };
 
 

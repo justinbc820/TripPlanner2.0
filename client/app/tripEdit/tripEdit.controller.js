@@ -4,6 +4,30 @@ angular.module('tripPlannerApp')
   .controller('TripeditCtrl', function ($scope, $rootScope, $http, planData, $stateParams, $interval) {
     var tripId = $stateParams.id;
 
+    // this.init = function() {
+    //   $http.get('/api/trips/' + tripId).success(function(trip) {
+    //     planData.setCurrentTrip(trip);
+    //     $scope.currentTrip = planData.getCurrentTrip();
+    //     $scope.events = $scope.currentTrip.activities;
+    //     $scope.eventSources[0] = $scope.events.map(function(event) {
+    //       // console.log("event start string:", event.start);
+    //       // console.log("event start new date:", new Date(event.start));
+
+    //       var start = new Date(event.start);
+    //       var end = new Date(new Date(event.start).setHours(new Date(event.start).getHours() + 1));
+    //       var obj = {
+    //         title: event.title,
+    //         start: start.toUTCString(),
+    //         end: end.toUTCString(),
+    //         allDay: false,
+    //         id: event.googleDetails.place_id
+    //       };
+    //       return obj;
+    //     });
+    //     console.log("event sources after map, ", $scope.eventSources[0]);
+    //   });
+    // }
+
   	$scope.currentTrip = planData.getCurrentTrip();
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
