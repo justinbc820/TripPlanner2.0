@@ -76,7 +76,7 @@ angular.module('tripPlannerApp')
     $scope.deleteTrip = function(trip) {
       swal({
         title: "Are you sure?",
-        text: "Your will not be able to recover this imaginary file!",
+        text: "You will not be able to recover this trip.",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
