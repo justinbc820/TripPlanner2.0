@@ -43,10 +43,11 @@ angular.module('tripPlannerApp')
     }
 
     $scope.autocomplete = {
-      options:{}
+      options:{watchEnter: true}
     };
 
     $scope.addToWishlist = function() {
+      console.log($scope.autocomplete.autocomplete);
       var checkForDetails = $interval(function() {
           if ($scope.autocomplete.details !== undefined) {
               $interval.cancel(checkForDetails);
@@ -65,9 +66,10 @@ angular.module('tripPlannerApp')
                 planData.setCurrentTrip(updatedTrip);
               })
               $scope.currentTrip.wishlist.push(activity);
-              $scope.autocomplete.details = undefined;
+              $scope.wishlistForm.$setPristine();
           }
       }, 50, 10);
+
     };
 
     $scope.currentWish;
@@ -115,6 +117,7 @@ angular.module('tripPlannerApp')
         $rootScope.$broadcast('addToCal');
       })
     }
+
   })
   // .contoller('PickerCtrl', function() {})
   ;

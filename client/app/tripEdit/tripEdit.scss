@@ -1,5 +1,9 @@
 .info-panel {
 
+  .basic-info-panel {
+    height: 250px;
+  }
+
   button {
     color: whitesmoke;
     border: 2px solid whitesmoke;
@@ -27,7 +31,7 @@
     border-right: 0;
     border-left: 0;
     border-bottom: 1px dashed whitesmoke;
-    width:90%;
+    width:85%;
     &:focus {
       outline: none;
     }
@@ -132,16 +136,6 @@
     li {
       margin-bottom: 15px;
     }
-    .wishlist-activities-container {
-      background: transparent;
-      overflow-y:scroll;
-    }
-    .wishlist-activites {
-      margin-bottom: 8px;
-    }
-  }
-  .inner-container {
-    padding: 6%;
   }
 
   .editable-empty {
@@ -151,35 +145,48 @@
   .editable-click {
     border-bottom: 0;
   }
+}
+}
 
-  #wishlist-panel {
-    .inner-container {
-      max-height:350px;
+.wishlist-activities-container {
+  background: transparent;
+  overflow-y:scroll;
+  max-height: 150px;
+  margin-bottom: 15px;
+}
+.wishlist-activites {
+  margin-bottom: 8px;
+}
+
+#wishlist-panel {
+  .inner-container {
+    max-height:540px !important;
+    padding: 6%;
+  }
+  a {
+    color: whitesmoke;
+    font-weight: normal;
+    text-decoration: none;
+  }
+  button {
+    color: whitesmoke;
+    border: 0;
+    background: none;
+    padding: 0;
+
+    transition: color 0.2s ease-in;
+
+    &:focus {
+      outline: none;
     }
-    a {
-      color: whitesmoke;
-      font-weight: normal;
-      text-decoration: none;
+    &:hover {
+      color: #fdbb53;
     }
   }
 }
 
-
-
-
-
-  .editable-click {
-    border-bottom: 0;
-  }
-
-  #wishlist-panel {
-    a {
-      color: whitesmoke;
-      font-weight: normal;
-      text-decoration: none;
-    }
-  }
+#repeat-frds-container {
+  overflow-y:scroll;
+  max-height: 150px;
+  margin-bottom: 15px;
 }
-
-
-
