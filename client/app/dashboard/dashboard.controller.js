@@ -64,7 +64,8 @@ angular.module('tripPlannerApp')
                 dayActivities[$scope.userData.trips[i].days[j].slice(0,10)] = []
             }
             for(var k=0, o=$scope.userData.trips[i].activities.length; k<o; k++) {
-                var day = $scope.userData.trips[i].activities[k].start.slice(0,10);
+                var start = new Date($scope.userData.trips[i].activities[k].start).toISOString();
+                var day = start.slice(0,10);
                 dayActivities[day] = dayActivities[day] || [];
                 dayActivities[day].push($scope.userData.trips[i].activities[k]);
             }

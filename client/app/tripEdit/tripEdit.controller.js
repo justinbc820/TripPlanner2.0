@@ -35,10 +35,10 @@ angular.module('tripPlannerApp')
     };
 
     $scope.addToWishlist = function() {
-      console.log($scope.autocomplete.autocomplete);
       var checkForDetails = $interval(function() {
           if ($scope.autocomplete.details !== undefined) {
               $interval.cancel(checkForDetails);
+              console.log($scope.autocomplete.details);
               var activity = {
                 title:$scope.autocomplete.details.name,
                 googleDetails: $scope.autocomplete.details,
@@ -52,10 +52,14 @@ angular.module('tripPlannerApp')
               };
 
               $http.put('/api/trips/wishlist/' + tripId, activity).success(function(updatedTrip) {
+
                 planData.setCurrentTrip(updatedTrip);
+                console.log(updatedTrip);
+                $scope.autocomplete.details = undefined;
+                $scope.autocomplete.autocomplete = "";
+                // $scope.currentTrip.wishlist.push(activity);
               })
               $scope.currentTrip.wishlist.push(activity);
-              $scope.wishlistForm.$setPristine();
           }
       }, 50, 10);
 

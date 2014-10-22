@@ -20,12 +20,14 @@ angular.module('tripPlannerApp')
       $scope.currentTrip = planData.getCurrentTrip();
       $scope.events = $scope.currentTrip.activities;
       $scope.eventSources[0] = $scope.events.map(function(event) {
+        var startDate = new Date(event.start);
         var start = event.start;
         var end;
         if(event.end) {
           end = event.end
         } else {
-          end = new Date(start.setHours(start.getHours() + 1)).adjustDST();
+          var temp = new Date(startDate.setHours(startDate.getHours() + 1)).adjustDST();
+          end = new Date(temp).toUTCString();
         }
 
         return {
@@ -83,8 +85,8 @@ angular.module('tripPlannerApp')
     ////////////////////////////////////////////////////////////////////
 
     $scope.updateActivityDetails = function(event) {
-      for(var i=0, n=$scope.events.length; i<n; i++) {
-        if($scope.events[i].googleDetails.place_id == event.id) {
+      for(var i=0, n=$scope.eventSources[0].length; i<n; i++) {
+        if($scope.eventSources[0][i].token == event.token) {
           
           var start = new Date($scope.events[i].start);
           $scope.events[i].start = event.start.toUTCString();
@@ -92,7 +94,7 @@ angular.module('tripPlannerApp')
           if(event.end) {
             $scope.events[i].end = event.end.toUTCString();
           } else {
-            var end = new Date(start.setHours(start.getHours() + 1));
+            var end = new Date(event.start.setHours(event.start.getHours() + 1));
             $scope.events[i].end = new Date(end).toUTCString();
           }
         }
@@ -106,7 +108,6 @@ angular.module('tripPlannerApp')
     }
 
     $rootScope.$on('deleteActivity', function(event, token) {
-      console.log("from calendar CTRL", token);
       $scope.deleteActivity(token);
     })
 
@@ -118,7 +119,6 @@ angular.module('tripPlannerApp')
           break;
         }
       }
-      console.log("Scope.events", $scope.events);
       $http.post('/api/trips/' + tripId, {
         activities: $scope.events
       }).success(function(updatedTrip) {
