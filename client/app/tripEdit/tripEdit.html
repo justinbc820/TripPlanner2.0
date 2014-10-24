@@ -3,10 +3,13 @@
     <div class="col-lg-3 col-md-3 col-sm-4 full-height info-panel">
       <ul id="basic-info-panel">
         <div class="dottedline-top"></div>
-        <div class="inner-container">
+        <div ng-if="map.center.longitude" id="map_canvas" style="height:200px; width:100%; padding: 15px;">
+            <google-map center="map.center" zoom="map.zoom" options="map.options" draggable="false" style="height:100%; width:100%; cursor:pointer;" ng-click="goToMap()"></google-map>
+        </div>
+        <div class="inner-container" style="margin-top:-20px;">
           <li>
             <h3>Location</h3>
-            <span>{{currentTrip.questionnaire.location || "empty" }}</span>
+            <h2 style="margin-top:0px;">{{currentTrip.questionnaire.location || "empty" }}</h2>
           </li>
           <li class="friends">
             <h3>Who's Going?</h3>
@@ -56,7 +59,7 @@
             <button type="submit"><i style="font-size: 1.2em; cursor: pointer" class="icon ion-plus-circled"></i>
             </button>
           </form>
-          <div date-picker="start" ng-hide="closed" view="date" min-view="hours" ng-click="selectActivityTime()"></div>
+          <div date-picker="start" ng-hide="closed" view="date" min-view="date" max-view="date" ng-click="selectActivityTime()"></div>
         </li>
         <div class="dottedline-bottom"></div>
       </ul>

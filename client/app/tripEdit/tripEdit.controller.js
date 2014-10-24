@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('TripeditCtrl', function ($scope, $rootScope, $http, planData, $stateParams, $interval) {
+  .controller('TripeditCtrl', function ($scope, $rootScope, $http, planData, $stateParams, $interval, $location) {
     var tripId = $stateParams.id;
 
     // this.init = function() {
@@ -28,16 +28,39 @@ angular.module('tripPlannerApp')
     //   });
     // }
 
+    $scope.map = {
+      center: {},
+      zoom: 9,
+      options: {
+        panControl:false,
+        zoomControl: false,
+        mapTypeControl: false,
+        streetViewControl: false
+      }
+    }
+
+    $scope.goToMap = function() {
+      $location.path('/map')
+    }
+
   	$scope.currentTrip = planData.getCurrentTrip();
+
     if(!planData.getCurrentTrip()) {
       $http.get('/api/trips/' + tripId).success(function(trip) {
         $scope.currentTrip = trip;
+        $scope.map.center.latitude = $scope.currentTrip.latLng.k;
+        $scope.map.center.longitude = $scope.currentTrip.latLng.B;
         planData.setCurrentTrip(trip);
       })
+    } else {
+      $scope.map.center.latitude = $scope.currentTrip.latLng.k;
+      $scope.map.center.longitude = $scope.currentTrip.latLng.B;
     }
 
     $rootScope.$on('newCurrentTrip', function() {
     	$scope.currentTrip = planData.getCurrentTrip();
+      $scope.map.center.latitude = $scope.currentTrip.latLng.k;
+      $scope.map.center.longitude = $scope.currentTrip.latLng.B;
       var bounds = new google.maps.Circle({
         center: new google.maps.LatLng($scope.currentTrip.latLng.k, $scope.currentTrip.latLng.B),
         radius: 50000
