@@ -17,6 +17,7 @@
     </div>
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-5 full-height">
         <div class="opaque" id="search-container">
+
             <div id="search-input">
                 <form ng-submit="overlay.placesSearch(search.autocomplete)">
                     <input type="text" ng-model="search.autocomplete" ng-autocomplete options="search.options" details="search.details" id="map-search" placeholder="search" class="can-click">
@@ -26,7 +27,7 @@
 
             <!-- Filter dropdowns start here-->
             <div>
-                <div id="search-dropdowns">
+                <<!-- div id="search-dropdowns">
                     <select class="can-click" id="pricefilter">
                         <option value="" disabled selected>filter by price
                             <img src="../../assets/images/icons/arrow-down.png" style="width:15px; height:15px; margin-left: 3px">
@@ -45,10 +46,9 @@
                         <option value="4">Anywhere</option>
                     </select>
                 </div>
-
+ -->
                 <!-- Filter dropdowns end here -->
 
-                <div class="separator"></div>
 
                 <div id="search-radarbuttons">
 
@@ -92,7 +92,9 @@
                 </li>
                 <li><b>Telephone:</b>{{currDetails.international_phone_number}}</li>
             </ul>
-                <button class="add-to-trip" ng-click="overlay.addToTrip()">ADD TO TRIP</button>
+                <button class="add-to-trip" ng-click="overlay.addToTrip(); toggleAddToTripBtn()" ng-class="{'toggleAddBtn': toggled}">
+                  <div ng-class="{'animated':toggled, 'fadeInUp': toggled}"><span ng-hide="toggled">ADD TO TRIP</span> <span ng-show="toggled"><span><i class="icon ion-checkmark"></i></span> ADDED!</span> </div>
+                </button>
             <div class="dottedline-bottom"></div>
         </div>
     </div>

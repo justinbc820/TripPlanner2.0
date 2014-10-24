@@ -2,6 +2,8 @@
   height: 100%;
 }
 
+
+
 #trip-picker-modal {
 
   .modal-title {
@@ -185,7 +187,7 @@
 		margin-left:auto;
 		margin-right:auto;
 		margin-top: 10px;
-    min-height:265px;
+    // min-height:265px;
     background-color: rgba(45, 51, 58, 0.9);
 		#map-search {
 			color: #828282;
@@ -214,7 +216,7 @@
 	    #search-radarbuttons {
 	      width: 100%;
 	      height:95px;
-	      margin-top:20px;
+	      // margin-top:20px;
         text-align: center;
 
         .radar-text {
@@ -362,12 +364,12 @@
       // float:left;
       outline:none;
       transition: background 0.2s ease-in-out;
-      &:hover {
-        background: #df7575;
-      }
-      &:active {
-        background-color: #995555;
-      }
+      // &:hover {
+      //   background: #df7575;
+      // }
+      // &:active {
+      //   background-color: #995555;
+      // }
   }
 // }
 
@@ -393,3 +395,6 @@
     clear:both;
   }
 
+.toggleAddBtn {
+  background:rgba(158,204,70,0.8);
+}
