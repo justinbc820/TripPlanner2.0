@@ -15,7 +15,7 @@
             <h3>Who's Going?</h3>
             <div id="repeat-frds-container">
               <div ng-repeat="friend in currentTrip.travelers">
-                {{friend.name}}
+                <h4>{{friend.name}}</h4>
               </div>
               <div ng-repeat="invitee in currentTrip.invitees track by $index">
                 <i style="color: grey">{{invitee.name}}, {{invitee.email}} (pending)</i>
