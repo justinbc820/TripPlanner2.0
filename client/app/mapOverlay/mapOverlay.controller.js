@@ -194,12 +194,19 @@ angular.module('tripPlannerApp')
               $scope.currDetails.title = $scope.currDetails.name;
               planData.addToTrip($scope.currDetails, $scope.selectedDay);
             }
-
-
           // currDetails is a variable that holds the current details displayed on map
           // overlay when someone clicks on a pin
-
       };
+
+      $scope.toggled = false;
+
+      $scope.toggleAddToTripBtn = function() {
+        $timeout(function() {
+          $scope.toggled = false;
+        }, 2000);
+        $scope.toggled = true;
+      };
+
 
           /*
            * This function is run when the search service broadcasts that details have

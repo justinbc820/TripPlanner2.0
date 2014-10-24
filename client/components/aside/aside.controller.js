@@ -12,7 +12,7 @@ angular.module('tripPlannerApp')
       currentTrip = {
         text: text,
         link: '/dashboard/' + planData.getCurrentTrip()._id,
-        icon: '../../assets/images/icons/suitcase.svg'
+        icon: '../../assets/images/icons/calendar.svg'
       }
     }
   	this.views = {

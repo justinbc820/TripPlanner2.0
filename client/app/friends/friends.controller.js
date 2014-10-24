@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('FriendsCtrl', function ($scope, Auth, planData, $http) {
+  .controller('FriendsCtrl', function ($scope, $timeout, Auth, planData, $http) {
     $scope.currUser = Auth.getCurrentUser();
     $scope.invitees = [];
     $scope.currEmail = {};
@@ -29,13 +29,24 @@ angular.module('tripPlannerApp')
     //   $scope.invitees.push(new Invitee())
     // }
 
-    this.inviteFriends = function(invitees, tripId, destination) {
-      // var invitee = new Invitee(destination, $scope.currEmail.value);
-      $http.post('/api/invites/', {tripId: tripId, inviter: $scope.currUser.name, invitees: invitees, destination: destination}).success(function(updatedTrip) {
-        console.log(updatedTrip);
-        planData.setCurrentTrip(updatedTrip);
-        $scope.invitees.length = 0;
-      });
+    this.inviteFriends = function(form, invitees, tripId, destination) {
+      console.log('ok')
+      $scope.submitted = true;
+      if (form.$invalid) {
+        $timeout(function() {
+        $scope.showError = false;
+      }, 3000);
+        $scope.showError = true;
+      }
+
+
+      if (form.$valid) {
+        $http.post('/api/invites/', {tripId: tripId, inviter: $scope.currUser.name, invitees: invitees, destination: destination}).success(function(updatedTrip) {
+          console.log(updatedTrip);
+          planData.setCurrentTrip(updatedTrip);
+          $scope.invitees.length = 0;
+        });
+      }
     };
 
 
