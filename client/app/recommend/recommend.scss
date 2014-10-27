@@ -142,5 +142,8 @@ footer {
       margin-right:auto;
       font-family: 'Montserrat', sans-serif;
       font-size: 0.85em;
+      &:focus {
+        outline: none;
+      }
     }
 }
