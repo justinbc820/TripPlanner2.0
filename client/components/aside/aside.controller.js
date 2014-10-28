@@ -12,7 +12,7 @@ angular.module('tripPlannerApp')
       currentTrip = {
         text: text,
         link: '/dashboard/' + planData.getCurrentTrip()._id,
-        icon: '../../assets/images/icons/calendar.svg'
+        icon: '/assets/images/icons/calendar.svg'
       }
     }
   	this.views = {
@@ -24,27 +24,27 @@ angular.module('tripPlannerApp')
   		dashboard: {
   			'text': 'MANAGE TRIPS',
   			'link': '/dashboard',
-        'icon': '../../assets/images/icons/airplane.png'
+        'icon': '/assets/images/icons/airplane.png'
   		},
   		newtrip: {
   			'text': 'CREATE TRIP',
   			'link': '/newtrip',
-        'icon': '../../assets/images/icons/pencil.png'
+        'icon': '/assets/images/icons/pencil.png'
   		},
   		map: {
   			'text': 'EXPLORE',
   			'link': '/map',
-        'icon': '../../assets/images/icons/compass.png'
+        'icon': '/assets/images/icons/compass.png'
   		},
       // friends: {
       //   'text': 'FRIENDS',
       //   'link': '/friends',
-      //   'icon': '../../assets/images/icons/person.png'
+      //   'icon': '/assets/images/icons/person.png'
       // },
       settings: {
         'text': 'SETTINGS',
         'link': '/settings',
-        'icon': '../../assets/images/icons/cog.png'
+        'icon': '/assets/images/icons/cog.png'
       }
   	}
 

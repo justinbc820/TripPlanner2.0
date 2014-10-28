@@ -102,19 +102,19 @@ angular.module('tripPlannerApp')
 
       // This array stores information for each of the radar search icons
       this.radarIcons = [{
-          route: '../../assets/images/icons/eiffel.svg',
+          route: '/assets/images/icons/eiffel.svg',
           details: 'monument',
           text: 'see'
       }, {
-          route: '../../assets/images/icons/house.svg',
+          route: '/assets/images/icons/house.svg',
           details: 'lodging',
           text: 'sleep'
       }, {
-          route: '../../assets/images/icons/wine.svg',
+          route: '/assets/images/icons/wine.svg',
           details: 'restaurant',
           text: 'dine'
       }, {
-          route: '../../assets/images/icons/golf.svg',
+          route: '/assets/images/icons/golf.svg',
           details: 'amusement',
           text: 'play'
       }];
