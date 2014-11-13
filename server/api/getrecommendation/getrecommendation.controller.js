@@ -7,8 +7,8 @@ var request = require('request');
 var Flickr = require('flickrapi');
 var async = require('async');
 var flickrOptions = {
-  api_key: "ffad72ee886d811d6cdff9080804852b", //Jonah's Flickr Key
-  secret: "2639b6119b8ba8bf"
+  api_key: "4b291a22f772e2d8db0dc95de66ce608", //Jonah's Flickr Key
+  secret: "c6cbc3b57b5cad3e"
 };
 
 //Get list of recommendations from TIXIK API and if no img url returned from TIXIK, search for relevant images on flickr
