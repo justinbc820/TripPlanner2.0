@@ -58,3 +58,28 @@
     }
   }
 }
+
+footer {
+  width: 100%;
+  padding: 0.5%;
+  background: rgba(45, 51, 58, 0.5);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+
+  button {
+      color: #1e2123;
+      border: 3px solid #1e2123;
+      background: #efa961;
+      padding: 8px;
+      display:block;
+      margin-left:auto;
+      margin-right:auto;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85em;
+      &:focus {
+        outline: none;
+      }
+    }
+}

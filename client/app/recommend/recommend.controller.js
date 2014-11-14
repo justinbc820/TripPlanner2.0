@@ -12,9 +12,13 @@ angular.module('tripPlannerApp')
 
     var getRecommendations = function() {
       planData.getRecommendations(tripId).success(function(data) {
-        $scope.recommendations = data.recommendations[0].array;
+        if(data.recommendations[0]) {
+          $scope.recommendations = data.recommendations[0].array;
+        } else {
+          $scope.error = true;
+          console.log("NO RECOMMENDATIONS")
+        }
         $scope.destination = data.questionnaire.location;
-        // console.log("returned", data);
       });
     };
 
@@ -23,7 +27,6 @@ angular.module('tripPlannerApp')
     };
 
     getRecommendations();
-
 
     $scope.goToDashboard = function() {
       $location.path('/dashboard/'+tripId);

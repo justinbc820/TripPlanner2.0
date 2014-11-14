@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripPlannerApp')
-  .controller('NewtripCtrl', function ($scope, Auth, $location, $window, $http, User, planData, $rootScope) {
+  .controller('NewtripCtrl', function ($scope, Auth, $location, $window, $http, User, planData, $rootScope, $timeout) {
 
     var self = this;
     this.getCurrentUser = Auth.getCurrentUser;
@@ -63,11 +63,8 @@ angular.module('tripPlannerApp')
 
     ////Tixik/Flickr API call
     $scope.getRecommendations = function(lat, lng, loc) {
-      console.log("now getting recommendations");
       $http.post('/api/getrecommendations/'+lat+'/'+lng, {location: loc}).success(function(data) {
-
         $scope.recommendations = data;
-                console.log("recommendations returned", $scope.recommendations);
       });
     };
 
@@ -151,18 +148,19 @@ angular.module('tripPlannerApp')
     $scope.stillFetchingRecs = false;
 
     this.displayLoadingView = function() {
-      console.log("hit display loading view");
       $scope.stillFetchingRecs = true;
       if ($scope.recommendations) {
         $scope.done($scope.questionnaire);
       }
+      $scope.errorMessage = $timeout(function() {
+        $scope.done($scope.questionnaire);
+      }, 10000)
     };
 
     $scope.$watch('recommendations', function(newval, oldval) {
       if (newval && $scope.stillFetchingRecs) {
+        $timeout.cancel($scope.errorMessage);
         $scope.done($scope.questionnaire);
       }
     });
-
-
   }); //END HERE

@@ -2,10 +2,18 @@
   <div id="recommendations-container" ng-controller="RecommendCtrl as rec">
 
     <div class="recommendations-body">
-      <h1>
+      <h1 ng-show="!error">
         And you're done! We thought you might like to check out these places in
         <br>
         <span id="destination">{{destination}}</span>
+      </h1>
+
+      <h1 ng-show="error">
+        We apologize.  We are unable to find recommendations, but let's continue to plan your trip to
+        <br>
+        <span id="destination">{{destination}}</span>
+        <br>
+        Please click on the button below to begin planning!
       </h1>
 
       <div class="image-grid" reload-on-show item-selector=".masonry-brick" masonry>
