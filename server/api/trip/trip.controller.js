@@ -45,7 +45,7 @@ exports.update = function(req, res) {
     } else if (req.body.recommendations) {
       trip.recommendations.push(req.body.recommendations);
     } else {
-      var trip = _.merge(trip, req.body);
+      trip = _.merge(trip, req.body);
     }
     trip.save(function (err) {
       if (err) { return handleError(res, err); }
@@ -109,10 +109,10 @@ exports.addActivity = function(req, res) {
     trip.activities.sort(function(a,b) {
       if(Date.parse(a.start) > Date.parse(b.start)) {
         return 1;
-      };
+      }
       if(Date.parse(a.start) < Date.parse(b.start)) {
         return -1;
-      };
+      }
       return 0;
     })
 
@@ -168,7 +168,7 @@ exports.acceptInvite = function(req, res) {
         trip.travelers.push(req.body.travelerId);
 
         for (var i=0, n=trip.invitees.length; i<n; i++) {
-          if (trip.invitees[i].token == token) {
+          if (trip.invitees[i].token === token) {
             trip.invitees.splice(i, 1);
             break;
           }
